@@ -1,1 +1,20 @@
+# Lines starting with '#' or that include '#' are ignored after being used.
 
+# - Means DO NOT Include
+# + Means Do Include
+# |-start & |-end for multi-line comments
+
+# Example Multi-line Comment
+|-start
+  I
+  Am
+  Being
+  Ignored
+|-end
+
+# Example DO NOT Include & DO Include
+  - DoNotEnterFolder/
+  - DoNotEnterFile
+  + DoNotEnterFolder/ # Specific file grab
+    + DoNotEnterFile2 # Dont skip file is what the + is for meaning other files not needed
+    + DoNotEnterFile3
