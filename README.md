@@ -6,8 +6,6 @@
 
 If you want to contribute to this project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Help Page
-
 ## Discussion
 
-## Issues
+## Help Page
