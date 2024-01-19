@@ -14,6 +14,26 @@ fn remove_comments_and_empty_lines(lines: Vec<String>) -> Vec<String> {
     result
 }
 
+fn tokenize_lines(lines: &Vec<String>) -> Vec<String> {
+    let token_results = Vec::new();
+
+    for line in lines {
+        if line.starts_with("-") {
+            println!("{}", line);
+        }
+
+        if line.starts_with("+") {
+            println!("{}", line);
+        }
+
+        if line.starts_with("*") {
+            println!("{}", line);
+        }
+    }
+
+    token_results
+}
+
 fn read_lines(filename: &str) -> Vec<String> {
     let mut result = Vec::new();
     let mut skip_multiline_comment = false;
@@ -42,9 +62,11 @@ fn read_lines(filename: &str) -> Vec<String> {
         result.push(line.to_string())
     }
     
-    let final_result = remove_comments_and_empty_lines(result);
+    let next_result = remove_comments_and_empty_lines(result);
 
-    final_result
+    tokenize_lines(&next_result);
+
+    next_result
 }
 
 
