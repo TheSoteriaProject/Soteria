@@ -19,18 +19,21 @@ fn tokenize_lines(lines: &Vec<String>) -> Vec<String> {
 
     for line in lines {
         if line.starts_with("-") {
-            // println!("{}", line);
-            token_results.push(line.to_string());
+            if line.ends_with("/") {
+                token_results.push(line.to_string() + " : SkipFolder");
+            }
+            token_results.push(line.to_string() + " : SkipFile");
         }
 
         if line.starts_with("+") {
-            // println!("{}", line);
-            token_results.push(line.to_string());
+            if line.ends_with("/") {
+                token_results.push(line.to_string() + " : AddFolder");
+            }
+            token_results.push(line.to_string() + " : AddFile");
         }
 
         if line.starts_with("*") {
-            // println!("{}", line);
-            token_results.push(line.to_string());
+            token_results.push(line.to_string() + " : SkipExtension");
         }
     }
 
