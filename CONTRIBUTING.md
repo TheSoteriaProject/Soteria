@@ -17,13 +17,13 @@ You can use prefixes to categorize branches.
 If your work is associated with a specific issue or task, consider including its number in the branch name. 
 #### For example:
 
-    feature/issue-123
-    bugfix/bug-456
+    feature/id/issue-123
+    bugfix/id/bug-456
 
 ### Keep it Short and Simple
 Branch names should be concise but informative. Avoid excessively long names that may become unwieldy.  
 #### Here's examples of ideal naming:
 
-    feature/user-authentication
-    bugfix/fix-memory-leak
-    refactor/update-database-schema
+    feature/id/user-authentication
+    bugfix/id/fix-memory-leak
+    refactor/id/update-database-schema
