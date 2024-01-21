@@ -15,19 +15,22 @@ fn remove_comments_and_empty_lines(lines: Vec<String>) -> Vec<String> {
 }
 
 fn tokenize_lines(lines: &Vec<String>) -> Vec<String> {
-    let token_results = Vec::new();
+    let mut token_results = Vec::new();
 
     for line in lines {
         if line.starts_with("-") {
-            println!("{}", line);
+            // println!("{}", line);
+            token_results.push(line.to_string());
         }
 
         if line.starts_with("+") {
-            println!("{}", line);
+            // println!("{}", line);
+            token_results.push(line.to_string());
         }
 
         if line.starts_with("*") {
-            println!("{}", line);
+            // println!("{}", line);
+            token_results.push(line.to_string());
         }
     }
 
@@ -64,9 +67,9 @@ fn read_lines(filename: &str) -> Vec<String> {
     
     let next_result = remove_comments_and_empty_lines(result);
 
-    tokenize_lines(&next_result);
+    let next_next_result = tokenize_lines(&next_result);
 
-    next_result
+    next_next_result
 }
 
 
