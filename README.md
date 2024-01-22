@@ -1,6 +1,10 @@
 # Soteria
 
+Project Explanation here...
+
 ## How to use
+
+How to use here...
 
 ## Contributing
 
