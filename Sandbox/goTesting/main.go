@@ -20,8 +20,7 @@ func logError(err_given error) {
 	defer logFile.Close()
 
 	log.SetOutput(logFile)
-	
-	// Change so you can pass in function???
+
 	err = err_given;
 	if err != nil {
 		log.Println("Error:", err)
@@ -29,13 +28,13 @@ func logError(err_given error) {
 }
 
 func help() {
-	fmt.Println("Soteria is a linter that is used for...");
+	fmt.Println("Soteria is a linter that is used for detecting insecure communication.");
 	fmt.Println("\nFlags:");
 	fmt.Println("\t --Warn");
 }
 
 func version() {
-	fmt.Println("Version 0.0.1");
+	fmt.Println("Version v0.0.1");
 }
 
 func run(flag bool) {
@@ -56,14 +55,14 @@ func run(flag bool) {
 }
 
 func main() {
-	// Variables
 	warn := false;
 	flag := "nil";
 
+	// Need to confirm it is a file path?
 	if len(os.Args) > 1 {
 		arg := os.Args[1];
 		if len(os.Args) <= 2 {
-			_ = flag;
+			_ = flag; // Prevents Not Used Error
 			warn = false;
 		} else {
 			flag = os.Args[2];
@@ -77,19 +76,19 @@ func main() {
 
 		switch arg {
 			case "--help", "help":
-				_ = warn; // Not Used Error Prevent
+				_ = warn; // Prevents Not Used Error
 				help();
 			case "--version", "version":
-				_ = warn; // Not Used Error Prevent
+				_ = warn; // Prevents Not Used Error
 				version();
 			default:
 				run(warn);
 		}
 	} else {
-		_ = warn; // Not Used Error Prevent
-		_ = flag;
+		_ = warn; // Prevents Not Used Error
+		_ = flag; // Prevents Not Used Error
 		fmt.Println("No Input given try --help.");
-		err := errors.New("No Input Give");
+		err := errors.New("No Input Given.");
 		logError(err);
 	}
 }
