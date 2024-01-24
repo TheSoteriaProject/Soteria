@@ -25,7 +25,7 @@ fn main() {
     if args.len() > 1 {
         println!("Files");
         println!("---------------------");
-        for arg in args.iter().skip(2) {
+        for arg in args.iter().skip(2) { // Skip 2 because of directory name and also program name.
             println!("{}", arg);
         }
     } else {

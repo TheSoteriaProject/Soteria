@@ -9,15 +9,21 @@ import (
 
 // File Controller to deal with sorting files
 func file_controller(filePath string) {
+	// Exact Path to file controller
 	execPath, err := exec.LookPath("./SoteriaIgnore/file_controller")
 
         if err != nil {
                 fmt.Println("Error: ", err)
         } else {
+		// Run Rust Executable
                 cmd := exec.Command(execPath, filePath)
+		
+		// Show Output
                 cmd.Stdout = os.Stdout
                 cmd.Stderr = os.Stderr
-                cmdErr := cmd.Run()
+
+                // Run & Check for Error
+		cmdErr := cmd.Run()
                 if cmdErr != nil {
                         panic(cmdErr)
                 }
@@ -29,12 +35,12 @@ func main() {
 	
 	// Check Length
 	if len(os.Args) > 1 {
-		// Check File Path 
+		// Grab file Path from CL Arg
 		filePath := os.Args[1]
 
 		// Check if Exist
 		if _, err := os.Stat(filePath); err == nil {
-			file_controller(filePath)	
+			file_controller(filePath) // Gathers Files	
 		} else if errors.Is(err, os.ErrNotExist) {
   			// Path Does Not Exist
 			// Add Error
