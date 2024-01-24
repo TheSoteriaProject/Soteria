@@ -8,13 +8,13 @@ import (
 )
 
 // File Controller to deal with sorting files
-func file_controller() {
+func file_controller(filePath string) {
 	execPath, err := exec.LookPath("./SoteriaIgnore/file_controller")
 
         if err != nil {
                 fmt.Println("Error: ", err)
         } else {
-                cmd := exec.Command(execPath)
+                cmd := exec.Command(execPath, filePath)
                 cmd.Stdout = os.Stdout
                 cmd.Stderr = os.Stderr
                 cmdErr := cmd.Run()
@@ -34,7 +34,7 @@ func main() {
 
 		// Check if Exist
 		if _, err := os.Stat(filePath); err == nil {
-			file_controller()	
+			file_controller(filePath)	
 		} else if errors.Is(err, os.ErrNotExist) {
   			// Path Does Not Exist
 			// Add Error
