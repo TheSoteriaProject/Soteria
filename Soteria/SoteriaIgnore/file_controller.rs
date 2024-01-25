@@ -47,8 +47,7 @@ fn folder_traverse(dir: &Path) {
             let path = entry.path();
 
             if path.is_file() {
-                // If it's a file (not a directory), print or store information
-                // println!("{}", path.display());  
+                // If it's a file (not a directory) and is also one of the correct extensions
                 if let Some(path_str) = path.to_str() {
                     if is_dockerfile(path_str) {
                         println!("Docker File Path: {}", path.display());
