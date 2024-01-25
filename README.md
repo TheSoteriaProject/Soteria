@@ -1,6 +1,6 @@
 # Soteria
 
-Project Explanation here...
+Soteria is a Insecure Communication Linter for Bourne Shell, Makefiles, and Dockerfiles. 
 
 ## How to use
 
@@ -34,4 +34,7 @@ This discussion board is intended to provide a platform for users to engage in o
 By using this discussion board, you agree to abide by these guidelines. The administrators reserve the right to take appropriate action, including warnings, temporary suspension, or permanent banning of users who violate these guidelines.
 
 
-## Help Page
+## Help
+Welcome to our project on GitHub! If you find yourself in need of assistance, we encourage you to leverage our discussion boards. The boards are a collaborative space where our community comes together to share ideas, ask questions, and offer support. Before posting, please take a moment to search for existing discussions, as your question might have already been addressed. If not, feel free to start a new thread and our community members or maintainers will do their best to assist you. Let's build a helpful and engaging community – your input and questions are valuable!
+
+Also feel free to check out our [HELPPAGE.md](HELPPAGE.md)
