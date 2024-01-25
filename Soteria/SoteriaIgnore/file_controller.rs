@@ -20,7 +20,7 @@ fn remove_comments_and_empty_lines(lines: Vec<String>) -> Vec<String> {
     result
 }
 
-// No need to Tokenize
+// Tokenize
 fn tokenize_lines(lines: &Vec<String>) -> Vec<String> {
     let mut token_results = Vec::new();
 
@@ -29,15 +29,17 @@ fn tokenize_lines(lines: &Vec<String>) -> Vec<String> {
         if line.starts_with("-") {
             if line.ends_with("/") {
                 token_results.push(line.to_string() + " : SkipFolder");
+                continue;
             }
             token_results.push(line.to_string() + " : SkipFile");
         }
 
         if line.starts_with("+") {
             if line.ends_with("/") {
-                token_results.push(line.to_string() + " : AddFolder");
+                token_results.push(line.to_string() + " : IncludeFolder");
+                continue;
             }
-            token_results.push(line.to_string() + " : AddFile");
+            token_results.push(line.to_string() + " : IncludeFile");
         }
 
         if line.starts_with("*") {
@@ -117,9 +119,69 @@ fn is_bourne_shell_script(file_path: &str) -> bool {
     false
 }
 
-/* 
-fn is_file_ignored() {}
-*/
+
+
+fn cmp_files(pre_files: Vec<String>, special_files: Vec<String>) -> Vec<String>{
+    let mut final_files = Vec::new();
+    
+    for pfile in pre_files {
+        for sfile in &special_files {
+            // println!("{} <-> {}", pfile, sfile);
+            // Split the string into parts based on ":"
+            let split_token: Vec<&str> = sfile.split(":").collect();
+
+            // Use the nth method to get the second part (index 1)
+            if let Some(pre_token) = split_token.get(1) {
+                // REWRITE this because its awful coding
+                let token_str: &str = *pre_token;
+                // Trim leading and trailing whitespaces
+                let token: &str = token_str.trim();
+                if token == "SkipFile" {
+                    if let Some(pre_file) = split_token.get(0) {
+                        let pre_file_str: &str = *pre_file;
+                        // Trim leading and trailing whitespacs and else below and above
+                        let file_bad_character: &str = pre_file_str.trim_start_matches("-");
+                        let file: &str = file_bad_character.trim();
+                        // println!("{}\n{}", file, pfile);
+                        if file == pfile {
+                            println!("Skip Files: {} <-> {}", file, pfile);
+                        }
+                    }
+                } else if token == "SkipFolder" {
+                    if let Some(folder) = split_token.get(0) { 
+                        if folder.to_string() == pfile {
+                            // Need to work on
+                        }
+                    }
+                } else if token == "IncludeFile" {
+                    // println!("Hits");
+                    if let Some(file) = split_token.get(0) { 
+                        if file.to_string() == pfile {
+                            println!("Include Files: {} <-> {}", file, pfile);
+                        }
+                    }
+                } else if token == "IncludeFolder" {
+                    if let Some(folder) = split_token.get(0) { 
+                        if folder.to_string() == pfile {
+                            // Need to work on
+                        }
+                    }  
+                } else if token == "SkipExtension" {
+                    if let Some(file) = split_token.get(0) { 
+                        // Remove Extension
+                        // Special Case Write Later
+                    }
+                } else {
+                    // Do Nothing For Now
+                }
+            } else {
+                println!("Invalid format");
+            }
+        }
+    }
+
+    final_files
+}
 
 fn folder_traverse(dir: &Path) -> Vec<String> {
     let mut files = Vec::new();
@@ -162,8 +224,8 @@ fn main() {
     ** Gather Special Cases **
     **************************/
     let _ignore_file = "./.soteriaignore";
-    let content = read_lines(_ignore_file);
-    println!("Content:\n{:?}", content);
+    let special_files = read_lines(_ignore_file);
+    // println!("Special-Files:\n{:?}", special_files);
 
     /**********************
     ** Gather File List **
@@ -178,6 +240,9 @@ fn main() {
     let root_dir = args[1].clone();
     let root_path = Path::new(&root_dir);
 
-    let files = folder_traverse(&root_path);
-    println!("Content:\n{:?}", files);
+    let pre_files = folder_traverse(&root_path);
+    // println!("Pre-Files:\n{:?}", pre_files);
+
+    let files = cmp_files(pre_files, special_files);
+    println!("Final Files:\n{:?}", files);
 }
