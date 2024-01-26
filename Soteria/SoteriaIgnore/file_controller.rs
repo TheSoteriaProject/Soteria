@@ -137,38 +137,48 @@ fn cmp_files(pre_files: Vec<String>, special_files: Vec<String>) -> Vec<String>{
                 // Trim leading and trailing whitespaces
                 let token: &str = token_str.trim();
                 if token == "SkipFile" {
-                    if let Some(pre_file) = split_token.get(0) {
-                        let pre_file_str: &str = *pre_file;
-                        // Trim leading and trailing whitespacs and else below and above
-                        let file_bad_character: &str = pre_file_str.trim_start_matches("-");
-                        let file: &str = file_bad_character.trim();
-                        // println!("{}\n{}", file, pfile);
-                        if file == pfile {
-                            println!("Skip Files: {} <-> {}", file, pfile);
+                    if let Some(pre_s_file) = split_token.get(0) {
+                        let pre_s_file_str: &str = *pre_s_file;
+                        let file_s_bad_character: &str = pre_s_file_str.trim_start_matches("-");
+                        let file_s: &str = file_s_bad_character.trim();
+                        if file_s == pfile {
+                            println!("Skip File: {} <-> {}", file_s, pfile);
                         }
                     }
                 } else if token == "SkipFolder" {
-                    if let Some(folder) = split_token.get(0) { 
-                        if folder.to_string() == pfile {
-                            // Need to work on
-                        }
+                    if let Some(_folder) = split_token.get(0) { 
+                        /* 
+                        let pre_file_str: &str = *pre_file;                             
+                        let file_bad_character: &str = pre_file_str.trim_start_matches("-");
+                        let file: &str = file_bad_character.trim();
+                        // Deconstruct Path
+                        if file == pfile {
+                            println!("Skip Folder: {} <-> {}", file, pfile);                        
+                        } */
                     }
                 } else if token == "IncludeFile" {
-                    // println!("Hits");
-                    if let Some(file) = split_token.get(0) { 
-                        if file.to_string() == pfile {
-                            println!("Include Files: {} <-> {}", file, pfile);
+                    if let Some(pre_i_file) = split_token.get(0) { 
+                        let pre_i_file_str: &str = *pre_i_file;                             
+                        let file_i_bad_character: &str = pre_i_file_str.trim_start_matches("+");
+                        let file_i: &str = file_i_bad_character.trim();
+                        if file_i == pfile {
+                            println!("Include File: {} <-> {}", file_i, pfile);
                         }
                     }
                 } else if token == "IncludeFolder" {
-                    if let Some(folder) = split_token.get(0) { 
-                        if folder.to_string() == pfile {
-                            // Need to work on
-                        }
+                    if let Some(_folder) = split_token.get(0) { 
+                        /*
+                        let pre_file_str: &str = *pre_file;                             
+                        let file_bad_character: &str = pre_file_str.trim_start_matches("-");
+                        let file: &str = file_bad_character.trim();
+                        // Deconstruct Path
+                        if file == pfile {
+                            println!("Skip Files: {} <-> {}", file, pfile);
+                        } */
                     }  
                 } else if token == "SkipExtension" {
-                    if let Some(file) = split_token.get(0) { 
-                        // Remove Extension
+                    if let Some(_file) = split_token.get(0) { 
+                        // Remove Extension *
                         // Special Case Write Later
                     }
                 } else {
