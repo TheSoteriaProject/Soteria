@@ -6,6 +6,10 @@ Soteria is a Insecure Communication Linter for Bourne Shell, Makefiles, and Dock
 
 How to use here...
 
+### Setup
+
+### Output
+
 ## Contributing
 
 If you want to contribute to this project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
