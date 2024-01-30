@@ -17,12 +17,12 @@ func main() {
 
 	// Check Length
 	if len(os.Args) > 1 {
-		// Grab file Path from CL Arg
+		// Grab file Path from CLI Argument
 		file_path := os.Args[1]
 
 		// Check if Exist
 		if _, err := os.Stat(file_path); err == nil {
-			filepath.Walk(file_path, file_controller.GetAllFiles)
+			filepath.Walk(file_path, file_controller.GetAllFilesAndFolders)
 			if err != nil {
 				fmt.Printf("error gathering path %v: %v\n", file_path, err)
 			}
