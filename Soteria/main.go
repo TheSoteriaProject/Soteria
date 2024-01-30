@@ -3,10 +3,14 @@ package main
 import (
 	"fmt"
 	"errors"
-	"os/exec"
+	// "os/exec"
 	"os"
+
+	// Custom Files
+	"Soteria/file_controller"
 )
 
+/* 
 // File Controller to deal with sorting files
 func file_controller(filePath string) {
 	// Exact Path to file controller
@@ -29,10 +33,12 @@ func file_controller(filePath string) {
                 }
         }
 }
-
+*/
 func main() {
 	fmt.Println("Welcome to Insecure Communication Linter.")
 	
+	file_controller.TestConnection()
+
 	// Check Length
 	if len(os.Args) > 1 {
 		// Grab file Path from CL Arg
@@ -40,7 +46,7 @@ func main() {
 
 		// Check if Exist
 		if _, err := os.Stat(filePath); err == nil {
-			file_controller(filePath) // Gathers Files	
+			// file_controller(filePath) // Gathers Files	
 		} else if errors.Is(err, os.ErrNotExist) {
   			// Path Does Not Exist
 			// Add Error
