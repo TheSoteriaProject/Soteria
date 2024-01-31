@@ -39,24 +39,31 @@ func GetAllFilesAndFolders(path string, info os.FileInfo, err error) ([]string, 
 	return files, folders
 }
 
-func FilterFileExtensions(files []string) {
+func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_bash bool) []string {
+	filtered_files := []string{}
+
 	for _, files := range files {
 		split := strings.Split(files, "/")
 		extension := filepath.Ext(split[len(split)-1])
 		// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
 		// Makefile Check
-		if strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
-			fmt.Println(split[len(split)-1])
+		if u_makefile == true && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
+			// fmt.Println(split[len(split)-1])
+			filtered_files = append(filtered_files, split[len(split)-1])
 		}
 		// Dockerfile Check
-		if strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
-			fmt.Println(split[len(split)-1])
+		if u_dockerfile == true && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
+			// fmt.Println(split[len(split)-1])
+			filtered_files = append(filtered_files, split[len(split)-1])
 		}
 		// Bash Check
-		if strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
-			fmt.Println(split[len(split)-1])
+		if u_bash == true && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
+			// fmt.Println(split[len(split)-1])
+			filtered_files = append(filtered_files, split[len(split)-1])
 		}
 	}
+
+	return filtered_files
 }
 
 // Main Controller For File Controller
@@ -76,7 +83,16 @@ func FileController(path string) {
 	
 
 	// Extract bash, Makefiles, and Dockerfiles
-	FilterFileExtensions(files)
+	// Set Variables u stands for use
+	// Do in Main Controller
+	u_bash :=  true
+	u_dockerfile := true
+	u_makefile := true
 	
-	// Next
+	extension_filtered_files := FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
+	ShowSliceData(extension_filtered_files)
+
+	// Ignore Folder Parse
+	// Ignore File Parse
+	// More
 }
