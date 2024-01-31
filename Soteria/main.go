@@ -3,9 +3,7 @@ package main
 import (
 	"fmt"
 	"errors"
-	// "os/exec"
 	"os"
-	"path/filepath"
 
 	// Custom Files
 	"Soteria/file_controller"
@@ -15,17 +13,12 @@ func main() {
 	fmt.Println("Welcome to Insecure Communication Linter.")
 	file_controller.TestConnection()
 
-	// Check Length
 	if len(os.Args) > 1 {
-		// Grab file Path from CLI Argument
+		
 		file_path := os.Args[1]
 
-		// Check if Exist
 		if _, err := os.Stat(file_path); err == nil {
-			filepath.Walk(file_path, file_controller.GetAllFilesAndFolders)
-			if err != nil {
-				fmt.Printf("error gathering path %v: %v\n", file_path, err)
-			}
+			file_controller.FileController(file_path)
 		} else if errors.Is(err, os.ErrNotExist) {
   			// Path Does Not Exist
 			// Add Error

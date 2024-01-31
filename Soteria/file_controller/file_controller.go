@@ -3,6 +3,7 @@ package file_controller
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 // Confirm File Connection
@@ -18,13 +19,13 @@ func ShowSliceData(path []string) {
 }
 
 // Path Traversal
-func GetAllFilesAndFolders(path string, info os.FileInfo, err error) error {
+func GetAllFilesAndFolders(path string, info os.FileInfo, err error) ([]string, []string) {
 	files := []string{}
-	folders := []string{}
-
+        folders := []string{} 
+	
 	if err != nil {
-		fmt.Println(err)
-		return nil
+		fmt.Println("Error:", err)
+		return files, folders
 	}
 
 	if info.IsDir() {
@@ -34,15 +35,31 @@ func GetAllFilesAndFolders(path string, info os.FileInfo, err error) error {
 		// fmt.Printf("File: %s\n", path)
 		files = append(files, path + " : file")
 	}
-	
-	// Adjust Naming
-	ShowSliceData(files)
-	ShowSliceData(folders)
-
-	return nil
+	return files, folders
 }
 
+func FilterFileExtensions(files []string) {
+	// Do Nothing For Now.
+	ShowSliceData(files)
+}
 
-func FileController() {
-	// Controls all the functions
+// Main Controller For File Controller
+func FileController(path string) {
+	// Gather Files and Folders
+	files, folders := make([]string, 0), make([]string, 0)
+	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+		file, folder := GetAllFilesAndFolders(path, info, err)
+		files = append(files, file...)
+		folders = append(folders, folder...)
+		return nil
+	})
+	if err != nil {
+		fmt.Println("Error walking the path:", err)
+		return
+	}
+	
+
+	// Extract bash, Makefiles, and Dockerfiles
+	FilterFileExtensions(files)
+	ShowSliceData(folders)
 }
