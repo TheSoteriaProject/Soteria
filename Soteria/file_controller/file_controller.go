@@ -3,6 +3,7 @@ package file_controller
 import (
 	"fmt"
 	"os"
+	"strings"
 	"path/filepath"
 )
 
@@ -30,17 +31,32 @@ func GetAllFilesAndFolders(path string, info os.FileInfo, err error) ([]string, 
 
 	if info.IsDir() {
 		// fmt.Printf("Directory: %s\n", path)
-		folders = append(folders, path + " : folder")
+		folders = append(folders, path) // Add Token?
 	} else {
 		// fmt.Printf("File: %s\n", path)
-		files = append(files, path + " : file")
+		files = append(files, path) // Add Token?
 	}
 	return files, folders
 }
 
 func FilterFileExtensions(files []string) {
-	// Do Nothing For Now.
-	ShowSliceData(files)
+	for _, files := range files {
+		split := strings.Split(files, "/")
+		extension := filepath.Ext(split[len(split)-1])
+		// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
+		// Makefile Check
+		if strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
+			fmt.Println(split[len(split)-1])
+		}
+		// Dockerfile Check
+		if strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
+			fmt.Println(split[len(split)-1])
+		}
+		// Bash Check
+		if strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
+			fmt.Println(split[len(split)-1])
+		}
+	}
 }
 
 // Main Controller For File Controller
@@ -61,5 +77,6 @@ func FileController(path string) {
 
 	// Extract bash, Makefiles, and Dockerfiles
 	FilterFileExtensions(files)
-	ShowSliceData(folders)
+	
+	// Next
 }
