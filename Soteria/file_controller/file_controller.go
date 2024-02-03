@@ -5,11 +5,14 @@ import (
 	"os"
 	"strings"
 	"path/filepath"
+
+	// Other
+	"Soteria/file_controller/ignore_file_parser"
 )
 
 // Confirm File Connection
 func TestConnection() {
-	fmt.Println("File Controller: Active")
+	fmt.Println("Testing File Controller Connection.")
 }
 
 // Show Files and Folders
@@ -92,7 +95,12 @@ func FileController(path string) {
 	extension_filtered_files := FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
 	ShowSliceData(extension_filtered_files)
 
-	// Ignore Folder Parse
-	// Ignore File Parse
+	// Test Connection
+	ignore_file_parser.TestConnection()
+
+	// Ignore Cases w Tokens
+	// filter_cases := 
+	ignore_file_parser.FilterFiles()
+	
 	// More
 }
