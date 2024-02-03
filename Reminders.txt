@@ -4,3 +4,10 @@ Place Reminders Here - Logan
 3. Check Variables for insecure definition
 4. Custom Ignore Language needs testing file and folder generator (Simple script to create testing enviornment"
 5. Don't re-invent wheel.
+
+
+
+Lexer
+- Bash - Logan
+- Makefile - Sam
+- Docker - Jacob
