@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	// Other
-	"Soteria/file_controller/ignore_file_parser"
+	"Soteria/ignore_file_parser"
 )
 
 // Confirm File Connection
