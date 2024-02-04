@@ -92,9 +92,10 @@ func FileController(path string) {
 	u_dockerfile := true
 	u_makefile := true
 	
-	extension_filtered_files := FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
-	ShowSliceData(extension_filtered_files)
-
+	// extension_filtered_files := 
+	FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
+	// ShowSliceData(extension_filtered_files)
+	
 	// Test Connection
 	ignore_file_parser.TestConnection()
 
