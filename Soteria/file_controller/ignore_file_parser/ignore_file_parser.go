@@ -32,7 +32,9 @@ func fileToStringArray(filepath string) []string {
     	var fileLines []string
   
     	for fileScanner.Scan() {
-        	fileLines = append(fileLines, fileScanner.Text())
+		if fileScanner.Text() != "" {
+        		fileLines = append(fileLines, fileScanner.Text())
+		}
     	}
   
 	readFile.Close()
@@ -42,6 +44,7 @@ func fileToStringArray(filepath string) []string {
 
 func RemoveOneLineComments(filedata []string) []string {
 	removedOneLiners := []string{}
+	
 	for _, line := range filedata {
 		if !strings.HasPrefix(line, "#") {
                 	removedOneLiners = append(removedOneLiners, line)
@@ -71,6 +74,25 @@ func RemoveMultiLineComments(filedata []string) []string {
 	return removedMultiLiners
 }
 
+func RemoveAfterLineComments(filedata []string) []string {
+	removedAfterLiners := []string{}
+	commentIndex := 1
+
+	for _, line  := range filedata {
+		for _, character := range line {
+			if character != '#' {
+				commentIndex += 1
+			} else {
+				break
+			}
+		}
+		removedAfterLiners = append(removedAfterLiners, line[:commentIndex-1])
+		commentIndex = 1
+	}
+	
+	return removedAfterLiners
+}
+
 func Tokenize() []string { 
         return nil
 }
@@ -89,8 +111,12 @@ func FilterFiles() []string {
 	
 	// Remove Multi-Line Comments
 	without_multi_line_comments := RemoveMultiLineComments(without_one_line_comments)
-	ShowSliceData(without_multi_line_comments)
-	
+	// ShowSliceData(without_multi_line_comments) // Show Data
+
+	// Remove After Line Comments
+	without_after_line_comments := RemoveAfterLineComments(without_multi_line_comments)
+	ShowSliceData(without_after_line_comments)
+
 	// Tokenize
 
 	return nil
