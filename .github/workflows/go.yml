@@ -40,6 +40,9 @@ jobs:
         cd Soteria/
         go test -v ./...
 
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4.3.0
+
     - name: Download a Build Artifact
       uses: actions/download-artifact@v4.1.1
         
