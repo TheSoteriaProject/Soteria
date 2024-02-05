@@ -1,6 +1,4 @@
-// This file will be used to create test cases for expected outputs via JSOn or some other info in which we compare the info
-// Let's consider test driven development NOT 100% certain this would be the best course of action.
-// can't leave blank
+// Let's consider test driven development NOT 100% certain best option.
 
 package file_controller_test
 
@@ -12,9 +10,6 @@ import (
 	"testing"
 
 	"Soteria/file_controller"
-	//"Soteria/ignore_file_parser"
-	//"Soteria/diverter"
-	//"Soteria/lexers"
 )
 
 
@@ -41,9 +36,36 @@ func TestConnections(t *testing.T) {
 	}
 }
 
+func TestShowSliceData(t *testing.T) {
+	// Redirect stdout to capture the output
+        old := os.Stdout
+        r, w, _ := os.Pipe()
+        os.Stdout = w
+
+        // Restore the original stdout after the test
+        defer func() {
+                os.Stdout = old
+        }()
+
+	dummyStringSlice := []string{"apple", "banana", "cherry", "date", "elderberry"}
+
+        file_controller.ShowSliceData(dummyStringSlice)
+
+        w.Close()
+        capturedOutput, _ := ioutil.ReadAll(r)
+	capturedOutputStr := strings.ReplaceAll(string(capturedOutput), "\r\n", "\n")
+
+        expect_from_file_controller := "apple\nbanana\ncherry\ndate\nelderberry\n"
+	expect_from_file_controller = strings.TrimSpace(expect_from_file_controller)
+        if strings.TrimSpace(string(capturedOutputStr)) != expect_from_file_controller {
+                t.Errorf("Expected: %q, Got: %q", expect_from_file_controller, string(capturedOutputStr))
+        }
+}
+
 func TestingController(t *testing.T) {
 	// Run the tests
 	TestConnections(t)
+	TestShowSliceData(t)
 }
 
 func TestMain(m *testing.M) {
