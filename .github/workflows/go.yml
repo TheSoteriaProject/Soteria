@@ -29,7 +29,7 @@ jobs:
     - name: Run golangci-lint
       run: |
         cd Soteria/
-        $HOME/go/bin/golangci-lint run --out-format=json
+        golangci-lint run --out-format=json
 
     - name: Build
       run: |
