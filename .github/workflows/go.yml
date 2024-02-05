@@ -40,11 +40,28 @@ jobs:
         cd Soteria/
         go test -v ./...
 
-    - name: Upload a Build Artifact
+    - name: Upload Build Artifact
       uses: actions/upload-artifact@v4.3.0
+      with:
+        name: build-artifact
+        path: Soteria/ 
 
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v4.1.1
+  download:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4.1.1
+        with:
+          name: build-artifact
+          path: Soteria/  
         
-    - name: Cache
-      uses: actions/cache@v4.0.0
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Go modules
+        uses: actions/cache@v4.0.0
+        with:
+          path: |
+            ~/go/pkg/mod
+          key: go-${{ hashFiles('**/go.sum') }}
