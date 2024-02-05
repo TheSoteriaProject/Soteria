@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"errors"
 	"os"
+	"testing"
 
 	// Custom Files
 	"Soteria/file_controller"
+	"Soteria/testing_controller"
 )
 
 func main() {
@@ -20,6 +22,7 @@ func main() {
 		if input == "--test" {
 			// Add Testing Controller
 			fmt.Println("Testing Tool")
+			testing_controller.TestingController(&testing.M{})
 		} else if input == "--help" {
 			// Create A Help Controller
 			fmt.Println("Help Page")
