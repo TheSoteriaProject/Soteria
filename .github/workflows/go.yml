@@ -29,5 +29,5 @@ jobs:
     - name: Test
       run: |
         cd Soteria/
-        go build -v ./...
-        ./Soteria "--test" 
+        go test -v ./...
+        # ./Soteria "--test" 
