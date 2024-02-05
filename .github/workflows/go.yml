@@ -23,6 +23,7 @@ jobs:
 
     - name: Install golangci-lint
       run: |
+        cd Soteria/
         go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
     - name: Run golangci-lint
