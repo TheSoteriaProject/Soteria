@@ -12,7 +12,7 @@ import (
 	"Soteria/file_controller"
 )
 
-func main() {
+/func main() {
 	// fmt.Println("Welcome to Insecure Communication Linter.")
 
 	// Confrim/Test File Controller Connection
