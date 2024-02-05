@@ -21,10 +21,25 @@ func main() {
 	if len(os.Args) > 1 {
 		// Main
 		input := os.Args[1]
-		
-		// Sub
+	
+
+		// Diasble
+		flag.Usage = func() {}
+
+		// Test
 		var runTests bool
 		flag.BoolVar(&runTests, "test", false, "Run tests")
+
+		// Help
+		var helpUser bool
+		flag.BoolVar(&helpUser, "help", false, "Help User")
+
+		// Version
+		var versionCheck bool
+		flag.BoolVar(&versionCheck, "version", false, "Version Check")
+		flag.BoolVar(&versionCheck, "v", false, "Version Check") 
+                
+		// Parse Flag
 		flag.Parse()
 
 		if runTests {
@@ -43,10 +58,10 @@ func main() {
 			fmt.Printf("Error running tests: %v\n", err)
 			os.Exit(1)
 		}
-		} else if input == "--help" {
+		} else if helpUser {
 			// Create A Help Controller
 			fmt.Println("Help Page")
-		} else if input == "--version" || input == "--v" {
+		} else if versionCheck {
 			// Set From File
 			version := "0.0.0.0"
 			fmt.Println("Version: v" + version)
