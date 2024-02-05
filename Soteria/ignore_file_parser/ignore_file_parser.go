@@ -2,7 +2,7 @@ package ignore_file_parser
 
 import (
 	"fmt"
-	// "io/ioutil"
+	// "io"
 	"bufio"
 	// "log"
 	"os"
@@ -66,7 +66,7 @@ func RemoveMultiLineComments(filedata []string) []string {
 			multiLineFlag = false
 		}
 		
-		if multiLineFlag == false && !strings.HasPrefix(line, "|-end") {
+		if !multiLineFlag && !strings.HasPrefix(line, "|-end") {
 			removedMultiLiners = append(removedMultiLiners, line) 
 		}
 	}

@@ -5,7 +5,7 @@ package file_controller_test
 import (
 	// "fmt"
 	"os"
-	"io/ioutil"
+	"io"
 	"strings"
 	"testing"
 
@@ -27,7 +27,7 @@ func TestConnections(t *testing.T) {
 	file_controller.TestConnection()
 
 	w.Close()
-	capturedOutput, _ := ioutil.ReadAll(r)
+	capturedOutput, _ := io.ReadAll(r)
 
 	expect_from_file_controller := "Testing File Controller Connection."
 
@@ -52,7 +52,7 @@ func TestShowSliceData(t *testing.T) {
         file_controller.ShowSliceData(dummyStringSlice)
 
         w.Close()
-        capturedOutput, _ := ioutil.ReadAll(r)
+        capturedOutput, _ := io.ReadAll(r)
 	capturedOutputStr := strings.ReplaceAll(string(capturedOutput), "\r\n", "\n")
 
         expect_from_file_controller := "apple\nbanana\ncherry\ndate\nelderberry\n"
@@ -62,7 +62,7 @@ func TestShowSliceData(t *testing.T) {
         }
 }
 
-func TestingController(t *testing.T) {
+func TestTestingController(t *testing.T) {
 	// Run the tests
 	TestConnections(t)
 	TestShowSliceData(t)

@@ -2,7 +2,11 @@
 // Uncertain will think about at a later point
 // can't leave file blank
 package diverter
-
+/*
 func divert() {
 	// Do Nothing
 }
+
+func main() {
+	divert()
+} */

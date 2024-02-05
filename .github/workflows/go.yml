@@ -24,7 +24,7 @@ jobs:
     - name: Run golangci-lint
       run: |
         cd Soteria/
-        uses: golangci/golangci-lint-action@v3.7.0
+        golangci-lint run --out-format=json
 
     - name: Build
       run: |

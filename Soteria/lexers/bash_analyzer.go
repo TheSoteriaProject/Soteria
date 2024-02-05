@@ -3,6 +3,11 @@
 
 package bash_analyzer
 
+/*
 func lex() {
 	// Do Nothing
 }
+
+func main() {
+	lex()
+} */

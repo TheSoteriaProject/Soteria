@@ -50,17 +50,17 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 		extension := filepath.Ext(split[len(split)-1])
 		// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
 		// Makefile Check
-		if u_makefile == true && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
+		if u_makefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, split[len(split)-1])
 		}
 		// Dockerfile Check
-		if u_dockerfile == true && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
+		if u_dockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, split[len(split)-1])
 		}
 		// Bash Check
-		if u_bash == true && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
+		if u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, split[len(split)-1])
 		}
