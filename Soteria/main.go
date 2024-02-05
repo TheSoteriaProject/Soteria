@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"flag"
 	"errors"
 	"os"
 	"testing"
@@ -13,13 +14,20 @@ import (
 
 func main() {
 	// fmt.Println("Welcome to Insecure Communication Linter.")
-	
+
 	// Confrim/Test File Controller Connection
 	file_controller.TestConnection()
 
 	if len(os.Args) > 1 {
+		// Main
 		input := os.Args[1]
-		if input == "--test" {
+
+		// Sub flag
+		var runTests bool
+		flag.BoolVar(&runTests, "test", false, "Run tests")
+		flag.Parse()
+
+		if runTests {
 			// Add Testing Controller
 			// fmt.Println("Testing Tool")
 			testing_controller.TestingController(&testing.M{})
