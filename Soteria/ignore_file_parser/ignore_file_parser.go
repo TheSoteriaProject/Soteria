@@ -98,7 +98,7 @@ func Tokenize() []string {
 }
 
 func FilterFiles() []string {
-	fmt.Println("Reading Ignore File.")
+	// fmt.Println("Reading Ignore File.")
 	filepath := "./.soteriaignore"
 	
 	// Read File into String Array

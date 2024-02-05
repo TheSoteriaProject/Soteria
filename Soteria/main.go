@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Welcome to Insecure Communication Linter.")
+	// fmt.Println("Welcome to Insecure Communication Linter.")
 	
 	// Confrim/Test File Controller Connection
 	file_controller.TestConnection()
@@ -21,7 +21,7 @@ func main() {
 		input := os.Args[1]
 		if input == "--test" {
 			// Add Testing Controller
-			fmt.Println("Testing Tool")
+			// fmt.Println("Testing Tool")
 			testing_controller.TestingController(&testing.M{})
 		} else if input == "--help" {
 			// Create A Help Controller
