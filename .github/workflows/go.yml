@@ -29,5 +29,6 @@ jobs:
     - name: Test
       run: |
         cd Soteria/
-        go test -v ./...
+        go run main.go --test
+        # go test -v ./...
         # ./Soteria "--test" 
