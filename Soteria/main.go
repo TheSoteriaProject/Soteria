@@ -31,7 +31,9 @@ func main() {
 			// Add Testing Controller
 			// fmt.Println("Testing Tool")
 			// Run tests using the "go test" command
-			cmd := exec.Command("go", "test", "./testing_controller", "-v")
+
+			// Adjust and create a function that calls them all
+			cmd := exec.Command("go", "test", "./...", "-v")
 			cmd.Stdout = os.Stdout
 			cmd.Stderr = os.Stderr
 
