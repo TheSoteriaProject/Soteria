@@ -30,4 +30,4 @@ jobs:
       run: |
         cd Soteria/
         go build -v ./...
-        ./Soteria --test 
+        ./Soteria "--test" 
