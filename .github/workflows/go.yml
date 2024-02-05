@@ -43,7 +43,7 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4.3.0
       with:
-        name: build-artifact
+        name: build-artifact-go
         path: Soteria/ 
 
   download:
@@ -53,7 +53,7 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4.1.1
         with:
-          name: build-artifact
+          name: build-artifact-go
           path: Soteria/  
         
   cache:
