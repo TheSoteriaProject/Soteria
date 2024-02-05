@@ -2,10 +2,10 @@
 // Let's consider test driven development NOT 100% certain this would be the best course of action.
 // can't leave blank
 
-package testing_controller
+package file_controller_test
 
 import (
-	"fmt"
+	// "fmt"
 	"os"
 	"io/ioutil"
 	"strings"
@@ -41,12 +41,12 @@ func TestConnections(t *testing.T) {
 	}
 }
 
-func TestingController(m *testing.M) {
+func TestingController(t *testing.T) {
 	// Run the tests
-	testResult := m.Run()
+	TestConnections(t)
+}
 
-	// Check if any tests failed
-	if testResult != 0 {
-		fmt.Println("Some tests failed.")
-	}
+func TestMain(m *testing.M) {
+	// Run the tests using the standard testing package
+	os.Exit(m.Run())
 }

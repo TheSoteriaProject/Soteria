@@ -30,5 +30,4 @@ jobs:
       run: |
         cd Soteria/
         go run main.go --test
-        # go test -v ./...
-        # ./Soteria "--test" 
+        # Adjust for "go test -v ./..."

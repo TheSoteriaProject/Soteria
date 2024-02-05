@@ -5,11 +5,11 @@ import (
 	"flag"
 	"errors"
 	"os"
-	"testing"
+	"os/exec"
+	// "testing"
 
 	// Custom Files
 	"Soteria/file_controller"
-	"Soteria/testing_controller"
 )
 
 func main() {
@@ -21,8 +21,8 @@ func main() {
 	if len(os.Args) > 1 {
 		// Main
 		input := os.Args[1]
-
-		// Sub flag
+		
+		// Sub
 		var runTests bool
 		flag.BoolVar(&runTests, "test", false, "Run tests")
 		flag.Parse()
@@ -30,7 +30,17 @@ func main() {
 		if runTests {
 			// Add Testing Controller
 			// fmt.Println("Testing Tool")
-			testing_controller.TestingController(&testing.M{})
+			// Run tests using the "go test" command
+			cmd := exec.Command("go", "test", "./testing_controller", "-v")
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+
+			fmt.Println("Running tests...")
+			err := cmd.Run()
+		if err != nil {
+			fmt.Printf("Error running tests: %v\n", err)
+			os.Exit(1)
+		}
 		} else if input == "--help" {
 			// Create A Help Controller
 			fmt.Println("Help Page")
