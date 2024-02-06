@@ -52,17 +52,17 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 		// Makefile Check
 		if u_makefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
 			// fmt.Println(split[len(split)-1])
-			filtered_files = append(filtered_files, split[len(split)-1])
+			filtered_files = append(filtered_files, files)
 		}
 		// Dockerfile Check
 		if u_dockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
 			// fmt.Println(split[len(split)-1])
-			filtered_files = append(filtered_files, split[len(split)-1])
+			filtered_files = append(filtered_files, files)
 		}
 		// Bash Check
 		if u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
 			// fmt.Println(split[len(split)-1])
-			filtered_files = append(filtered_files, split[len(split)-1])
+			filtered_files = append(filtered_files, files)
 		}
 	}
 
@@ -88,11 +88,26 @@ func CompareFiles(files []string, ignored_files []string) []string {
 				front_of_split_string = strings.TrimRight(front_of_split_string, ":")
 
 				// Genius or dum????
+				/*
 				trim_space_extra := strings.TrimSpace(front_of_split_string)
 				dir_preface_path := trim_space_extra[:(len(trim_space_extra) - len(file))-1]
 				remapped_name := dir_preface_path + "/" + file
-				if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(remapped_name) {
-					remove_files = append(remove_files, file) // May not be able to use file
+				*/
+				trim_space_extra := strings.TrimSpace(front_of_split_string) // Get filepath length of ignore
+				file = strings.TrimSpace(file)
+				
+				range_var := (len(trim_space_extra) - len(file))
+				if range_var < 0 {
+					range_var = -(len(trim_space_extra) - len(file))
+				}
+
+				if range_var >= -1 && range_var < len(trim_space_extra) {
+					file_path := trim_space_extra[range_var:]
+					fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
+                                	fmt.Println("Debug2: " + strings.TrimSpace(file_path) +":")
+					if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(file_path) {
+						remove_files = append(remove_files, file_path) // May not be able to use file
+					}
 				}
 			} else if strings.TrimSpace(end_of_split_string) == "IncludeFile" {
                                 // Trim the negative sign
@@ -219,7 +234,9 @@ func CompareFiles(files []string, ignored_files []string) []string {
             		result_pool = append(result_pool, file)
         	}
     	}
-
+	fmt.Println("Remove Files")
+	ShowSliceData(remove_files)
+	fmt.Println("Result Pool")
 	return result_pool
 }
 
