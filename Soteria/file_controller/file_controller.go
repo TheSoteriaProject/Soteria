@@ -34,10 +34,10 @@ func GetAllFilesAndFolders(path string, info os.FileInfo, err error) ([]string, 
 
 	if info.IsDir() {
 		// fmt.Printf("Directory: %s\n", path)
-		folders = append(folders, path) // Add Token?
+		folders = append(folders, path)
 	} else {
 		// fmt.Printf("File: %s\n", path)
-		files = append(files, path) // Add Token?
+		files = append(files, path)
 	}
 	return files, folders
 }
@@ -47,7 +47,7 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 
 	for _, files := range files {
 		split := strings.Split(files, "/")
-		extension := filepath.Ext(split[len(split)-1])
+		extension := filepath.Ext(split[len(split)-1]) // MAY WANT FULL FILE PATH
 		// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
 		// Makefile Check
 		if u_makefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
@@ -76,21 +76,35 @@ func CompareFiles(files []string, ignored_files []string) []string {
 	for _, file := range files {
 		for _, i_file := range ignored_files {
 			// fmt.Println("File: " + file + " Ignore? : " + i_file)
-			fmt.Println("file: " + file)
 			split_string := strings.SplitAfter(i_file, ":")
 			front_of_split_string := split_string[0]
 			end_of_split_string := split_string[1]
-			fmt.Println("Front: " + front_of_split_string + " End: " + end_of_split_string)
+			if strings.TrimSpace(end_of_split_string) == "IgnoreFile" {
+				// Trim the negative sign
+				front_of_split_string = strings.TrimSpace(front_of_split_string)
+				front_of_split_string = strings.TrimLeft(front_of_split_string, "-")
+				front_of_split_string = strings.TrimRight(front_of_split_string, ":")
+
+				// Genius or dum????
+				trim_space_extra := strings.TrimSpace(front_of_split_string)
+				// fmt.Println("Trim White Space: " + trim_space_extra)
+				dir_preface_path := trim_space_extra[:(len(trim_space_extra) - len(file))-1]
+				// fmt.Println("Parse Dir Path: " + dir_preface_path)
+				remapped_name := dir_preface_path + "/" + file
+				// fmt.Println("Remapped: " + remapped_name)
+				// fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
+				// fmt.Println("Debug2: " + strings.TrimSpace(remapped_name) +":")
+				if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(remapped_name) {
+					filtered_files = append(filtered_files, front_of_split_string)
+				}
+			}
 		}
 	}
 	// Check if file is ignored
 	// Check if it needs to be appended because include in folder
 	// Check if file is included so just add it
 	// File not be in any case so just add it which is else case
-	filtered_files = append(filtered_files, "nothing")
-
-
-
+	// With fron of new string maybe append and check???
 	return filtered_files
 }
 
@@ -128,6 +142,6 @@ func FileController(path string) {
 	ShowSliceData(filter_cases)
 
 	// Compare Ignored and all files grabbed
-	CompareFiles(extension_filtered_files, filter_cases)
-
+	file_pool := CompareFiles(extension_filtered_files, filter_cases)
+	ShowSliceData(file_pool)
 }

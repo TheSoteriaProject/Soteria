@@ -112,7 +112,8 @@ func Tokenize(filedata []string) []string {
 		} else if strings.HasPrefix(strings.TrimSpace(line), "*") {
 			files_with_tokens = append(files_with_tokens, line + ": IgnoreExtension")
 		} else {
-			// fmt.Println("No Match") // Debug
+			//
+			fmt.Println("Error in Tokenize")
 		}
 	}
 
