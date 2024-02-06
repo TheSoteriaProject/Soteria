@@ -69,6 +69,26 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 	return filtered_files
 }
 
+
+func CompareFiles(files []string, ignored_files []string) []string {
+	filtered_files := []string{}
+	// check if file is in ignore folder
+	for _, file := range files {
+		for _, i_file := range ignored_files {
+			fmt.Println("File: " + file + " Ignore? : " + i_file)
+		}
+	}
+	// Check if file is ignored
+	// Check if it needs to be appended because include in folder
+	// Check if file is included so just add it
+	// File not be in any case so just add it which is else case
+	filtered_files = append(filtered_files, "nothing")
+
+
+
+	return filtered_files
+}
+
 // Main Controller For File Controller
 func FileController(path string) {
 	// Gather Files and Folders
@@ -92,16 +112,17 @@ func FileController(path string) {
 	u_dockerfile := true
 	u_makefile := true
 	
-	// extension_filtered_files := 
-	FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
-	// ShowSliceData(extension_filtered_files)
+	extension_filtered_files := FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
+	ShowSliceData(extension_filtered_files)
 	
 	// Test Connection
 	ignore_file_parser.TestConnection()
 
 	// Ignore Cases w Tokens
-	// filter_cases := 
-	ignore_file_parser.FilterFiles()
-	
-	// More
+	filter_cases := ignore_file_parser.FilterFiles()
+	ShowSliceData(filter_cases)
+
+	// Compare Ignored and all files grabbed
+	CompareFiles(extension_filtered_files, filter_cases)
+
 }

@@ -93,8 +93,30 @@ func RemoveAfterLineComments(filedata []string) []string {
 	return removedAfterLiners
 }
 
-func Tokenize() []string { 
-        return nil
+func Tokenize(filedata []string) []string { 
+	files_with_tokens := []string{}
+	
+	for _, line := range filedata {
+		if strings.HasPrefix(strings.TrimSpace(line), "-") {
+			if strings.HasSuffix(strings.TrimSpace(line), "/") {
+				files_with_tokens = append(files_with_tokens, line + ": IgnoreFolder")
+			} else {
+				files_with_tokens = append(files_with_tokens, line + ": IgnoreFile")
+			}
+		} else if strings.HasPrefix(strings.TrimSpace(line), "+") {
+			if strings.HasSuffix(strings.TrimSpace(line), "/") {
+				files_with_tokens = append(files_with_tokens, line + ": IncludeFolder")
+			} else {
+				files_with_tokens = append(files_with_tokens, line + ": IncludeFile")
+			}
+		} else if strings.HasPrefix(strings.TrimSpace(line), "*") {
+			files_with_tokens = append(files_with_tokens, line + ": IgnoreExtension")
+		} else {
+			// fmt.Println("No Match") // Debug
+		}
+	}
+
+        return files_with_tokens 
 }
 
 func FilterFiles() []string {
@@ -115,9 +137,11 @@ func FilterFiles() []string {
 
 	// Remove After Line Comments
 	without_after_line_comments := RemoveAfterLineComments(without_multi_line_comments)
-	ShowSliceData(without_after_line_comments)
+	// ShowSliceData(without_after_line_comments)
 
 	// Tokenize
+	tokenized_files := Tokenize(without_after_line_comments)
+	// ShowSliceData(tokenized_files)
 
-	return nil
+	return tokenized_files
 }
