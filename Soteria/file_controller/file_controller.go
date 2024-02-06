@@ -71,11 +71,13 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 
 
 func CompareFiles(files []string, ignored_files []string) []string {
-	filtered_files := []string{}
+	filtered_files := []string{} // Files that have passed filtering
+	remove_files := []string{}
+	
 	// check if file is in ignore folder
 	for _, file := range files {
 		for _, i_file := range ignored_files {
-			// fmt.Println("File: " + file + " Ignore? : " + i_file)
+			// Break up Token
 			split_string := strings.SplitAfter(i_file, ":")
 			front_of_split_string := split_string[0]
 			end_of_split_string := split_string[1]
@@ -87,16 +89,10 @@ func CompareFiles(files []string, ignored_files []string) []string {
 
 				// Genius or dum????
 				trim_space_extra := strings.TrimSpace(front_of_split_string)
-				// fmt.Println("Trim White Space: " + trim_space_extra)
 				dir_preface_path := trim_space_extra[:(len(trim_space_extra) - len(file))-1]
-				// fmt.Println("Parse Dir Path: " + dir_preface_path)
 				remapped_name := dir_preface_path + "/" + file
-				// fmt.Println("Remapped: " + remapped_name)
-				// fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
-				// fmt.Println("Debug2: " + strings.TrimSpace(remapped_name) +":")
 				if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(remapped_name) {
-					// filtered_files = append(filtered_files, front_of_split_string)
-					continue
+					remove_files = append(remove_files, file) // May not be able to use file
 				}
 			} else if strings.TrimSpace(end_of_split_string) == "IncludeFile" {
                                 // Trim the negative sign
@@ -115,7 +111,7 @@ func CompareFiles(files []string, ignored_files []string) []string {
                                 	// fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
                                 	// fmt.Println("Debug2: " + strings.TrimSpace(remapped_name) +":")
                                 	if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(remapped_name) {
-                                        	filtered_files = append(filtered_files, strings.TrimSpace(front_of_split_string))
+                                        	filtered_files = append(filtered_files, remapped_name)
 					}
 				}
 			} else if strings.TrimSpace(end_of_split_string) == "IncludeFolder" {
@@ -189,7 +185,8 @@ func CompareFiles(files []string, ignored_files []string) []string {
 				continue
 			}
 		}
-		// Adjust later for Ignore and in terms of insert just check for duplicates???
+		
+		// issue is this file misses pre-face
 		filtered_files = append(filtered_files, file)
 	}
 	// Check if file is ignored
@@ -197,7 +194,33 @@ func CompareFiles(files []string, ignored_files []string) []string {
 	// Check if file is included so just add it
 	// File not be in any case so just add it which is else case
 	// With fron of new string maybe append and check???
-	return filtered_files
+	
+
+
+
+	/*************************************/
+	/************ BAD FIX ADJUST ********/
+	/***********************************/
+	var result_pool []string
+
+    	// Create a function to check if a file is in the remove_files slice
+    	isInRemoveFiles := func(file string) bool {
+        	for _, rf := range remove_files {
+            		if file == rf {
+                		return true
+            		}
+        	}
+        	return false
+    	}
+
+    	// Iterate through filtered_files and add non-removed files to result
+    	for _, file := range filtered_files {
+        	if !isInRemoveFiles(file) {
+            		result_pool = append(result_pool, file)
+        	}
+    	}
+
+	return result_pool
 }
 
 // Main Controller For File Controller
