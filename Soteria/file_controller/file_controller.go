@@ -219,9 +219,16 @@ func CompareFiles(files []string, ignored_files []string) []string {
     	// Create a function to check if a file is in the remove_files slice
     	isInRemoveFiles := func(file string) bool {
         	for _, rf := range remove_files {
-            		if file == rf {
-                		return true
-            		}
+			f_range := len(file) - len(rf)
+			if f_range > 0 { // May have to adjust
+				// fmt.Println("Length", f_range)
+				// fmt.Println("1:" + file[f_range:] + "|")
+				// fmt.Println("2:" + rf + "|")
+				file_adjust := file[f_range:]
+				if file_adjust == rf {
+                			return true
+            			}
+			}
         	}
         	return false
     	}
@@ -269,7 +276,7 @@ func FileController(path string) {
 
 	// Ignore Cases w Tokens
 	filter_cases := ignore_file_parser.FilterFiles()
-	ShowSliceData(filter_cases)
+	// ShowSliceData(filter_cases)
 
 	// Compare Ignored and all files grabbed
 	file_pool := CompareFiles(extension_filtered_files, filter_cases)
