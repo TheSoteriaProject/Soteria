@@ -75,7 +75,12 @@ func CompareFiles(files []string, ignored_files []string) []string {
 	// check if file is in ignore folder
 	for _, file := range files {
 		for _, i_file := range ignored_files {
-			fmt.Println("File: " + file + " Ignore? : " + i_file)
+			// fmt.Println("File: " + file + " Ignore? : " + i_file)
+			fmt.Println("file: " + file)
+			split_string := strings.SplitAfter(i_file, ":")
+			front_of_split_string := split_string[0]
+			end_of_split_string := split_string[1]
+			fmt.Println("Front: " + front_of_split_string + " End: " + end_of_split_string)
 		}
 	}
 	// Check if file is ignored
