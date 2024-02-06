@@ -96,15 +96,13 @@ func CompareFiles(files []string, ignored_files []string) []string {
 				trim_space_extra := strings.TrimSpace(front_of_split_string) // Get filepath length of ignore
 				file = strings.TrimSpace(file)
 				
-				range_var := (len(trim_space_extra) - len(file))
-				if range_var < 0 {
-					range_var = -(len(trim_space_extra) - len(file))
-				}
+				range_var := -(len(trim_space_extra) - len(file))
+				if range_var >= -1 {
+					file_path := file[range_var:]
+					// fmt.Println("Debug1: " + strings.TrimSpace(file) +":")
+                                	// fmt.Println("Debug2: " + strings.TrimSpace(trim_space_extra) +":")
+					// fmt.Println("Debug3: " + strings.TrimSpace(file_path) +":")
 
-				if range_var >= -1 && range_var < len(trim_space_extra) {
-					file_path := trim_space_extra[range_var:]
-					fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
-                                	fmt.Println("Debug2: " + strings.TrimSpace(file_path) +":")
 					if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(file_path) {
 						remove_files = append(remove_files, file_path) // May not be able to use file
 					}
