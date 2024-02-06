@@ -95,10 +95,102 @@ func CompareFiles(files []string, ignored_files []string) []string {
 				// fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
 				// fmt.Println("Debug2: " + strings.TrimSpace(remapped_name) +":")
 				if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(remapped_name) {
-					filtered_files = append(filtered_files, front_of_split_string)
+					// filtered_files = append(filtered_files, front_of_split_string)
+					continue
 				}
+			} else if strings.TrimSpace(end_of_split_string) == "IncludeFile" {
+                                // Trim the negative sign
+                                front_of_split_string = strings.TrimSpace(front_of_split_string)
+                                front_of_split_string = strings.TrimLeft(front_of_split_string, "+")
+                                front_of_split_string = strings.TrimRight(front_of_split_string, ":")
+
+                                // Genius or dum????
+                                trim_space_extra := strings.TrimSpace(front_of_split_string)
+                                // fmt.Println("Trim White Space: " + trim_space_extra)
+				if (len(trim_space_extra) - len(file)-1) > 0 {
+					dir_preface_path := trim_space_extra[:(len(trim_space_extra) - len(file))-1]
+					// fmt.Println("Parse Dir Path: " + dir_preface_path)
+                                	remapped_name := dir_preface_path + "/" + file
+                                	// fmt.Println("Remapped: " + remapped_name)
+                                	// fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
+                                	// fmt.Println("Debug2: " + strings.TrimSpace(remapped_name) +":")
+                                	if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(remapped_name) {
+                                        	filtered_files = append(filtered_files, strings.TrimSpace(front_of_split_string))
+					}
+				}
+			} else if strings.TrimSpace(end_of_split_string) == "IncludeFolder" {
+				/* 
+                                // Trim the negative sign
+                                front_of_split_string = strings.TrimSpace(front_of_split_string)
+                                front_of_split_string = strings.TrimLeft(front_of_split_string, "+")
+                                front_of_split_string = strings.TrimRight(front_of_split_string, ":")
+
+                                // Genius or dum????
+                                trim_space_extra := strings.TrimSpace(front_of_split_string)
+                                // fmt.Println("Trim White Space: " + trim_space_extra)
+                                if (len(trim_space_extra) - len(file)-1) > 0 {
+                                        dir_preface_path := trim_space_extra[:(len(trim_space_extra) - len(file))-1]
+                                        // fmt.Println("Parse Dir Path: " + dir_preface_path)
+                                        remapped_name := dir_preface_path + "/" + file
+                                        // fmt.Println("Remapped: " + remapped_name)
+                                        // fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
+                                        // fmt.Println("Debug2: " + strings.TrimSpace(remapped_name) +":")
+                                        if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(remapped_name) {
+                                                filtered_files = append(filtered_files, front_of_split_string)
+                                        }
+                                } */
+				continue
+			} else if strings.TrimSpace(end_of_split_string) == "IgnoreFolder" {
+                                /* 
+				// Trim the negative sign
+                                front_of_split_string = strings.TrimSpace(front_of_split_string)
+                                front_of_split_string = strings.TrimLeft(front_of_split_string, "-")
+                                front_of_split_string = strings.TrimRight(front_of_split_string, ":")
+
+                                // Genius or dum????
+                                trim_space_extra := strings.TrimSpace(front_of_split_string)
+                                // fmt.Println("Trim White Space: " + trim_space_extra)
+                                if (len(trim_space_extra) - len(file)-1) > 0 {
+                                        dir_preface_path := trim_space_extra[:(len(trim_space_extra) - len(file))-1]
+                                        // fmt.Println("Parse Dir Path: " + dir_preface_path)
+                                        remapped_name := dir_preface_path + "/" + file
+                                        // fmt.Println("Remapped: " + remapped_name)
+                                        // fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
+                                        // fmt.Println("Debug2: " + strings.TrimSpace(remapped_name) +":")
+                                        if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(remapped_name) {
+                                                filtered_files = append(filtered_files, front_of_split_string)
+                                        }
+                                }
+				*/
+				continue
+			} else if strings.TrimSpace(end_of_split_string) == "IgnoreExtension" {
+				/*
+                                // Trim the negative sign
+                                front_of_split_string = strings.TrimSpace(front_of_split_string)
+                                front_of_split_string = strings.TrimLeft(front_of_split_string, "+")
+                                front_of_split_string = strings.TrimRight(front_of_split_string, ":")
+
+                                // Genius or dum????
+                                trim_space_extra := strings.TrimSpace(front_of_split_string)
+                                // fmt.Println("Trim White Space: " + trim_space_extra)
+                                if (len(trim_space_extra) - len(file)-1) > 0 {
+                                        dir_preface_path := trim_space_extra[:(len(trim_space_extra) - len(file))-1]
+                                        // fmt.Println("Parse Dir Path: " + dir_preface_path)
+                                        remapped_name := dir_preface_path + "/" + file
+                                        // fmt.Println("Remapped: " + remapped_name)
+                                        // fmt.Println("Debug1: " + strings.TrimSpace(front_of_split_string) +":")
+                                        // fmt.Println("Debug2: " + strings.TrimSpace(remapped_name) +":")
+                                        if strings.TrimSpace(front_of_split_string) == strings.TrimSpace(remapped_name) {
+                                                filtered_files = append(filtered_files, front_of_split_string)
+                                        }
+                                } */
+				continue
+                        } else {
+				continue
 			}
 		}
+		// Adjust later for Ignore and in terms of insert just check for duplicates???
+		filtered_files = append(filtered_files, file)
 	}
 	// Check if file is ignored
 	// Check if it needs to be appended because include in folder
