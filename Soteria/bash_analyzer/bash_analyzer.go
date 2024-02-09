@@ -42,5 +42,6 @@ func GetVariables(file_name string) []string {
 }
 
 func Main() {
+	// Dummy Pass in for now
 	GetVariables("./nothing.txt")
 }
