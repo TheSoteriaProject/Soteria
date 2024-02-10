@@ -62,7 +62,7 @@ func TestShowSliceData(t *testing.T) {
         }
 }
 
-func TestTestingController(t *testing.T) {
+func TestFileController(t *testing.T) {
 	// Run the tests
 	TestConnections(t)
 	TestShowSliceData(t)
