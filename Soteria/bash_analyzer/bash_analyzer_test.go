@@ -154,7 +154,7 @@ func TestGetVariableDefinitions1(t *testing.T) {
         }
 }
 
-func TestingController(t *testing.T) { 
+func TestBashController(t *testing.T) { 
         // TestConnections()
 	TestGetVariables1(t)
 	TestGetVariableDefinitions1(t)
@@ -164,6 +164,6 @@ func TestingController(t *testing.T) {
         // TestGetVariableDefinitions3(t)
 }
 
-func MainTest(m *testing.M) {
+func TestMain(m *testing.M) {
         os.Exit(m.Run())
 } 
