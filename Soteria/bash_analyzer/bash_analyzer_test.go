@@ -201,15 +201,14 @@ func TestGetVariableDefinitions3(t *testing.T) {
 		"'param1=value1&param2=value2'",
 		"value1",
 		"value2",
-		"'curl'",
-		"'--insecure'",
-		"'--data'",
-		"'--header \"Content-Type: application/x-www-form-urlencoded\"'",
-		"'--request'",
-		"'--output'",
-		"\"${CURL} ${INSECURE}\"",
+		"'wget'",
+		"'--no-check-certificate'",
+		"'--post-data'",
+		"'--header=Content-Type:application/x-www-form-urlencoded'",
+		"\"${POST_DATA}\"",
+		"\"${WGET} ${NO_CHECK_CERTIFICATE}\"",
 		"$1",
-		"('curl' '-k' '-o' 'installer3.pkg' \"${DOWNLOAD_URL}\")"}
+		"('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")"}
 
 	// Compare
 	if !reflect.DeepEqual(test_list, definition_list) {
