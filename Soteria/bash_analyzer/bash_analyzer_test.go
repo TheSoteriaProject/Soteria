@@ -171,7 +171,8 @@ func TestGetVariableDefinitions2(t *testing.T) {
 		"no",
 		"/dev/null",
 		"'/usr/bin/ssh'",
-		"no"}
+		"no",
+		"/dev/null"}
 
 	// Compare
 	if !reflect.DeepEqual(test_list, definition_list) {
