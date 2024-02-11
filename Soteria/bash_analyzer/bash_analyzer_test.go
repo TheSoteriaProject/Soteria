@@ -167,20 +167,11 @@ func TestGetVariableDefinitions2(t *testing.T) {
 	definition_list := bash_analyzer.GetVariableDefinitions(file)
 
 	// Test Data Definition define list
-	test_list := []string{"'https://example.com/installer.pkg'",
-		"'https://example.com/api/endpoint'",
-		"'param1=value1&param2=value2'",
-		"value1",
-		"value2",
-		"'curl'",
-		"'--insecure'",
-		"'--data'",
-		"'--header \"Content-Type: application/x-www-form-urlencoded\"'",
-		"'--request'",
-		"'--output'",
-		"\"${CURL} ${INSECURE}\"",
-		"$1",
-		"('curl' '-k' '-o' 'installer3.pkg' \"${DOWNLOAD_URL}\")"}
+	test_list := []string{"'-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'",
+		"no",
+		"/dev/null",
+		"'/usr/bin/ssh'",
+		"no"}
 
 	// Compare
 	if !reflect.DeepEqual(test_list, definition_list) {
