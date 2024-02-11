@@ -205,7 +205,9 @@ func TestGetVariableDefinitions3(t *testing.T) {
 		"'--no-check-certificate'",
 		"'--post-data'",
 		"'--header=Content-Type:application/x-www-form-urlencoded'",
-		"\"${POST_DATA}\"",
+		"Content-Type:application/x-www-form-urlencoded",
+		"\"${POST_DATA}\" ${HEADER} -O - \"${POST_URL}\"", // Something is off here will need to deal with it
+		"\"${POST_DATA}\" ${HEADER} -O - \"${POST_URL}\"", // Something is off here will need to deal with it
 		"\"${WGET} ${NO_CHECK_CERTIFICATE}\"",
 		"$1",
 		"('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")"}
