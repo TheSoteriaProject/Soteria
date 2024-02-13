@@ -7,6 +7,9 @@ Place Reminders Here - Logan
 6. Slow and Steady wins the race
 7. Variable Check
 8. Store line number and definition
+9. Data Replace on time or before?
+10. Confidm lexer idea works
+
 
 Lexer
 - Bash - Logan
