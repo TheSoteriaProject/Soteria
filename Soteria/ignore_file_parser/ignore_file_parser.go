@@ -21,22 +21,22 @@ func ShowSliceData(data []string) {
 	}
 }
 
-func fileToStringArray(filepath string) []string {
+func FileToStringArray(filepath string) []string {
 	readFile, err := os.Open(filepath)
-        if err != nil {
-                fmt.Println(err)
-        }
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	fileScanner := bufio.NewScanner(readFile)
-    	fileScanner.Split(bufio.ScanLines)
-    	var fileLines []string
-  
-    	for fileScanner.Scan() {
+	fileScanner.Split(bufio.ScanLines)
+	var fileLines []string
+
+	for fileScanner.Scan() {
 		if fileScanner.Text() != "" {
-        		fileLines = append(fileLines, fileScanner.Text())
+			fileLines = append(fileLines, fileScanner.Text())
 		}
-    	}
-  
+	}
+
 	readFile.Close()
 
 	return fileLines
@@ -44,12 +44,12 @@ func fileToStringArray(filepath string) []string {
 
 func RemoveOneLineComments(filedata []string) []string {
 	removedOneLiners := []string{}
-	
+
 	for _, line := range filedata {
 		if !strings.HasPrefix(line, "#") {
-                	removedOneLiners = append(removedOneLiners, line)
+			removedOneLiners = append(removedOneLiners, line)
 		}
-        }
+	}
 
 	return removedOneLiners
 }
@@ -65,9 +65,9 @@ func RemoveMultiLineComments(filedata []string) []string {
 		if strings.HasPrefix(line, "|-end") {
 			multiLineFlag = false
 		}
-		
+
 		if !multiLineFlag && !strings.HasPrefix(line, "|-end") {
-			removedMultiLiners = append(removedMultiLiners, line) 
+			removedMultiLiners = append(removedMultiLiners, line)
 		}
 	}
 
@@ -78,7 +78,7 @@ func RemoveAfterLineComments(filedata []string) []string {
 	removedAfterLiners := []string{}
 	commentIndex := 1
 
-	for _, line  := range filedata {
+	for _, line := range filedata {
 		for _, character := range line {
 			if character != '#' {
 				commentIndex += 1
@@ -89,49 +89,49 @@ func RemoveAfterLineComments(filedata []string) []string {
 		removedAfterLiners = append(removedAfterLiners, line[:commentIndex-1])
 		commentIndex = 1
 	}
-	
+
 	return removedAfterLiners
 }
 
-func Tokenize(filedata []string) []string { 
+func Tokenize(filedata []string) []string {
 	files_with_tokens := []string{}
-	
+
 	for _, line := range filedata {
 		if strings.HasPrefix(strings.TrimSpace(line), "-") {
 			if strings.HasSuffix(strings.TrimSpace(line), "/") {
-				files_with_tokens = append(files_with_tokens, line + ": IgnoreFolder")
+				files_with_tokens = append(files_with_tokens, line+": IgnoreFolder")
 			} else {
-				files_with_tokens = append(files_with_tokens, line + ": IgnoreFile")
+				files_with_tokens = append(files_with_tokens, line+": IgnoreFile")
 			}
 		} else if strings.HasPrefix(strings.TrimSpace(line), "+") {
 			if strings.HasSuffix(strings.TrimSpace(line), "/") {
-				files_with_tokens = append(files_with_tokens, line + ": IncludeFolder")
+				files_with_tokens = append(files_with_tokens, line+": IncludeFolder")
 			} else {
-				files_with_tokens = append(files_with_tokens, line + ": IncludeFile")
+				files_with_tokens = append(files_with_tokens, line+": IncludeFile")
 			}
 		} else if strings.HasPrefix(strings.TrimSpace(line), "*") {
-			files_with_tokens = append(files_with_tokens, line + ": IgnoreExtension")
+			files_with_tokens = append(files_with_tokens, line+": IgnoreExtension")
 		} else {
 			//
 			fmt.Println("Error in Tokenize")
 		}
 	}
 
-        return files_with_tokens 
+	return files_with_tokens
 }
 
 func FilterFiles() []string {
 	// fmt.Println("Reading Ignore File.")
 	filepath := "./.soteriaignore"
-	
+
 	// Read File into String Array
-	fileLines := fileToStringArray(filepath)
+	fileLines := FileToStringArray(filepath)
 	// ShowSliceData(fileLines) // Show Data
 
 	// Remove Comments
 	without_one_line_comments := RemoveOneLineComments(fileLines)
 	// ShowSliceData(without_one_line_comments) // Show Data
-	
+
 	// Remove Multi-Line Comments
 	without_multi_line_comments := RemoveMultiLineComments(without_one_line_comments)
 	// ShowSliceData(without_multi_line_comments) // Show Data
