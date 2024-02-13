@@ -61,7 +61,9 @@ func TestShowSliceData(t *testing.T) {
 	}
 }
 
-func TestGetAllFilesAndFolders(t *testing.T) {
+func TestWalkTheFiles(t *testing.T) {}
+
+func TestGetAllFiles(t *testing.T) {
 	// files, folders := file_controller.GetAllFilesAndFolders()
 	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
 	// Needs a re-write
@@ -79,7 +81,8 @@ func TestFileController(t *testing.T) {
 	// Run the tests
 	TestConnections(t)
 	TestShowSliceData(t)
-	TestGetAllFilesAndFolders(t)
+	TestWalkTheFiles(t)
+	TestGetAllFiles(t)
 	TestFilterFileExtensions(t)
 	TestCompareFiles(t)
 }

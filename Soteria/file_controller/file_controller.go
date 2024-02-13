@@ -40,6 +40,7 @@ func WalkTheFiles(path string) []string {
 }
 
 // Path Traversal
+// Change Name????/
 func GetAllFiles(path string, info os.FileInfo, err error) []string {
 	files := []string{}
 
@@ -230,9 +231,6 @@ func CompareFiles(files []string, ignored_files []string) []string {
 		for _, rf := range remove_files {
 			f_range := len(file) - len(rf)
 			if f_range > 0 { // May have to adjust
-				// fmt.Println("Length", f_range)
-				// fmt.Println("1:" + file[f_range:] + "|")
-				// fmt.Println("2:" + rf + "|")
 				file_adjust := file[f_range:]
 				if file_adjust == rf {
 					return true
@@ -248,9 +246,9 @@ func CompareFiles(files []string, ignored_files []string) []string {
 			result_pool = append(result_pool, file)
 		}
 	}
-	fmt.Println("Remove Files")
-	ShowSliceData(remove_files)
-	fmt.Println("Result Pool")
+	// fmt.Println("Remove Files")
+	// ShowSliceData(remove_files)
+	/// fmt.Println("Result Pool")
 	return result_pool
 }
 
@@ -259,24 +257,25 @@ func FileController(path string) {
 	// Get All Files / Walk The Directories
 	files := WalkTheFiles(path)
 
-	// Extract bash, Makefiles, and Dockerfiles
+	// Extract bash, Makefiles, and Dockerfiles to be used T or F
 	// Set Variables u stands for use
 	// Do in Main Controller
 	u_bash := true
 	u_dockerfile := true
 	u_makefile := true
 
+	// Filter Down to just Bash, Makefiles, and Dockerfiles
 	extension_filtered_files := FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
-	ShowSliceData(extension_filtered_files)
 
-	// Test Connection
+	// Test Connection to Ignore File Parser
 	ignore_file_parser.TestConnection()
 
 	// Ignore Cases w Tokens
 	filter_cases := ignore_file_parser.FilterFiles()
-	// ShowSliceData(filter_cases)
 
 	// Compare Ignored and all files grabbed
 	file_pool := CompareFiles(extension_filtered_files, filter_cases)
+
+	// Show Final File Pool to be Diverted
 	ShowSliceData(file_pool)
 }
