@@ -85,7 +85,7 @@ func GetVariableDefinitions(file_name string) []string {
 	return definition_list
 }
 
-func Main() {
+func BashController() {
 	// Dummy Pass in for now
 	GetVariables("./nothing.txt")
 }
