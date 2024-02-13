@@ -22,6 +22,23 @@ func ShowSliceData(path []string) {
 	}
 }
 
+// Walk the Path Traversal
+func WalkTheFiles(path string) []string {
+	files := make([]string, 0)
+	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+		file := GetAllFiles(path, info, err)
+		files = append(files, file...)
+		return nil
+	})
+
+	if err != nil {
+		fmt.Println("Error walking the path:", err)
+		return nil
+	}
+
+	return files
+}
+
 // Path Traversal
 func GetAllFiles(path string, info os.FileInfo, err error) []string {
 	files := []string{}
@@ -239,17 +256,8 @@ func CompareFiles(files []string, ignored_files []string) []string {
 
 // Main Controller For File Controller
 func FileController(path string) {
-	// Gather Files and Folders
-	files := make([]string, 0)
-	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
-		file := GetAllFiles(path, info, err)
-		files = append(files, file...)
-		return nil
-	})
-	if err != nil {
-		fmt.Println("Error walking the path:", err)
-		return
-	}
+	// Get All Files / Walk The Directories
+	files := WalkTheFiles(path)
 
 	// Extract bash, Makefiles, and Dockerfiles
 	// Set Variables u stands for use
