@@ -62,7 +62,9 @@ func TestShowSliceData(t *testing.T) {
 }
 
 func TestGetAllFilesAndFolders(t *testing.T) {
+	// files, folders := file_controller.GetAllFilesAndFolders()
 	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+	// Needs a re-write
 }
 
 func TestFilterFileExtensions(t *testing.T) {
