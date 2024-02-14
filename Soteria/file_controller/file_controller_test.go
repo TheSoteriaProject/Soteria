@@ -61,7 +61,11 @@ func TestShowSliceData(t *testing.T) {
 	}
 }
 
-func TestWalkTheFiles(t *testing.T) {}
+func TestWalkTheFiles(t *testing.T) {
+	path := "../../Files"
+	files := file_controller.WalkTheFiles(path)
+	file_controller.ShowSliceData(files)
+}
 
 func TestGetAllFiles(t *testing.T) {
 	// files, folders := file_controller.GetAllFilesAndFolders()
