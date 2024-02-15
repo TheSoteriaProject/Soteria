@@ -6,6 +6,7 @@ import (
 	// "fmt"
 	"io"
 	"os"
+	"reflect"
 	"strings"
 	"testing"
 
@@ -64,13 +65,44 @@ func TestShowSliceData(t *testing.T) {
 func TestWalkTheFiles(t *testing.T) {
 	path := "../../Files"
 	files := file_controller.WalkTheFiles(path)
-	file_controller.ShowSliceData(files)
+
+	test_list := []string{
+		"../../Files/DoNotEnterFile.txt",
+		"../../Files/DoNotEnterFolder/dummy.txt",
+		"../../Files/Dockerfile",
+		"../../Files/Makefile",
+		"../../Files/NonBadFileCOBOL.cob",
+		"../../Files/NonBadFilePEARL.pl",
+		"../../Files/badBash.sh",
+		"../../Files/sample_data/curl_examples.Dockerfile",
+		"../../Files/sample_data/curl_examples.Makefile",
+		"../../Files/sample_data/curl_examples.sh",
+		"../../Files/sample_data/ssh_examples.Makefile",
+		"../../Files/sample_data/ssh_examples.sh",
+		"../../Files/sample_data/wget_examples.Dockerfile",
+		"../../Files/sample_data/wget_examples.Makefile",
+		"../../Files/sample_data/wget_examples.sh"}
+
+	// Compare
+	if !reflect.DeepEqual(test_list, files) {
+		t.Errorf("Expected: %v, Got: %v", test_list, files)
+	}
 }
 
 func TestGetAllFiles(t *testing.T) {
-	// files, folders := file_controller.GetAllFilesAndFolders()
-	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
-	// Needs a re-write
+	path := "../../Files/sample_data/curl_examples.sh"
+	fileInfo, err := os.Lstat(path)
+
+	files := file_controller.GetAllFiles(path, fileInfo, err)
+
+	// Doesn't need to be slice just was lazy
+	test_list := []string{
+		"../../Files/sample_data/curl_examples.sh"}
+
+	// Compare
+	if !reflect.DeepEqual(test_list, files) {
+		t.Errorf("Expected: %v, Got: %v", test_list, files)
+	}
 }
 
 func TestFilterFileExtensions(t *testing.T) {
