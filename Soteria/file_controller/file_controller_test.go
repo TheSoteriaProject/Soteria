@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"Soteria/file_controller"
+	logger "Soteria/logging"
 )
 
 func TestConnections(t *testing.T) {
@@ -153,6 +154,9 @@ func TestFileController(t *testing.T) {
 	TestGetAllFiles(t)
 	TestFilterFileExtensions(t)
 	TestCompareFiles(t)
+
+	// Test Log
+	logger.JsonLogger(24, "CURL", "Curl", "Error")
 }
 
 func TestMain(m *testing.M) {

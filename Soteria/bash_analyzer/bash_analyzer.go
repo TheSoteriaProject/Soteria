@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	//"Soteria/logging"
 )
 
 func GetVariables(file_name string) []string {
