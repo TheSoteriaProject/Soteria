@@ -6,19 +6,33 @@ import (
 	// "Soteria/ignore_file_parser"
 )
 
-func TestTestConnection(t *testing.T) {}
+func TestTestConnection(t *testing.T) {
+	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+}
 
-func TestShowSliceData(t *testing.T) {}
+func TestShowSliceData(t *testing.T) {
+	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+}
 
-func TestFileToStringArray(t *testing.T) {}
+func TestFileToStringArray(t *testing.T) {
+	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+}
 
-func TestRemoveOneLineComments(t *testing.T) {}
+func TestRemoveOneLineComments(t *testing.T) {
+	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+}
 
-func TestRemoveMultiLineComments(t *testing.T) {}
+func TestRemoveMultiLineComments(t *testing.T) {
+	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+}
 
-func TestRemoveAfterLineComments(t *testing.T) {}
+func TestRemoveAfterLineComments(t *testing.T) {
+	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+}
 
-func TestTokenize(t *testing.T) {}
+func TestTokenize(t *testing.T) {
+	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+}
 
 func TestFilterFiles(t *testing.T) {
 	TestTestConnection(t)

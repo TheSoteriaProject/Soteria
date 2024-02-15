@@ -6,10 +6,12 @@ import (
 	// "fmt"
 	"io"
 	"os"
+	"reflect"
 	"strings"
 	"testing"
 
 	"Soteria/file_controller"
+	logger "Soteria/logging"
 )
 
 func TestConnections(t *testing.T) {
@@ -61,15 +63,86 @@ func TestShowSliceData(t *testing.T) {
 	}
 }
 
-func TestGetAllFilesAndFolders(t *testing.T) {
-	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+func TestWalkTheFiles(t *testing.T) {
+	path := "../../Files"
+	files := file_controller.WalkTheFiles(path)
+
+	test_list := []string{
+		"../../Files/DoNotEnterFile.txt",
+		"../../Files/DoNotEnterFolder/dummy.txt",
+		"../../Files/Dockerfile",
+		"../../Files/Makefile",
+		"../../Files/NonBadFileCOBOL.cob",
+		"../../Files/NonBadFilePEARL.pl",
+		"../../Files/badBash.sh",
+		"../../Files/sample_data/curl_examples.Dockerfile",
+		"../../Files/sample_data/curl_examples.Makefile",
+		"../../Files/sample_data/curl_examples.sh",
+		"../../Files/sample_data/ssh_examples.Makefile",
+		"../../Files/sample_data/ssh_examples.sh",
+		"../../Files/sample_data/wget_examples.Dockerfile",
+		"../../Files/sample_data/wget_examples.Makefile",
+		"../../Files/sample_data/wget_examples.sh"}
+
+	// Compare
+	if !reflect.DeepEqual(test_list, files) {
+		t.Errorf("Expected: %v, Got: %v", test_list, files)
+	}
+}
+
+func TestGetAllFiles(t *testing.T) {
+	path := "../../Files/sample_data/curl_examples.sh"
+	fileInfo, err := os.Lstat(path)
+
+	files := file_controller.GetAllFiles(path, fileInfo, err)
+
+	// Doesn't need to be slice just was lazy
+	test_list := []string{
+		"../../Files/sample_data/curl_examples.sh"}
+
+	// Compare
+	if !reflect.DeepEqual(test_list, files) {
+		t.Errorf("Expected: %v, Got: %v", test_list, files)
+	}
 }
 
 func TestFilterFileExtensions(t *testing.T) {
-	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+	// Datset
+	files_list := []string{
+		"../../Files/sample_data/curl_examples.pearl",
+		"../../Files/sample_data/curl_examples.txt",
+		"../../Files/sample_data/curl_examples.Dockerfile",
+		"../../Files/sample_data/curl_examples.Makefile",
+		"../../Files/sample_data/curl_examples.sh",
+		"../../Files/sample_data/ssh_examples.Makefile",
+		"../../Files/sample_data/ssh_examples.sh",
+		"../../Files/sample_data/curl_examples.COBOL",
+		"../../Files/sample_data/wget_examples.Dockerfile",
+		"../../Files/sample_data/wget_examples.Makefile",
+		"../../Files/sample_data/wget_examples.sh"}
+
+	// call function
+	files := file_controller.FilterFileExtensions(files_list, true, true, true)
+
+	// Test Data
+	test_list := []string{
+		"../../Files/sample_data/curl_examples.Dockerfile",
+		"../../Files/sample_data/curl_examples.Makefile",
+		"../../Files/sample_data/curl_examples.sh",
+		"../../Files/sample_data/ssh_examples.Makefile",
+		"../../Files/sample_data/ssh_examples.sh",
+		"../../Files/sample_data/wget_examples.Dockerfile",
+		"../../Files/sample_data/wget_examples.Makefile",
+		"../../Files/sample_data/wget_examples.sh"}
+
+	// Compare
+	if !reflect.DeepEqual(test_list, files) {
+		t.Errorf("Expected: %v, Got: %v", test_list, files)
+	}
 }
 
 func TestCompareFiles(t *testing.T) {
+	// Not Fully Implemented yet
 	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
 }
 
@@ -77,9 +150,13 @@ func TestFileController(t *testing.T) {
 	// Run the tests
 	TestConnections(t)
 	TestShowSliceData(t)
-	TestGetAllFilesAndFolders(t)
+	TestWalkTheFiles(t)
+	TestGetAllFiles(t)
 	TestFilterFileExtensions(t)
 	TestCompareFiles(t)
+
+	// Test Log
+	logger.JsonLogger(24, "CURL", "Curl", "Error")
 }
 
 func TestMain(m *testing.M) {
