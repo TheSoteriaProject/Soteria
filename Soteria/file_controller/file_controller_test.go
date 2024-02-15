@@ -106,10 +106,42 @@ func TestGetAllFiles(t *testing.T) {
 }
 
 func TestFilterFileExtensions(t *testing.T) {
-	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
+	// Datset
+	files_list := []string{
+		"../../Files/sample_data/curl_examples.pearl",
+		"../../Files/sample_data/curl_examples.txt",
+		"../../Files/sample_data/curl_examples.Dockerfile",
+		"../../Files/sample_data/curl_examples.Makefile",
+		"../../Files/sample_data/curl_examples.sh",
+		"../../Files/sample_data/ssh_examples.Makefile",
+		"../../Files/sample_data/ssh_examples.sh",
+		"../../Files/sample_data/curl_examples.COBOL",
+		"../../Files/sample_data/wget_examples.Dockerfile",
+		"../../Files/sample_data/wget_examples.Makefile",
+		"../../Files/sample_data/wget_examples.sh"}
+
+	// call function
+	files := file_controller.FilterFileExtensions(files_list, true, true, true)
+
+	// Test Data
+	test_list := []string{
+		"../../Files/sample_data/curl_examples.Dockerfile",
+		"../../Files/sample_data/curl_examples.Makefile",
+		"../../Files/sample_data/curl_examples.sh",
+		"../../Files/sample_data/ssh_examples.Makefile",
+		"../../Files/sample_data/ssh_examples.sh",
+		"../../Files/sample_data/wget_examples.Dockerfile",
+		"../../Files/sample_data/wget_examples.Makefile",
+		"../../Files/sample_data/wget_examples.sh"}
+
+	// Compare
+	if !reflect.DeepEqual(test_list, files) {
+		t.Errorf("Expected: %v, Got: %v", test_list, files)
+	}
 }
 
 func TestCompareFiles(t *testing.T) {
+	// Not Fully Implemented yet
 	// t.Errorf("Expected: %q, Got: %q", "expected", "got")
 }
 
