@@ -159,7 +159,7 @@ func TestFileController(t *testing.T) {
 	logger.JsonLogger(24, "CURL", "Curl", "Error")
 	logger.JsonLogger(25, "HTTP", "http", "Warn")
 	logger.JsonLogger(26, "WGET", "wget", "Error")
-	// logger.DestroyJsonLog() Flag maybe??
+	// logger.DestroyJsonLog() // Flag maybe??
 }
 
 func TestMain(m *testing.M) {
