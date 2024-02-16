@@ -21,7 +21,7 @@ func StoreJsonLogs(log_data Log) {
 	if os.IsNotExist(err) {
 		_, err := os.Create(filename)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("Error creating file:", err)
 			return
 		}
 	}
@@ -62,7 +62,7 @@ func StoreJsonLogs(log_data Log) {
 	}
 
 	// Write the updated JSON data back to the file
-	err = os.WriteFile(filename, updatedJsonData, 0644)
+	err = os.WriteFile(filename, updatedJsonData, 0666)
 	if err != nil {
 		fmt.Println("Error writing to file:", err)
 		return
@@ -72,11 +72,14 @@ func StoreJsonLogs(log_data Log) {
 func JsonLogger(LineNumber int, Variable string, Definition string, ErrorType string) {
 	log := &Log{LineNumber: LineNumber, Variable: Variable, Definition: Definition, ErrorType: ErrorType}
 	printLog, err := json.MarshalIndent(log, "", "\t")
-	StoreJsonLogs(*log)
 	if err != nil {
-		panic(err)
+		fmt.Println("Error marshalling log:", err)
+		return
 	}
 	fmt.Printf("%s\n", printLog)
+
+	// Store log data
+	StoreJsonLogs(*log)
 }
 
 func DestroyJsonLog() error {
