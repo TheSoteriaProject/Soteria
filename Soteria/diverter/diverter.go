@@ -35,7 +35,7 @@ func DivertFiles(file_pool []string) {
 		}
 		// Bash Check
 		if u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
-			fmt.Printf("Diverted: " + file + " to Bash Static Analyzer.")
+			fmt.Println("Diverted: " + file + " to Bash Static Analyzer.")
 		}
 	}
 }
