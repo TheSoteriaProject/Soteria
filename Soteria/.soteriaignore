@@ -1,29 +1,4 @@
-# Lines starting with '#' or that include '#' are ignored after being used.
-# - Means DO NOT Include
-# + Means DO Include
-# * Means DO NOT Include this file extension
-# |-start & |-end for multi-line comments
-
-# Example Multi-line Comment
-|-start
-  I
-  Am
-  Being
-  Ignored
-|-end
-
-# Example DO NOT Include & DO Include & DO/DO NOT Include ALL
-  - DoNotEnterFolder/     					# Folders with this name
-  - Soteria/Files/Dockerfile        				# Files with this name
-  - Soteria/Files/sample_data/curl_examples.Makefile           # This Spacing Should NOT matter
-  + DoEnterFolder2/        					# Specific folder grab
-  + DoEnterFile2.sh        					# Dont skip file is what the + is for meaning other files not needed
-  + Soteria/Files/DoEnterFolder2/sample_data/curl_examples.sh  #
-  + Soteria/Files/sample_data/ssh_examples.Makefile            #
-  + Soteria/Files/sample_data/ssh_examples.sh                  #
-  + Soteria/Files/sample_data/wget_examples.Dockerfile         #
-  *.debug                 					# Files with this Extension DO NOT include
-
-# Other Ignore cases may need to be added.
-# Possibly can simplify
-# Sam Name Issue??????
+DoNotEnterFolder
+sample_data3
+sample_data4
+# sample_data5

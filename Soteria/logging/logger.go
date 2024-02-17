@@ -1,7 +1,9 @@
 package logger
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
 )
 
 type Log struct {
@@ -11,13 +13,31 @@ type Log struct {
 	ErrorType  string
 }
 
-func StoreJsonLogs(log *Log) {
-	// Not Implemented
-	fmt.Println("Stored Logs: ", log)
+func StoreJsonLogs(log_data Log) {
+	// Not Implemnted
 }
 
 func JsonLogger(LineNumber int, Variable string, Definition string, ErrorType string) {
 	log := &Log{LineNumber: LineNumber, Variable: Variable, Definition: Definition, ErrorType: ErrorType}
-	StoreJsonLogs(log)
-	fmt.Printf("Line Number: %d, Variable: %s, Definition: %s, Error Type: %s\n", log.LineNumber, log.Variable, log.Definition, log.ErrorType)
+	printLog, err := json.MarshalIndent(log, "", "\t")
+	if err != nil {
+		fmt.Println("Error marshalling log:", err)
+		return
+	}
+	fmt.Printf("%s\n", printLog)
+
+	// Store log data
+	// StoreJsonLogs(*log)
+}
+
+// Not Implemented
+func DestroyJsonLog() error {
+	filename := "../../logs/log.json"
+	if err := os.Truncate(filename, 0); err != nil {
+		return err
+	}
+	if err := os.Remove(filename); err != nil {
+		return err
+	}
+	return nil
 }
