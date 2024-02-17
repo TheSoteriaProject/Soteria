@@ -1,0 +1,12 @@
+all:
+ - http
+
+curl:
+ - -k
+ - --insecure
+
+wget:
+ - --no-check-certificate
+
+ssh:
+ - StrictHostKeyChecking=no
