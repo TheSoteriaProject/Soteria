@@ -21,10 +21,8 @@ func main() {
 	//Confirm/Test Diverter Connection
 	diverter.TestConnection()
 
-	if len(os.Args) > 1 {
-		// Take Project Path
-		input := os.Args[1]
-
+	// if len(os.Args) > 1 {
+	if flag.NFlag() >= 0 || flag.NArg() >= 0 {
 		// Diasble Terminal Flags
 		flag.Usage = func() {}
 
@@ -41,8 +39,23 @@ func main() {
 		flag.BoolVar(&versionCheck, "version", false, "Version Check")
 		flag.BoolVar(&versionCheck, "v", false, "Version Check")
 
+		// Bash, Makefile, and Docker Flag
+		// May be doing this wrong long term.
+		uBash := flag.Bool("uBash", true, "Check Bash Files")
+		uMakefile := flag.Bool("uMakefile", true, "Check Makefiles File")
+		uDockerfile := flag.Bool("uDockerfile", true, "Check Dockerfile Files")
+
 		// Parse Flag
 		flag.Parse()
+
+		// Take Project Path
+		args := flag.Args()
+		input := ""
+		if len(args) > 0 {
+			input = args[len(args)-1]
+		} else {
+			input = flag.Arg(0)
+		}
 
 		if runTests {
 			cmd := exec.Command("go", "test", "./...", "-v")
@@ -70,12 +83,14 @@ func main() {
 			// If File Path Does Exist
 			if _, err := os.Stat(input); err == nil {
 				// All the Files that are to be checked.
-				file_pool := file_controller.FileController(input)
+				file_pool := file_controller.FileController(input, *uMakefile, *uDockerfile, *uBash)
 				// Divert Files to correct parser || parsers
-				diverter.DivertFiles(file_pool)
+				diverter.DivertFiles(file_pool, *uMakefile, *uDockerfile, *uBash)
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
-				fmt.Println("Path Does Not Exist.")
+				// fmt.Println("Path Does Not Exist.")
+				// Other Issue?
+				fmt.Println("It seems you have given an invalid input. Try --help")
 				os.Exit(1)
 			} else {
 				// If File Does Not Exist Throw Err and EXIT

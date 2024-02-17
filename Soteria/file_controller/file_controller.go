@@ -92,12 +92,12 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 		extension := filepath.Ext(split[len(split)-1]) // MAY WANT FULL FILE PATH
 		// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
 		// Makefile Check
-		if u_makefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
+		if (u_makefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile"))) || (u_makefile && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile"))) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, files)
 		}
 		// Dockerfile Check
-		if u_dockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
+		if (u_dockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile"))) || (u_dockerfile && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile"))) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, files)
 		}
@@ -112,20 +112,13 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 }
 
 // FileController is the Main Controller and handles each step.
-func FileController(path string) []string {
+func FileController(path string, u_makefile bool, u_dockerfile bool, u_bash bool) []string {
 	ignore_file := "./.soteriaignore"
 	ignoreDirs := GetIgnoreDirs(ignore_file)
 	ShowSliceData(ignoreDirs)
 
 	// Get All Files / Walk The Directories
 	files := WalkTheFiles(path, ignoreDirs)
-
-	// Extract bash, Makefiles, and Dockerfiles to be used T or F
-	// Set Variables u stands for use
-	// Do in Main Controller
-	u_bash := true
-	u_dockerfile := true
-	u_makefile := true
 
 	// Filter Down to just Bash, Makefiles, and Dockerfiles
 	file_pool := FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)

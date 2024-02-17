@@ -13,15 +13,7 @@ func TestConnection() {
 }
 
 // DivertFiles is used to send files to the correct static (analyzer || analyzers)
-func DivertFiles(file_pool []string) {
-
-	// Extract bash, Makefiles, and Dockerfiles to be used T or F
-	// Set Variables u stands for use
-	// Do in Main Controller
-	u_bash := true
-	u_dockerfile := true
-	u_makefile := true
-
+func DivertFiles(file_pool []string, u_makefile bool, u_dockerfile bool, u_bash bool) {
 	for _, file := range file_pool {
 		split := strings.Split(file, "/")
 		extension := filepath.Ext(split[len(split)-1]) // MAY WANT FULL FILE PATH
