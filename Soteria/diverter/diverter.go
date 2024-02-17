@@ -1,12 +1,16 @@
-// Possibly Best To Keep Seperate due to Return Codes and assumed flags?????
-// Uncertain will think about at a later point
-// can't leave file blank
 package diverter
-/*
-func divert() {
-	// Do Nothing
+
+import (
+	"fmt"
+)
+
+// TestConnection is used to Test Diverter Connection.
+func TestConnection() {
+	fmt.Println("Testing Diverter Connection.")
 }
 
-func main() {
-	divert()
-} */
+// DivertFiles is used to send ethe files to the correct static (analyzer || analyzers)
+func DivertFiles(file_pool []string) ([]string, error) {
+	// Do Nothing
+	return file_pool, nil
+}

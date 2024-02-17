@@ -8,21 +8,21 @@ import (
 	"strings"
 )
 
-// Confirm File Controller Connection
+// TestConnection is used to Test File Controller Connection.
 func TestConnection() {
 	fmt.Println("Testing File Controller Connection.")
 }
 
-// Show Slice Data for Debugging
+// ShowSliceData is to be used for Debugging Slices.
 func ShowSliceData(path []string) {
 	for _, path := range path {
 		fmt.Printf("%s\n", path)
 	}
 }
 
+// GetIgnoreDirs Gets Folders that should be Ignored.
 func GetIgnoreDirs(path string) []string {
 	ignoreDirs := []string{}
-	// Open the file
 	file, err := os.Open(path)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
@@ -32,7 +32,7 @@ func GetIgnoreDirs(path string) []string {
 
 	scanner := bufio.NewScanner(file)
 
-	// Read each line and append it to the slice
+	// Read each line and append it to the slice unless it is a comment
 	for scanner.Scan() {
 		line := scanner.Text()
 		if !strings.HasPrefix(strings.TrimSpace(line), "#") {
@@ -40,7 +40,7 @@ func GetIgnoreDirs(path string) []string {
 		}
 	}
 
-	// Check for errors during scanning
+	// Check for errors
 	if err := scanner.Err(); err != nil {
 		fmt.Println("Error scanning file:", err)
 		return nil
@@ -49,7 +49,7 @@ func GetIgnoreDirs(path string) []string {
 	return ignoreDirs
 }
 
-// WalkTheFiles traverses the directory tree starting from the given path and collects file paths.
+// WalkTheFiles traverses the directory tree starting from the given project path and collects needed file paths.
 func WalkTheFiles(path string, ignoreDirs []string) []string {
 	files := make([]string, 0)
 	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
@@ -58,7 +58,7 @@ func WalkTheFiles(path string, ignoreDirs []string) []string {
 			return err
 		}
 		if info.IsDir() && ShouldSkipDir(path, ignoreDirs) {
-			return filepath.SkipDir // Skip this directory
+			return filepath.SkipDir
 		}
 		if !info.IsDir() {
 			files = append(files, path)
@@ -83,6 +83,7 @@ func ShouldSkipDir(path string, ignoreDirs []string) bool {
 	return false
 }
 
+// FilterFileExtensions checks each file to make sure it is the proper extension.
 func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_bash bool) []string {
 	filtered_files := []string{}
 
@@ -110,8 +111,8 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 	return filtered_files
 }
 
-// Main Controller For File Controller
-func FileController(path string) {
+// FileController is the Main Controller and handles each step.
+func FileController(path string) []string {
 	ignore_file := "./.soteriaignore"
 	ignoreDirs := GetIgnoreDirs(ignore_file)
 	ShowSliceData(ignoreDirs)
@@ -130,5 +131,7 @@ func FileController(path string) {
 	file_pool := FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
 
 	// Show Final File Pool to be Diverted
-	ShowSliceData(file_pool)
+	// ShowSliceData(file_pool)
+
+	return file_pool
 }
