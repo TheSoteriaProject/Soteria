@@ -17,7 +17,6 @@ func ShowSliceData(path []string) {
 
 // ShowTwoSlicesData is used to iterate over two slices
 func ShowTwoSlicesData(slice1 []string, slice2 []string) {
-	// Ensure both slices have the same length
 	minLength := 0
 	if len(slice2) == len(slice1) {
 		minLength = len(slice2)
@@ -26,7 +25,6 @@ func ShowTwoSlicesData(slice1 []string, slice2 []string) {
 		// Find a way to deal with this.
 	}
 
-	// Iterate over slices and print side by side
 	for i := 0; i < minLength; i++ {
 		fmt.Println(slice1[i] + " : " + slice2[i])
 	}
