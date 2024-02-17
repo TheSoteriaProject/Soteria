@@ -72,7 +72,11 @@ func main() {
 				// All the Files that are to be checked.
 				file_pool := file_controller.FileController(input)
 				// Divert Files to correct parser || parsers
-				diverter.DivertFiles(file_pool)
+				_, err := diverter.DivertFiles(file_pool)
+				if err != nil {
+					fmt.Printf("Error Running Diverter: %v\n", err)
+					os.Exit(1)
+				}
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
 				fmt.Println("Path Does Not Exist.")
