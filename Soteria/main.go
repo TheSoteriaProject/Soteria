@@ -1,63 +1,60 @@
 package main
 
 import (
-	"fmt"
-	"flag"
 	"errors"
+	"flag"
+	"fmt"
 	"os"
 	"os/exec"
-	// "testing"
 
 	// Custom Files
+	"Soteria/diverter"
 	"Soteria/file_controller"
 )
 
 func main() {
-	// fmt.Println("Welcome to Insecure Communication Linter.")
+	fmt.Println("Welcome to Insecure Communication Linter.")
 
 	// Confrim/Test File Controller Connection
 	file_controller.TestConnection()
 
-	if len(os.Args) > 1 {
-		// Main
-		input := os.Args[1]
-	
+	//Confirm/Test Diverter Connection
+	diverter.TestConnection()
 
-		// Diasble
+	if len(os.Args) > 1 {
+		// Take Project Path
+		input := os.Args[1]
+
+		// Diasble Terminal Flags
 		flag.Usage = func() {}
 
-		// Test
+		// Test Flag
 		var runTests bool
 		flag.BoolVar(&runTests, "test", false, "Run tests")
 
-		// Help
+		// Help Flag
 		var helpUser bool
 		flag.BoolVar(&helpUser, "help", false, "Help User")
 
-		// Version
+		// Version Flag
 		var versionCheck bool
 		flag.BoolVar(&versionCheck, "version", false, "Version Check")
-		flag.BoolVar(&versionCheck, "v", false, "Version Check") 
-                
+		flag.BoolVar(&versionCheck, "v", false, "Version Check")
+
 		// Parse Flag
 		flag.Parse()
 
 		if runTests {
-			// Add Testing Controller
-			// fmt.Println("Testing Tool")
-			// Run tests using the "go test" command
-
-			// Adjust and create a function that calls them all
 			cmd := exec.Command("go", "test", "./...", "-v")
 			cmd.Stdout = os.Stdout
 			cmd.Stderr = os.Stderr
 
 			fmt.Println("Running tests...")
 			err := cmd.Run()
-		if err != nil {
-			fmt.Printf("Error running tests: %v\n", err)
-			os.Exit(1)
-		}
+			if err != nil {
+				fmt.Printf("Error running tests: %v\n", err)
+				os.Exit(1)
+			}
 		} else if helpUser {
 			// Create A Help Controller
 			fmt.Println("Help Page")
@@ -67,28 +64,28 @@ func main() {
 			fmt.Println("Version: v" + version)
 		} else {
 			// Add Other flags
-			// --warn etc... 
+			// --warn etc...
 			// Check for multiple flags possibly
 
-
-			// check if File Path
+			// If File Path Does Exist
 			if _, err := os.Stat(input); err == nil {
-				// Adjust to give a return
-				file_controller.FileController(input)
+				// All the Files that are to be checked.
+				file_pool := file_controller.FileController(input)
+				// Divert Files to correct parser || parsers
+				diverter.DivertFiles(file_pool)
 			} else if errors.Is(err, os.ErrNotExist) {
-  				// Path Does Not Exist
+				// If Path Does Not Exist Throw Error and Exit
 				fmt.Println("Path Does Not Exist.")
-				// Add Error
 				os.Exit(1)
 			} else {
-				// File Does Not Exist
+				// If File Does Not Exist Throw Err and EXIT
 				// SHOULD NOT MAKE IT HERE
 				fmt.Println("File Does Not Exist")
-				// Add Error
 				os.Exit(1)
 			}
 		}
 	} else {
-		fmt.Println("It seems you have given an invalid input. Try --help") 
+		// Invalid Input or Bad CLI Argument
+		fmt.Println("It seems you have given an invalid input. Try --help")
 	}
 }
