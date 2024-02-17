@@ -1,6 +1,7 @@
 package diverter
 
 import (
+	"Soteria/bash_analyzer"
 	"fmt"
 	"path/filepath"
 	"strings"
@@ -11,7 +12,7 @@ func TestConnection() {
 	fmt.Println("Testing Diverter Connection.")
 }
 
-// DivertFiles is used to send ethe files to the correct static (analyzer || analyzers)
+// DivertFiles is used to send files to the correct static (analyzer || analyzers)
 func DivertFiles(file_pool []string) {
 
 	// Extract bash, Makefiles, and Dockerfiles to be used T or F
@@ -36,6 +37,8 @@ func DivertFiles(file_pool []string) {
 		// Bash Check
 		if u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
 			fmt.Println("Diverted: " + file + " to Bash Static Analyzer.")
+			// Can Pass via CLI However for this one it is written in go so I wont.
+			bash_analyzer.BashController(file)
 		}
 	}
 }

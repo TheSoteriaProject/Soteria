@@ -8,6 +8,30 @@ import (
 	//"Soteria/logging"
 )
 
+// ShowSliceData is to be used for Debugging Slices.
+func ShowSliceData(path []string) {
+	for _, path := range path {
+		fmt.Printf("%s\n", path)
+	}
+}
+
+// ShowTwoSlicesData is used to iterate over two slices
+func ShowTwoSlicesData(slice1 []string, slice2 []string) {
+	// Ensure both slices have the same length
+	minLength := 0
+	if len(slice2) == len(slice1) {
+		minLength = len(slice2)
+	} else {
+		fmt.Println("Error. Length of slices must be equal.")
+		// Find a way to deal with this.
+	}
+
+	// Iterate over slices and print side by side
+	for i := 0; i < minLength; i++ {
+		fmt.Println(slice1[i] + " : " + slice2[i])
+	}
+}
+
 func GetVariables(file_name string) []string {
 	variable_list := []string{}
 
@@ -86,7 +110,9 @@ func GetVariableDefinitions(file_name string) []string {
 	return definition_list
 }
 
-func BashController() {
-	// Dummy Pass in for now
-	GetVariables("./nothing.txt")
+func BashController(file string) {
+	// Pass File Name/Path
+	temp := GetVariables(file)
+	temp2 := GetVariableDefinitions(file)
+	ShowTwoSlicesData(temp, temp2)
 }
