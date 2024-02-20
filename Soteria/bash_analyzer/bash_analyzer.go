@@ -3,8 +3,11 @@ package bash_analyzer
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"regexp"
+
+	"gopkg.in/yaml.v3"
 	//"Soteria/logging"
 )
 
@@ -17,12 +20,9 @@ func ShowSliceData(path []string) {
 
 // ShowTwoSlicesData is used to iterate over two slices
 func ShowTwoSlicesData(slice1 []string, slice2 []string) {
-	minLength := 0
-	if len(slice2) == len(slice1) {
+	minLength := len(slice1)
+	if len(slice2) < minLength {
 		minLength = len(slice2)
-	} else {
-		fmt.Println("Error. Length of slices must be equal.")
-		// Find a way to deal with this.
 	}
 
 	for i := 0; i < minLength; i++ {
@@ -30,6 +30,16 @@ func ShowTwoSlicesData(slice1 []string, slice2 []string) {
 	}
 }
 
+// ReadYAMLFile reads YAML data from a file and returns it as a byte slice.
+func ReadYAMLFile(filePath string) ([]byte, error) {
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
+}
+
+// GetVariables reads the variables from the Bash File.
 func GetVariables(file_name string) []string {
 	variable_list := []string{}
 
@@ -64,6 +74,7 @@ func GetVariables(file_name string) []string {
 	return variable_list
 }
 
+// GetVariableDefnitions reads the variable definitions from the Bash File.
 func GetVariableDefinitions(file_name string) []string {
 	definition_list := []string{}
 	file, err := os.Open(file_name)
@@ -108,9 +119,37 @@ func GetVariableDefinitions(file_name string) []string {
 	return definition_list
 }
 
+// CheckForHiddenInsecureCommunication from the file.
+func CheckForHiddenInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
+	yamlData, err := ReadYAMLFile(filepath)
+	if err != nil {
+		log.Fatalf("error reading YAML file: %v", err)
+	}
+
+	var data map[string]interface{}
+
+	if err := yaml.Unmarshal([]byte(yamlData), &data); err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
+	for section, commands := range data {
+		fmt.Println(section + ":")
+		for _, command := range commands.([]interface{}) {
+			fmt.Println("  ", command)
+		}
+	}
+}
+
+func CheckForInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
+}
+
 func BashController(file string) {
 	// Pass File Name/Path
-	temp := GetVariables(file)
-	temp2 := GetVariableDefinitions(file)
-	ShowTwoSlicesData(temp, temp2)
+	v := GetVariables(file)
+	vd := GetVariableDefinitions(file)
+	// ShowTwoSlicesData(v, vd)
+
+	// Iterate YAML
+	warn_file := "bash_analyzer/warn.yaml"
+	CheckForHiddenInsecureCommunication(warn_file, v, vd)
 }

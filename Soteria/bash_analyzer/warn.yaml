@@ -1,12 +1,12 @@
 all:
- - http
+  - http
 
 curl:
- - -k
- - --insecure
+  - -k
+  - --insecure
 
 wget:
- - --no-check-certificate
+  - --no-check-certificate
 
 ssh:
- - StrictHostKeyChecking=no
+  - StrictHostKeyChecking=no

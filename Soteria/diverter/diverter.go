@@ -28,7 +28,7 @@ func DivertFiles(file_pool []string, u_makefile bool, u_dockerfile bool, u_bash 
 		}
 		// Bash Check
 		if u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
-			fmt.Println("Diverted: " + file + " to Bash Static Analyzer.")
+			// fmt.Println("Diverted: " + file + " to Bash Static Analyzer.")
 			// Can Pass via CLI However for this one it is written in go so I wont.
 			bash_analyzer.BashController(file)
 		}
