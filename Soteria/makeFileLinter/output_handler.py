@@ -13,4 +13,4 @@ class OutputHandler:
         
         with open(filename, 'w') as file:
             json.dump(issues, file, indent=4)
-        print(f"Issues written to {filename}")
+        print(f"Check compelte, Issues written to {filename}")
