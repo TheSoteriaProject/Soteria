@@ -40,6 +40,30 @@ func ReadYAMLFile(filePath string) ([]byte, error) {
 	return data, nil
 }
 
+func ReadLines(filename string, section string, command string) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
+			section_command := section + " " + command
+			if strings.Contains(line, (section_command)) {
+				fmt.Println("Found: ", line+"\nContains: "+section+" "+command)
+			}
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return
+	}
+}
+
 // GetVariables reads the variables from the Bash File.
 func GetVariables(file_name string) []string {
 	variable_list := []string{}
@@ -175,6 +199,7 @@ func VariableSwap(file string, variables []string, variable_definitions []string
 	writer.Flush()
 }
 
+/*
 // CheckForHiddenInsecureCommunication from the file.
 func CheckForHiddenInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
 	yamlData, err := ReadYAMLFile(filepath)
@@ -201,9 +226,27 @@ func CheckForHiddenInsecureCommunication(filepath string, variables []string, va
 			}
 		}
 	}
-}
+} */
 
-func CheckForInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
+func CheckForInsecureCommunication(filepath string, warn_file string, variables []string, variable_definitions []string) {
+	yamlData, err := ReadYAMLFile(warn_file)
+	if err != nil {
+		log.Fatalf("error reading YAML file: %v", err)
+	}
+
+	var data map[string]interface{}
+
+	if err := yaml.Unmarshal([]byte(yamlData), &data); err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
+	for section, commands := range data {
+		for _, command := range commands.([]interface{}) {
+			// fmt.Println(section, command)
+			// Just grep file if not echo or comment??? INLINE ONLY
+			ReadLines(filepath, section, command.(string))
+		}
+	}
 }
 
 func BashController(file string, warnUser bool) {
@@ -214,12 +257,8 @@ func BashController(file string, warnUser bool) {
 
 	// Iterate YAML
 	warn_file := "bash_analyzer/warn.yaml"
-	yamlData, err := ReadYAMLFile(warn_file)
-	if err != nil {
-		log.Fatalf("error reading YAML file: %v", err)
-	}
-	fmt.Println(yamlData) // prevent error
 
 	// CheckForHiddenInsecureCommunication(warn_file, v, vd)
-	VariableSwap(file, v, vd)
+	// VariableSwap(file, v, vd)
+	CheckForInsecureCommunication(file, warn_file, v, vd) // V and D probably useless for in-line
 }
