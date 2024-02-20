@@ -272,5 +272,6 @@ func BashController(file string, warnUser bool) {
 
 	// CheckForHiddenInsecureCommunication(warn_file, v, vd)
 	// VariableSwap(file, v, vd)
+
 	CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
 }

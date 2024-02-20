@@ -70,7 +70,7 @@ func JsonLogger(FileName string, LineNumber int, Line string, Issue string, Erro
 
 // Not Implemented
 func DestroyJsonLog() error {
-	filename := "../../logs/log.json"
+	filename := "../logs/log.json"
 	if err := os.Truncate(filename, 0); err != nil {
 		return err
 	}
