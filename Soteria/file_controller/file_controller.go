@@ -115,7 +115,7 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 func FileController(path string, u_makefile bool, u_dockerfile bool, u_bash bool) []string {
 	ignore_file := "./.soteriaignore"
 	ignoreDirs := GetIgnoreDirs(ignore_file)
-	ShowSliceData(ignoreDirs)
+	// ShowSliceData(ignoreDirs)
 
 	// Get All Files / Walk The Directories
 	files := WalkTheFiles(path, ignoreDirs)

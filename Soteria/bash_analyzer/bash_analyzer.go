@@ -52,8 +52,15 @@ func ReadLines(filename string, section string, command string) {
 	for scanner.Scan() {
 		line := scanner.Text()
 		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
-			section_command := section + " " + command
-			if strings.Contains(line, (section_command)) {
+			// section_command := section + " " + command
+			// Deal with match a little better by makign sure line has curl and -k but not other name
+			pattern1 := "\\b" + section + "\\b"
+			pattern2 := command
+			re1 := regexp.MustCompile(pattern1)
+			re2 := regexp.MustCompile(pattern2)
+
+			// Check if the text contains the exact matches for both patterns
+			if re1.MatchString(line) && re2.MatchString(line) {
 				fmt.Println("Found: ", line+"\nContains: "+section+" "+command)
 			}
 		}
