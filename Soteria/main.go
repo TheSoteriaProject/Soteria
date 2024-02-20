@@ -11,16 +11,17 @@ import (
 	// Custom Files
 	"Soteria/diverter"
 	"Soteria/file_controller"
+	Help "Soteria/help" // Alias Given
 )
 
 func main() {
 	fmt.Println("Welcome to Insecure Communication Linter.")
 
 	// Confrim/Test File Controller Connection
-	file_controller.TestConnection()
+	// file_controller.TestConnection()
 
 	//Confirm/Test Diverter Connection
-	diverter.TestConnection()
+	// diverter.TestConnection()
 
 	// if len(os.Args) > 1 {
 	if flag.NFlag() >= 0 || flag.NArg() >= 0 {
@@ -70,8 +71,7 @@ func main() {
 				os.Exit(1)
 			}
 		} else if helpUser {
-			// Create A Help Controller
-			fmt.Println("Help Page")
+			Help.Info()
 		} else if versionCheck {
 			tagOutput := exec.Command("git", "rev-list", "--tags", "--max-count=1")
 			outTag, errTag := tagOutput.Output()
