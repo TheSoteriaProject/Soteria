@@ -13,6 +13,8 @@ def main():
     issues = linter.analyze()
     
     OutputHandler.write_issues_to_json(issues)
+
+    print("Analysis complete. Issues written to issues.json.")
     
     if issues and not args.warn:
         exit(1)
