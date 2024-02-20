@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	// Custom Files
 	"Soteria/diverter"
@@ -72,9 +73,22 @@ func main() {
 			// Create A Help Controller
 			fmt.Println("Help Page")
 		} else if versionCheck {
-			// Set From File
-			version := "0.0.0.0"
-			fmt.Println("Version: v" + version)
+			tagOutput := exec.Command("git", "rev-list", "--tags", "--max-count=1")
+			outTag, errTag := tagOutput.Output()
+			if errTag != nil {
+				fmt.Println("Error: ", errTag)
+			}
+
+			tag := strings.TrimSpace(string(outTag))
+
+			versionCmd := exec.Command("git", "describe", "--tags", tag)
+			outVersion, errVersion := versionCmd.Output()
+			if errVersion != nil {
+				fmt.Println("Error:", errVersion)
+				return
+			}
+
+			fmt.Println("Version:", strings.TrimSpace(string(outVersion)))
 		} else {
 			// Add Other flags
 			// --warn etc...
