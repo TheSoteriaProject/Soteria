@@ -206,7 +206,7 @@ func CheckForHiddenInsecureCommunication(filepath string, variables []string, va
 func CheckForInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
 }
 
-func BashController(file string) {
+func BashController(file string, warnUser bool) {
 	// Pass File Name/Path
 	v := GetVariables(file)
 	vd := GetVariableDefinitions(file)

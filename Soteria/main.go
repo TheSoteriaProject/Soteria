@@ -47,6 +47,10 @@ func main() {
 		uMakefile := flag.Bool("uMakefile", true, "Check Makefiles File")
 		uDockerfile := flag.Bool("uDockerfile", true, "Check Dockerfile Files")
 
+		// Warn Flag
+		var warnUser bool
+		flag.BoolVar(&warnUser, "warn", false, "Warn User")
+
 		// Parse Flag
 		flag.Parse()
 
@@ -99,7 +103,8 @@ func main() {
 				// All the Files that are to be checked.
 				file_pool := file_controller.FileController(input, *uMakefile, *uDockerfile, *uBash)
 				// Divert Files to correct parser || parsers
-				diverter.DivertFiles(file_pool, *uMakefile, *uDockerfile, *uBash)
+				// Probably does not need the 'use' flags. Get Opinions.
+				diverter.DivertFiles(file_pool, warnUser, *uMakefile, *uDockerfile, *uBash)
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
 				// fmt.Println("Path Does Not Exist.")
