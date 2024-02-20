@@ -6,20 +6,22 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	// Custom Files
 	"Soteria/diverter"
 	"Soteria/file_controller"
+	Help "Soteria/help" // Alias Given
 )
 
 func main() {
 	fmt.Println("Welcome to Insecure Communication Linter.")
 
 	// Confrim/Test File Controller Connection
-	file_controller.TestConnection()
+	// file_controller.TestConnection()
 
 	//Confirm/Test Diverter Connection
-	diverter.TestConnection()
+	// diverter.TestConnection()
 
 	// if len(os.Args) > 1 {
 	if flag.NFlag() >= 0 || flag.NArg() >= 0 {
@@ -45,6 +47,10 @@ func main() {
 		uMakefile := flag.Bool("uMakefile", true, "Check Makefiles File")
 		uDockerfile := flag.Bool("uDockerfile", true, "Check Dockerfile Files")
 
+		// Warn Flag
+		var warnUser bool
+		flag.BoolVar(&warnUser, "warn", false, "Warn User")
+
 		// Parse Flag
 		flag.Parse()
 
@@ -69,12 +75,24 @@ func main() {
 				os.Exit(1)
 			}
 		} else if helpUser {
-			// Create A Help Controller
-			fmt.Println("Help Page")
+			Help.Info()
 		} else if versionCheck {
-			// Set From File
-			version := "0.0.0.0"
-			fmt.Println("Version: v" + version)
+			tagOutput := exec.Command("git", "rev-list", "--tags", "--max-count=1")
+			outTag, errTag := tagOutput.Output()
+			if errTag != nil {
+				fmt.Println("Error: ", errTag)
+			}
+
+			tag := strings.TrimSpace(string(outTag))
+
+			versionCmd := exec.Command("git", "describe", "--tags", tag)
+			outVersion, errVersion := versionCmd.Output()
+			if errVersion != nil {
+				fmt.Println("Error:", errVersion)
+				return
+			}
+
+			fmt.Println("Version:", strings.TrimSpace(string(outVersion)))
 		} else {
 			// Add Other flags
 			// --warn etc...
@@ -85,7 +103,8 @@ func main() {
 				// All the Files that are to be checked.
 				file_pool := file_controller.FileController(input, *uMakefile, *uDockerfile, *uBash)
 				// Divert Files to correct parser || parsers
-				diverter.DivertFiles(file_pool, *uMakefile, *uDockerfile, *uBash)
+				// Probably does not need the 'use' flags. Get Opinions.
+				diverter.DivertFiles(file_pool, warnUser, *uMakefile, *uDockerfile, *uBash)
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
 				// fmt.Println("Path Does Not Exist.")

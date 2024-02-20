@@ -124,7 +124,7 @@ func FileController(path string, u_makefile bool, u_dockerfile bool, u_bash bool
 	file_pool := FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
 
 	// Show Final File Pool to be Diverted
-	ShowSliceData(file_pool)
+	// ShowSliceData(file_pool)
 
 	return file_pool
 }

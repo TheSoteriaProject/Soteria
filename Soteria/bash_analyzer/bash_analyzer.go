@@ -3,8 +3,12 @@ package bash_analyzer
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"regexp"
+	"strings"
+
+	"gopkg.in/yaml.v3"
 	//"Soteria/logging"
 )
 
@@ -17,12 +21,9 @@ func ShowSliceData(path []string) {
 
 // ShowTwoSlicesData is used to iterate over two slices
 func ShowTwoSlicesData(slice1 []string, slice2 []string) {
-	minLength := 0
-	if len(slice2) == len(slice1) {
+	minLength := len(slice1)
+	if len(slice2) < minLength {
 		minLength = len(slice2)
-	} else {
-		fmt.Println("Error. Length of slices must be equal.")
-		// Find a way to deal with this.
 	}
 
 	for i := 0; i < minLength; i++ {
@@ -30,6 +31,16 @@ func ShowTwoSlicesData(slice1 []string, slice2 []string) {
 	}
 }
 
+// ReadYAMLFile reads YAML data from a file and returns it as a byte slice.
+func ReadYAMLFile(filePath string) ([]byte, error) {
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
+}
+
+// GetVariables reads the variables from the Bash File.
 func GetVariables(file_name string) []string {
 	variable_list := []string{}
 
@@ -64,6 +75,7 @@ func GetVariables(file_name string) []string {
 	return variable_list
 }
 
+// GetVariableDefnitions reads the variable definitions from the Bash File.
 func GetVariableDefinitions(file_name string) []string {
 	definition_list := []string{}
 	file, err := os.Open(file_name)
@@ -108,9 +120,106 @@ func GetVariableDefinitions(file_name string) []string {
 	return definition_list
 }
 
-func BashController(file string) {
+// SwapLine takes the line with the variable possibilities and checks if defined.
+func SwapLine(line string, variables []string, variable_definitions []string) string {
+	newline := ""
+	minLength := len(variables)
+	if len(variable_definitions) < minLength {
+		minLength = len(variable_definitions)
+	}
+
+	if len(strings.TrimSpace(line)) > 0 {
+		for i := 0; i < minLength; i++ {
+			fmt.Println("-----------------------------------------------------")
+			fmt.Println(line)
+			fmt.Println(variables[i] + " : " + variable_definitions[i])
+			fmt.Println("-----------------------------------------------------")
+		}
+	}
+
+	return newline
+}
+
+// VariableSwap swaps the variables with what they were defined with in the code.
+func VariableSwap(file string, variables []string, variable_definitions []string) {
+	oldFile, err := os.Open(file)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer oldFile.Close()
+
+	newFile, err := os.Create("temp.sh")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer newFile.Close()
+
+	scanner := bufio.NewScanner(oldFile)
+	writer := bufio.NewWriter(newFile)
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
+			swappedLine := SwapLine(scanner.Text(), variables, variable_definitions)
+			_, err := writer.WriteString(swappedLine)
+			if err != nil {
+				fmt.Println("Error:", err)
+				return
+			}
+			// fmt.Println(line)
+		}
+	}
+	// Flush
+	writer.Flush()
+}
+
+// CheckForHiddenInsecureCommunication from the file.
+func CheckForHiddenInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
+	yamlData, err := ReadYAMLFile(filepath)
+	if err != nil {
+		log.Fatalf("error reading YAML file: %v", err)
+	}
+
+	var data map[string]interface{}
+
+	if err := yaml.Unmarshal([]byte(yamlData), &data); err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
+	// Super Bad Code
+	for section, commands := range data {
+		// fmt.Println(section)
+		for _, variable_definition := range variable_definitions {
+			// -1 to drop :
+			fmt.Println(section, variable_definition)
+			if section == variable_definition {
+				for _, command := range commands.([]interface{}) {
+					fmt.Println("  ", command)
+				}
+			}
+		}
+	}
+}
+
+func CheckForInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
+}
+
+func BashController(file string, warnUser bool) {
 	// Pass File Name/Path
-	temp := GetVariables(file)
-	temp2 := GetVariableDefinitions(file)
-	ShowTwoSlicesData(temp, temp2)
+	v := GetVariables(file)
+	vd := GetVariableDefinitions(file)
+	// ShowTwoSlicesData(v, vd)
+
+	// Iterate YAML
+	warn_file := "bash_analyzer/warn.yaml"
+	yamlData, err := ReadYAMLFile(warn_file)
+	if err != nil {
+		log.Fatalf("error reading YAML file: %v", err)
+	}
+	fmt.Println(yamlData) // prevent error
+
+	// CheckForHiddenInsecureCommunication(warn_file, v, vd)
+	VariableSwap(file, v, vd)
 }
