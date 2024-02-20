@@ -132,10 +132,17 @@ func CheckForHiddenInsecureCommunication(filepath string, variables []string, va
 		log.Fatalf("error: %v", err)
 	}
 
+	// Super Bad Code
 	for section, commands := range data {
-		fmt.Println(section + ":")
-		for _, command := range commands.([]interface{}) {
-			fmt.Println("  ", command)
+		// fmt.Println(section)
+		for _, variable_definition := range variable_definitions {
+			// -1 to drop :
+			fmt.Println(section, variable_definition)
+			if section == variable_definition {
+				for _, command := range commands.([]interface{}) {
+					fmt.Println("  ", command)
+				}
+			}
 		}
 	}
 }
