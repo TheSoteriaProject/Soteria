@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 	//"Soteria/logging"
@@ -119,6 +120,61 @@ func GetVariableDefinitions(file_name string) []string {
 	return definition_list
 }
 
+// SwapLine takes the line with the variable possibilities and checks if defined.
+func SwapLine(line string, variables []string, variable_definitions []string) string {
+	newline := ""
+	minLength := len(variables)
+	if len(variable_definitions) < minLength {
+		minLength = len(variable_definitions)
+	}
+
+	if len(strings.TrimSpace(line)) > 0 {
+		for i := 0; i < minLength; i++ {
+			fmt.Println("-----------------------------------------------------")
+			fmt.Println(line)
+			fmt.Println(variables[i] + " : " + variable_definitions[i])
+			fmt.Println("-----------------------------------------------------")
+		}
+	}
+
+	return newline
+}
+
+// VariableSwap swaps the variables with what they were defined with in the code.
+func VariableSwap(file string, variables []string, variable_definitions []string) {
+	oldFile, err := os.Open(file)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer oldFile.Close()
+
+	newFile, err := os.Create("temp.sh")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer newFile.Close()
+
+	scanner := bufio.NewScanner(oldFile)
+	writer := bufio.NewWriter(newFile)
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
+			swappedLine := SwapLine(scanner.Text(), variables, variable_definitions)
+			_, err := writer.WriteString(swappedLine)
+			if err != nil {
+				fmt.Println("Error:", err)
+				return
+			}
+			// fmt.Println(line)
+		}
+	}
+	// Flush
+	writer.Flush()
+}
+
 // CheckForHiddenInsecureCommunication from the file.
 func CheckForHiddenInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
 	yamlData, err := ReadYAMLFile(filepath)
@@ -158,5 +214,7 @@ func BashController(file string) {
 
 	// Iterate YAML
 	warn_file := "bash_analyzer/warn.yaml"
-	CheckForHiddenInsecureCommunication(warn_file, v, vd)
+	ReadYAMLFile(warn_file) // Prevent Error
+	// CheckForHiddenInsecureCommunication(warn_file, v, vd)
+	VariableSwap(file, v, vd)
 }
