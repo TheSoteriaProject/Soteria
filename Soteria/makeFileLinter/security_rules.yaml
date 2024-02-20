@@ -1,0 +1,11 @@
+- pattern: "curl"
+  description: "Use of 'curl' may lead to downloading unverified files."
+  severity: "Warning"
+
+- pattern: "wget"
+  description: "Use of 'wget' without verification can introduce security risks."
+  severity: "Warning"
+
+- pattern: "ssh"
+  description: "Unrestricted 'ssh' commands might execute on insecure environments."
+  severity: "Warning"
