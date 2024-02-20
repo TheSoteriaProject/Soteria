@@ -1,11 +1,7 @@
-- pattern: "curl"
-  description: "Use of 'curl' may lead to downloading unverified files."
+- pattern: "-k"
+  description: "Use of 'curl -k' bypasses SSL certificate verification"
   severity: "Warning"
 
-- pattern: "wget"
-  description: "Use of 'wget' without verification can introduce security risks."
-  severity: "Warning"
-
-- pattern: "ssh"
-  description: "Unrestricted 'ssh' commands might execute on insecure environments."
+- pattern: "--insecure"
+  description: "Use of 'curl --insecure' bypasses SSL certificate verification"
   severity: "Warning"

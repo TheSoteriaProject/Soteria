@@ -1,0 +1,27 @@
+[
+    {
+        "line": 21,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 45,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 51,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 51,
+        "issue": "Use of '-k' with plot_log_semicurl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 56,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    }
+]

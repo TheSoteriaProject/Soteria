@@ -1,0 +1,52 @@
+[
+    {
+        "line": 21,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 26,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 31,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 36,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 40,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 45,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 51,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 56,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 59,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    },
+    {
+        "line": 64,
+        "issue": "Potential insecure use of curl detected.",
+        "severity": "Warning"
+    }
+]
