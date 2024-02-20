@@ -8,8 +8,9 @@ import (
 	"regexp"
 	"strings"
 
+	JLogger "Soteria/logging"
+
 	"gopkg.in/yaml.v3"
-	//"Soteria/logging"
 )
 
 // ShowSliceData is to be used for Debugging Slices.
@@ -40,7 +41,7 @@ func ReadYAMLFile(filePath string) ([]byte, error) {
 	return data, nil
 }
 
-func ReadLines(filename string, section string, command string) {
+func ReadLines(filename string, warnUser bool, section string, command string) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return
@@ -48,12 +49,10 @@ func ReadLines(filename string, section string, command string) {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-
+	lineNumber := 0
 	for scanner.Scan() {
 		line := scanner.Text()
 		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
-			// section_command := section + " " + command
-			// Deal with match a little better by makign sure line has curl and -k but not other name
 			pattern1 := "\\b" + section + "\\b"
 			pattern2 := command
 			re1 := regexp.MustCompile(pattern1)
@@ -61,9 +60,15 @@ func ReadLines(filename string, section string, command string) {
 
 			// Check if the text contains the exact matches for both patterns
 			if re1.MatchString(line) && re2.MatchString(line) {
-				fmt.Println("Found: ", line+"\nContains: "+section+" "+command)
+				// fmt.Println("Found: ", line+"\nContains: "+section+" "+command)
+				ErrorType := "Error"
+				if warnUser {
+					ErrorType = "Warn"
+				}
+				JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType)
 			}
 		}
+		lineNumber += 1
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -235,7 +240,7 @@ func CheckForHiddenInsecureCommunication(filepath string, variables []string, va
 	}
 } */
 
-func CheckForInsecureCommunication(filepath string, warn_file string, variables []string, variable_definitions []string) {
+func CheckForInsecureCommunication(filepath string, warnUser bool, warn_file string, variables []string, variable_definitions []string) {
 	yamlData, err := ReadYAMLFile(warn_file)
 	if err != nil {
 		log.Fatalf("error reading YAML file: %v", err)
@@ -251,7 +256,7 @@ func CheckForInsecureCommunication(filepath string, warn_file string, variables 
 		for _, command := range commands.([]interface{}) {
 			// fmt.Println(section, command)
 			// Just grep file if not echo or comment??? INLINE ONLY
-			ReadLines(filepath, section, command.(string))
+			ReadLines(filepath, warnUser, section, command.(string))
 		}
 	}
 }
@@ -267,5 +272,5 @@ func BashController(file string, warnUser bool) {
 
 	// CheckForHiddenInsecureCommunication(warn_file, v, vd)
 	// VariableSwap(file, v, vd)
-	CheckForInsecureCommunication(file, warn_file, v, vd) // V and D probably useless for in-line
+	CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
 }
