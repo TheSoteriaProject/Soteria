@@ -214,7 +214,12 @@ func BashController(file string) {
 
 	// Iterate YAML
 	warn_file := "bash_analyzer/warn.yaml"
-	ReadYAMLFile(warn_file) // Prevent Error
+	yamlData, err := ReadYAMLFile(warn_file)
+	if err != nil {
+		log.Fatalf("error reading YAML file: %v", err)
+	}
+	fmt.Println(yamlData) // prevent error
+
 	// CheckForHiddenInsecureCommunication(warn_file, v, vd)
 	VariableSwap(file, v, vd)
 }
