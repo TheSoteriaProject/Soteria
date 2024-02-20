@@ -6,9 +6,6 @@ class LinterEngine:
         self.filepath = filepath
         self.rules = load_rules("security_rules.yaml")  # Correct usage
 
-    # Rest of your LinterEngine code...
-
-
     def analyze(self):
         issues = []
         with open(self.filepath, 'r') as file:
