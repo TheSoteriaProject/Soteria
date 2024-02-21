@@ -25,8 +25,8 @@ if __name__ == "__main__":
     parser.add_argument("makefile_path", type=str, help="Path to the Makefile to analyze.")
     args = parser.parse_args()
 
-    # Correct instantiation of LinterEngine
+    # re re re re omg
     linter = LinterEngine(args.makefile_path)
     issues = linter.analyze()
-    # Proceed to handle the 'issues' as intended...
+
 
