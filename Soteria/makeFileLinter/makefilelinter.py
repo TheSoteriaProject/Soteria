@@ -1,21 +1,32 @@
 import argparse
 from linter_engine import LinterEngine
-from output_handler import OutputHandler
+import json
 
 def main():
-    parser = argparse.ArgumentParser(description='MakeFileLinter: A tool for linting Makefiles against security standards.')
-    parser.add_argument('path_to_makefile', type=str, help='Path to the Makefile to analyze.')
-    parser.add_argument('--warn', type=bool, default=False, help='Warn only mode. Will not exit with error code on issues.')
+    parser = argparse.ArgumentParser(description="Makefile Linter for identifying potential security issues.")
+    parser.add_argument('makefile_path', type=str, help="Path to the Makefile to analyze.")
     
     args = parser.parse_args()
 
-    linter = LinterEngine(args.path_to_makefile)
+    # Instantiate the linter engine with the provided Makefile path
+    linter = LinterEngine(args.makefile_path)
     issues = linter.analyze()
-    
-    OutputHandler.write_issues_to_json(issues)
-        
-    if issues and not args.warn:
-        exit(1)
 
+    # Output the issues found
+    if issues:
+        print(json.dumps(issues, indent=4))
+    else:
+        print("No issues found.")
+
+# In makefilelinter.py
 if __name__ == "__main__":
-    main()
+    # Parsing arguments
+    parser = argparse.ArgumentParser(description="Analyze Makefiles for security issues.")
+    parser.add_argument("makefile_path", type=str, help="Path to the Makefile to analyze.")
+    args = parser.parse_args()
+
+    # Correct instantiation of LinterEngine
+    linter = LinterEngine(args.makefile_path)
+    issues = linter.analyze()
+    # Proceed to handle the 'issues' as intended...
+

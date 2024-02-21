@@ -1,7 +1,21 @@
 - pattern: "-k"
-  description: "Use of 'curl -k' bypasses SSL certificate verification"
+  description: "Insecure use of curl with '-k', bypassing SSL verification."
   severity: "Warning"
+  context: "direct"
+  command: "curl"
 
 - pattern: "--insecure"
-  description: "Use of 'curl --insecure' bypasses SSL certificate verification"
+  description: "Insecure use of curl with '--insecure', bypassing SSL verification."
   severity: "Warning"
+  context: "direct"
+  command: "curl"
+
+- pattern: "http://"
+  description: "Use of unencrypted HTTP, potentially exposing sensitive data."
+  severity: "Warning"
+  context: "any"
+  command: "curl"
+
+- pattern: "--insecure"
+  description: "Using 'curl' with '--insecure' bypasses SSL certificate verification."
+  severity: "High"
