@@ -8,8 +8,9 @@ import (
 	"regexp"
 	"strings"
 
+	JLogger "Soteria/logging"
+
 	"gopkg.in/yaml.v3"
-	//"Soteria/logging"
 )
 
 // ShowSliceData is to be used for Debugging Slices.
@@ -38,6 +39,41 @@ func ReadYAMLFile(filePath string) ([]byte, error) {
 		return nil, err
 	}
 	return data, nil
+}
+
+func ReadLines(filename string, warnUser bool, section string, command string) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	lineNumber := 0
+	for scanner.Scan() {
+		line := scanner.Text()
+		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
+			pattern1 := "\\b" + section + "\\b"
+			pattern2 := command
+			re1 := regexp.MustCompile(pattern1)
+			re2 := regexp.MustCompile(pattern2)
+
+			// Check if the text contains the exact matches for both patterns
+			if re1.MatchString(line) && re2.MatchString(line) {
+				// fmt.Println("Found: ", line+"\nContains: "+section+" "+command)
+				ErrorType := "Error"
+				if warnUser {
+					ErrorType = "Warn"
+				}
+				JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType)
+			}
+		}
+		lineNumber += 1
+	}
+
+	if err := scanner.Err(); err != nil {
+		return
+	}
 }
 
 // GetVariables reads the variables from the Bash File.
@@ -175,6 +211,7 @@ func VariableSwap(file string, variables []string, variable_definitions []string
 	writer.Flush()
 }
 
+/*
 // CheckForHiddenInsecureCommunication from the file.
 func CheckForHiddenInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
 	yamlData, err := ReadYAMLFile(filepath)
@@ -201,9 +238,27 @@ func CheckForHiddenInsecureCommunication(filepath string, variables []string, va
 			}
 		}
 	}
-}
+} */
 
-func CheckForInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
+func CheckForInsecureCommunication(filepath string, warnUser bool, warn_file string, variables []string, variable_definitions []string) {
+	yamlData, err := ReadYAMLFile(warn_file)
+	if err != nil {
+		log.Fatalf("error reading YAML file: %v", err)
+	}
+
+	var data map[string]interface{}
+
+	if err := yaml.Unmarshal([]byte(yamlData), &data); err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
+	for section, commands := range data {
+		for _, command := range commands.([]interface{}) {
+			// fmt.Println(section, command)
+			// Just grep file if not echo or comment??? INLINE ONLY
+			ReadLines(filepath, warnUser, section, command.(string))
+		}
+	}
 }
 
 func BashController(file string, warnUser bool) {
@@ -214,12 +269,9 @@ func BashController(file string, warnUser bool) {
 
 	// Iterate YAML
 	warn_file := "bash_analyzer/warn.yaml"
-	yamlData, err := ReadYAMLFile(warn_file)
-	if err != nil {
-		log.Fatalf("error reading YAML file: %v", err)
-	}
-	fmt.Println(yamlData) // prevent error
 
 	// CheckForHiddenInsecureCommunication(warn_file, v, vd)
-	VariableSwap(file, v, vd)
+	// VariableSwap(file, v, vd)
+
+	CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
 }
