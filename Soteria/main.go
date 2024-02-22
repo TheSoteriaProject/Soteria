@@ -110,10 +110,6 @@ func main() {
 					fmt.Println("Error Destroying Logs.")
 					os.Exit(1)
 				}
-				if err != nil {
-					fmt.Println("Error Destroying Logs.")
-					os.Exit(1)
-				}
 				diverter.DivertFiles(file_pool, warnUser, *uMakefile, *uDockerfile, *uBash)
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
