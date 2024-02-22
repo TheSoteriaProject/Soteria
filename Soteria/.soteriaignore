@@ -4,5 +4,3 @@ sample_data4
 sample_data7
 # Ignores file
 # Could possibly add multi-line comments for block outs
-.DS_Store
-DS_Store
