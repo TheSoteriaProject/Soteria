@@ -105,7 +105,11 @@ func main() {
 				file_pool := file_controller.FileController(input, *uMakefile, *uDockerfile, *uBash)
 				// Divert Files to correct parser || parsers
 				// Probably does not need the 'use' flags. Get Opinions.
-				JLogger.DestroyJsonLog() // Truncates Old File
+				err := JLogger.DestroyJsonLog() // Truncates Old File
+				if err != nil {
+					fmt.Println("Error Destroying Logs.")
+					os.Exit(1)
+				}
 				if err != nil {
 					fmt.Println("Error Destroying Logs.")
 					os.Exit(1)
