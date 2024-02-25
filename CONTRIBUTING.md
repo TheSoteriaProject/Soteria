@@ -27,3 +27,6 @@ Branch names should be concise but informative. Avoid excessively long names tha
     feature/id/user-authentication
     bugfix/id/fix-memory-leak
     refactor/id/update-database-schema
+
+
+PLEASE FOLLOW THIS AT ALL TIMES.
