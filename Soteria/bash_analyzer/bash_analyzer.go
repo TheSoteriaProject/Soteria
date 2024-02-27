@@ -165,16 +165,17 @@ func SwapLine(line string, variables []string, definitions []string) string {
 		// re := regexp.MustCompile(pattern)
 		// newLine := re.ReplaceAllString(line, definition)
 
-		pattern := regexp.MustCompile(`\${?\b` + variable + `\b+}?`)
-		if pattern.MatchString(line) {
-			indices := pattern.FindStringIndex(line)
-			if indices != nil {
-				replacementIndex := i
-				replacement := definitions[replacementIndex]
-				newLine = strings.Replace(line, "${"+variable+"}", replacement, -1)
-			}
+		// newLine = strings.Replace(line, ("\"${" + variable + "}\""), definitions[i], -1)
+		if strings.Contains(line, variable) || strings.Contains(line, "${"+variable+"}") || strings.Contains(line, "\"${"+variable+"}\"") {
+			fmt.Println(line)
+			newLine := strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
 			fmt.Println(newLine)
 		}
+
+		// fmt.Println(newLine)
+	}
+	if newLine == "" {
+		newLine = line
 	}
 	return newLine + "\n"
 }
