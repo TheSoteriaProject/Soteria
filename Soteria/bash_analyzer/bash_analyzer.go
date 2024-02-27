@@ -157,27 +157,30 @@ func GetVariableDefinitions(file_name string) []string {
 }
 
 // SwapLine takes the line with the variable possibilities and checks if defined.
-func SwapLine(line string, variables []string, variable_definitions []string) string {
-	newline := ""
-	minLength := len(variables)
-	if len(variable_definitions) < minLength {
-		minLength = len(variable_definitions)
-	}
+func SwapLine(line string, variables []string, definitions []string) string {
+	newLine := ""
+	for i, variable := range variables {
+		// for _, definition := range definitions {
+		// pattern := `\${?[\w-]+}?`
+		// re := regexp.MustCompile(pattern)
+		// newLine := re.ReplaceAllString(line, definition)
 
-	if len(strings.TrimSpace(line)) > 0 {
-		for i := 0; i < minLength; i++ {
-			fmt.Println("-----------------------------------------------------")
-			fmt.Println(line)
-			fmt.Println(variables[i] + " : " + variable_definitions[i])
-			fmt.Println("-----------------------------------------------------")
+		pattern := regexp.MustCompile(`\${?\b` + variable + `\b+}?`)
+		if pattern.MatchString(line) {
+			indices := pattern.FindStringIndex(line)
+			if indices != nil {
+				replacementIndex := i
+				replacement := definitions[replacementIndex]
+				newLine = strings.Replace(line, "${"+variable+"}", replacement, -1)
+			}
+			fmt.Println(newLine)
 		}
 	}
-
-	return newline
+	return newLine + "\n"
 }
 
 // VariableSwap swaps the variables with what they were defined with in the code.
-func VariableSwap(file string, variables []string, variable_definitions []string) {
+func VariableSwap(file string, warnUser bool, variables []string, variable_definitions []string) {
 	oldFile, err := os.Open(file)
 	if err != nil {
 		fmt.Println("Error:", err)
@@ -211,10 +214,9 @@ func VariableSwap(file string, variables []string, variable_definitions []string
 	writer.Flush()
 }
 
-/*
 // CheckForHiddenInsecureCommunication from the file.
-func CheckForHiddenInsecureCommunication(filepath string, variables []string, variable_definitions []string) {
-	yamlData, err := ReadYAMLFile(filepath)
+func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warnUser bool, variables []string, variable_definitions []string) {
+	yamlData, err := ReadYAMLFile(warn_file)
 	if err != nil {
 		log.Fatalf("error reading YAML file: %v", err)
 	}
@@ -224,21 +226,17 @@ func CheckForHiddenInsecureCommunication(filepath string, variables []string, va
 	if err := yaml.Unmarshal([]byte(yamlData), &data); err != nil {
 		log.Fatalf("error: %v", err)
 	}
+	// fmt.Println("Inside CheckForHiddenInsecureCommunication")
+	VariableSwap(filepath, warnUser, variables, variable_definitions)
 
-	// Super Bad Code
-	for section, commands := range data {
-		// fmt.Println(section)
-		for _, variable_definition := range variable_definitions {
-			// -1 to drop :
-			fmt.Println(section, variable_definition)
-			if section == variable_definition {
-				for _, command := range commands.([]interface{}) {
-					fmt.Println("  ", command)
-				}
+	/*
+		for section, commands := range data {
+			for _, command := range commands.([]interface{}) {
+				// fmt.Println(section, "  ", command)
+				VariableSwap(filepath, warnUser, variables, variable_definitions)
 			}
-		}
-	}
-} */
+		} */
+}
 
 func CheckForInsecureCommunication(filepath string, warnUser bool, warn_file string, variables []string, variable_definitions []string) {
 	yamlData, err := ReadYAMLFile(warn_file)
@@ -270,8 +268,8 @@ func BashController(file string, warnUser bool) {
 	// Iterate YAML
 	warn_file := "bash_analyzer/warn.yaml"
 
-	// CheckForHiddenInsecureCommunication(warn_file, v, vd)
+	CheckForHiddenInsecureCommunication(file, warn_file, warnUser, v, vd)
 	// VariableSwap(file, v, vd)
 
-	CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
+	// CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
 }

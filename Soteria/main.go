@@ -11,8 +11,8 @@ import (
 	// Custom Files
 	"Soteria/diverter"
 	"Soteria/file_controller"
-	Help "Soteria/help"       // Alias Given
-	JLogger "Soteria/logging" // Alias Given
+	Help "Soteria/help" // Alias Given
+	// Alias Given
 )
 
 func main() {
@@ -105,15 +105,13 @@ func main() {
 				file_pool := file_controller.FileController(input, *uMakefile, *uDockerfile, *uBash)
 				// Divert Files to correct parser || parsers
 				// Probably does not need the 'use' flags. Get Opinions.
-				err := JLogger.DestroyJsonLog() // Truncates Old File
-				if err != nil {
-					fmt.Println("Error Destroying Logs.")
-					os.Exit(1)
-				}
-				if err != nil {
-					fmt.Println("Error Destroying Logs.")
-					os.Exit(1)
-				}
+				/*
+					err := JLogger.DestroyJsonLog() // Truncates Old File
+					if err != nil {
+						fmt.Println("Error Destroying Logs.")
+						os.Exit(1)
+					} */
+
 				diverter.DivertFiles(file_pool, warnUser, *uMakefile, *uDockerfile, *uBash)
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
