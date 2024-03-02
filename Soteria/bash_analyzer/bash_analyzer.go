@@ -165,11 +165,15 @@ func SwapLine(line string, variables []string, definitions []string) string {
 	for i, variable := range variables {
 		if strings.Contains(line, "\"${"+variable+"}\"") {
 			line = strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
+			line = SwapLine(line, variables, definitions)
 		} else if strings.Contains(line, "${"+variable+"}") {
 			line = strings.Replace(line, "${"+variable+"}", definitions[i], -1)
+			line = SwapLine(line, variables, definitions)
 		}
 		// fmt.Println(variable, " : ", line, " : ", definitions[i])
 		// add other case???
+
+		// Recursive call to get what I want. Currently not really recursive but change???
 	}
 
 	return line + "\n"
