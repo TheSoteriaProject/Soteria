@@ -54,7 +54,7 @@ func ReadLines(filename string, warnUser bool, section string, command string) {
 		line := scanner.Text()
 		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
 			pattern1 := "\\b" + section + "\\b"
-			pattern2 := command
+			pattern2 := command + "\\b"
 			re1 := regexp.MustCompile(pattern1)
 			re2 := regexp.MustCompile(pattern2)
 
@@ -158,26 +158,17 @@ func GetVariableDefinitions(file_name string) []string {
 
 // SwapLine takes the line with the variable possibilities and checks if defined.
 func SwapLine(line string, variables []string, definitions []string) string {
-	newLine := ""
 	for i, variable := range variables {
-		// for _, definition := range definitions {
-		// pattern := `\${?[\w-]+}?`
-		// re := regexp.MustCompile(pattern)
-		// newLine := re.ReplaceAllString(line, definition)
-
 		// newLine = strings.Replace(line, ("\"${" + variable + "}\""), definitions[i], -1)
-		if strings.Contains(line, variable) || strings.Contains(line, "${"+variable+"}") || strings.Contains(line, "\"${"+variable+"}\"") {
-			fmt.Println(line)
-			newLine := strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
-			fmt.Println(newLine)
+		if strings.Contains(line, "\"${"+variable+"}\"") {
+			line = strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
+		} else if strings.Contains(line, "${"+variable+"}") {
+			line = strings.Replace(line, "${"+variable+"}", definitions[i], -1)
 		}
+		// add other case???
+	}
 
-		// fmt.Println(newLine)
-	}
-	if newLine == "" {
-		newLine = line
-	}
-	return newLine + "\n"
+	return line + "\n"
 }
 
 // VariableSwap swaps the variables with what they were defined with in the code.
@@ -230,13 +221,8 @@ func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warn
 	// fmt.Println("Inside CheckForHiddenInsecureCommunication")
 	VariableSwap(filepath, warnUser, variables, variable_definitions)
 
-	/*
-		for section, commands := range data {
-			for _, command := range commands.([]interface{}) {
-				// fmt.Println(section, "  ", command)
-				VariableSwap(filepath, warnUser, variables, variable_definitions)
-			}
-		} */
+	// Adjust this so it is less or more tempish
+	CheckForInsecureCommunication("../Soteria/temp.sh", warnUser, warn_file, variables, variable_definitions)
 }
 
 func CheckForInsecureCommunication(filepath string, warnUser bool, warn_file string, variables []string, variable_definitions []string) {
@@ -269,8 +255,7 @@ func BashController(file string, warnUser bool) {
 	// Iterate YAML
 	warn_file := "bash_analyzer/warn.yaml"
 
-	CheckForHiddenInsecureCommunication(file, warn_file, warnUser, v, vd)
-	// VariableSwap(file, v, vd)
+	CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
 
-	// CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
+	CheckForHiddenInsecureCommunication(file, warn_file, warnUser, v, vd)
 }
