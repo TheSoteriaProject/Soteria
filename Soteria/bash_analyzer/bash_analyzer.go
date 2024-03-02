@@ -49,7 +49,7 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-	lineNumber := 0
+	lineNumber := 1
 	for scanner.Scan() {
 		line := scanner.Text()
 		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
@@ -65,7 +65,11 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 				if warnUser {
 					ErrorType = "Warn"
 				}
-				JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType)
+
+				// Deal with None Erro cases like comments and echos
+				if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
+					JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType)
+				}
 			}
 		}
 		lineNumber += 1
@@ -176,7 +180,7 @@ func SwapLine(line string, variables []string, definitions []string) string {
 		// Recursive call to get what I want. Currently not really recursive but change???
 	}
 
-	return line + "\n"
+	return line
 }
 
 // VariableSwap swaps the variables with what they were defined with in the code.
@@ -200,15 +204,15 @@ func VariableSwap(file string, warnUser bool, variables []string, variable_defin
 
 	for scanner.Scan() {
 		line := scanner.Text()
-		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
-			swappedLine := SwapLine(scanner.Text(), variables, variable_definitions)
-			_, err := writer.WriteString(swappedLine)
-			if err != nil {
-				fmt.Println("Error:", err)
-				return
-			}
-			// fmt.Println(line)
+		// if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
+		swappedLine := SwapLine(line, variables, variable_definitions) + "\n"
+		_, err := writer.WriteString(swappedLine)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
 		}
+		// fmt.Println(line)
+		// }
 	}
 	// Flush
 	writer.Flush()
@@ -231,9 +235,7 @@ func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warn
 	// fmt.Println("Inside CheckForHiddenInsecureCommunication")
 	VariableSwap(filepath, warnUser, variables, variable_definitions)
 
-	// Adjust this so it is less or more tempish
-	// /Users/logangarrett03/Desktop/git/Soteria/Soteria/temp.sh
-	// double swap?
+	// Deal with hardcoded filename
 	CheckForInsecureCommunication("../Soteria/bash_analyzer/temp.sh", filename, warnUser, warn_file, variables, variable_definitions)
 }
 
