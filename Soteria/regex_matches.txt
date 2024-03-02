@@ -1,3 +1,4 @@
-Match Variables: \b([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*
+Match Variables: \b([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s* 
+USED CURRENTLY does not deal with lowercase \b([A-Z_][A-Z0-9_]*)\s*=\s* needs this one (=)([('].*)
 Match Variable Definitions: (=)([($'"].*) && \b=([a-zA-Z_\/:-][a-zA-Z0-9_\/:-]*)
 Match Variable Usage: \${?[\w-]+}?

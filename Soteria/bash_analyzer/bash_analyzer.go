@@ -93,7 +93,7 @@ func GetVariables(file_name string) []string {
 		line := scanner.Text()
 		// check regex
 		// grab line number ???
-		regex_pattern := `\b([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*`
+		regex_pattern := `\b([A-Z_][A-Z0-9_]*)\s*=\s*`
 		regex_expression := regexp.MustCompile(regex_pattern)
 		matches := regex_expression.FindAllStringSubmatch(line, -1)
 
@@ -127,7 +127,7 @@ func GetVariableDefinitions(file_name string) []string {
 		line := scanner.Text()
 		// check regex
 		// grab line number ???
-		regex_pattern := `(=)([($'"].*)` // Seems Better
+		regex_pattern := `(=)([('].*)` // Seems Better
 		regex_expression := regexp.MustCompile(regex_pattern)
 		matches := regex_expression.FindAllStringSubmatch(line, -1)
 
@@ -137,16 +137,18 @@ func GetVariableDefinitions(file_name string) []string {
 			}
 		}
 
-		// Second Pass
-		regex_pattern = `\b=([a-zA-Z_\/:-][a-zA-Z0-9_\/:-]*)`
-		regex_expression = regexp.MustCompile(regex_pattern)
-		matches2 := regex_expression.FindAllStringSubmatch(line, -1)
+		/*********   DISABLED *********/
+		/*
+			// Second Pass
+			regex_pattern = `\b=([a-zA-Z_\/:-][a-zA-Z0-9_\/:-]*)`
+			regex_expression = regexp.MustCompile(regex_pattern)
+			matches2 := regex_expression.FindAllStringSubmatch(line, -1)
 
-		for _, match2 := range matches2 {
-			if len(match2) > 1 {
-				definition_list = append(definition_list, match2[1])
-			}
-		}
+			for _, match2 := range matches2 {
+				if len(match2) > 1 {
+					definition_list = append(definition_list, match2[1])
+				}
+			} */
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -159,7 +161,6 @@ func GetVariableDefinitions(file_name string) []string {
 // SwapLine takes the line with the variable possibilities and checks if defined.
 func SwapLine(line string, variables []string, definitions []string) string {
 	for i, variable := range variables {
-		// newLine = strings.Replace(line, ("\"${" + variable + "}\""), definitions[i], -1)
 		if strings.Contains(line, "\"${"+variable+"}\"") {
 			line = strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
 		} else if strings.Contains(line, "${"+variable+"}") {
@@ -222,7 +223,9 @@ func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warn
 	VariableSwap(filepath, warnUser, variables, variable_definitions)
 
 	// Adjust this so it is less or more tempish
-	CheckForInsecureCommunication("../Soteria/temp.sh", warnUser, warn_file, variables, variable_definitions)
+	// /Users/logangarrett03/Desktop/git/Soteria/Soteria/temp.sh
+	// double swap?
+	CheckForInsecureCommunication("/Users/logangarrett03/Desktop/git/Soteria/Soteria/temp.sh", warnUser, warn_file, variables, variable_definitions)
 }
 
 func CheckForInsecureCommunication(filepath string, warnUser bool, warn_file string, variables []string, variable_definitions []string) {
