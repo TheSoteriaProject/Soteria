@@ -142,7 +142,6 @@ func GetVariableDefinitions(file_name string) []string {
 			}
 		}
 
-		/*********   DISABLED *********/
 
 		// Second Pass
 		// regex_pattern = `\b=([a-zA-Z_\/:-][a-zA-Z0-9_\/:-]*)`
