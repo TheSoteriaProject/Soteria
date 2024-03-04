@@ -176,7 +176,6 @@ func SwapLine(line string, variables []string, definitions []string) string {
 		// fmt.Println(variable, " : ", line, " : ", definitions[i])
 		// add other case???
 
-		// Recursive call to get what I want. Currently not really recursive but change???
 	}
 
 	return line
