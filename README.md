@@ -4,11 +4,100 @@ Soteria is a Insecure Communication Linter for Bourne Shell, Makefiles, and Dock
 
 ## How to use
 
-How to use here...
+**Soteria Tool User Guide**
+
+The Soteria tool is a powerful utility designed to analyze projects for security vulnerabilities and provide various options to customize its behavior. Below is a detailed guide on how to use the tool effectively.
+
+### Usage
+./Soteria [Flags] [Project Path]
+
+- `./Soteria`: The name of the executable file.
+- `[Flags]`: Optional flags to customize the behavior of the tool.
+- `[Project Path]`: The path to the project you want to analyze.
+
+### Flags
+
+1. `--warn`: 
+   - **Description**: Allows the tool to return true even if it encounters issues flagged by the insecure communication linter.
+   - **Usage**: `--warn=true` or `--warn=false`
+
+2. `--help`:
+   - **Description**: Displays a simple help page with information about available flags and examples.
+   - **Usage**: `--help`
+
+3. `--version`:
+   - **Description**: Displays the latest git tag release of the Soteria tool.
+   - **Usage**: `--version`
+
+4. `--uBash`:
+   - **Description**: Disables the Bash Static Analyzer.
+   - **Usage**: `--uBash=true` or `--uBash=false`
+
+5. `--uMakefile`:
+   - **Description**: Disables the Makefile static analyzer.
+   - **Usage**: `--uMakefile=true` or `--uMakefile=false`
+
+6. `--uDockerfile`:
+   - **Description**: Disables the Dockerfile static analyzer.
+   - **Usage**: `--uDockerfile=true` or `--uDockerfile=false`
+
+7. `--test`:
+   - **Description**: Runs unit tests for the function to confirm code changes worked and the tool is still functional.
+   - **Usage**: `--test`
+
+### Examples
+
+1. Analyze a project with default settings:
+./Soteria /path/to/your/project
+
+2. Analyze a project while ignoring insecure communication issues:
+./Soteria --warn=true /path/to/your/project
+
+3. Disable Bash Static Analyzer:
+./Soteria --uBash=false /path/to/your/project
+
+4. Display help page:
+./Soteria --help
+
+5. Display the version of the Soteria tool:
+./Soteria --version
+
+6. Run unit tests:
+./Soteria --test
+
+### Note
+- Flags are optional, but a project path is required for the tool to run.
+- Flags can be combined as needed.
+- Make sure to replace `/path/to/your/project` with the actual path to your project directory.
 
 ### Setup
+Follow these steps to set up and run the Soteria tool:
 
-### Output
+1. **Clone the Repository:**
+   `git clone https://github.com/TheSoteriaProject/Soteria.git`
+   
+2. **Build the Tool:**
+   `go build`
+
+This command will compile the Soteria tool and create an executable file.
+
+3. **Run the Tool:**
+   `./Soteria [Flags] [Project Path]`
+   - `[Flags]`: Optional flags to customize the behavior of the tool (refer to the user guide for available flags).
+   - `[Project Path]`: The path to the project you want to analyze.
+
+That's it! You're now ready to use the Soteria tool to analyze your projects for security vulnerabilities.
+
+### Example JSON Output
+```json
+{
+    "FileName": "../Files/sample_data5/wget_examples.sh",
+    "LineNumber": 48,
+    "Line": "command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
+    "Issue": "wget --no-check-certificate",
+    "ErrorType": "Error"
+}
+```
 
 ## Contributing
 
