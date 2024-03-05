@@ -1,5 +1,3 @@
-# Status
-[![Go](https://github.com/TheSoteriaProject/Soteria/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/TheSoteriaProject/Soteria/actions/workflows/go.yml)
 # Soteria
 
 Soteria is a Insecure Communication Linter for Bourne Shell, Makefiles, and Dockerfiles. 
