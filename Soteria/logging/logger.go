@@ -57,14 +57,17 @@ func StoreJsonLogs(log_data Log) {
 }
 
 // Json Logger handles json in take, prints,  and sends it off to be store in file.
-func JsonLogger(FileName string, LineNumber int, Line string, Issue string, ErrorType string) {
+func JsonLogger(FileName string, LineNumber int, Line string, Issue string, ErrorType string, DisableLogPrint bool) {
 	log := &Log{FileName: FileName, LineNumber: LineNumber, Line: Line, Issue: Issue, ErrorType: ErrorType}
 	printLog, err := json.MarshalIndent(log, "", "\t")
 	if err != nil {
 		fmt.Println("Error marshalling log:", err)
 		return
 	}
-	fmt.Printf("%s\n", printLog)
+
+	if !DisableLogPrint {
+		fmt.Printf("%s\n", printLog)
+	}
 
 	// Store log data
 	StoreJsonLogs(*log)
