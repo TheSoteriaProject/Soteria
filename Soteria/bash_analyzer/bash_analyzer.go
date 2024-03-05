@@ -144,7 +144,7 @@ func GetVariableDefinitions(file_name string) []string {
 
 		// Second Pass
 		// regex_pattern = `\b=([a-zA-Z_\/:-][a-zA-Z0-9_\/:-]*)`
-		regex_pattern = `((?:^|[\-])*)([a-zA-Z_][a-zA-Z0-9_]*)=["${]` // `(?<!-)([a-zA-Z_][a-zA-Z0-9_]*)=["${]` // `[A-Z]\b(=)("\$\{[^"]+?\}")`
+		regex_pattern = `[a-zA-Z](=)(["${].*|[$[a-z]].*)` // `((?:^|[\-])*)([a-zA-Z_][a-zA-Z0-9_]*)=["${]` // `(?<!-)([a-zA-Z_][a-zA-Z0-9_]*)=["${]` // `[A-Z]\b(=)("\$\{[^"]+?\}")`
 		regex_expression = regexp.MustCompile(regex_pattern)
 		matches2 := regex_expression.FindAllStringSubmatch(line, -1)
 
@@ -166,10 +166,16 @@ func GetVariableDefinitions(file_name string) []string {
 func SwapLine(line string, variables []string, definitions []string) string {
 	for i, variable := range variables {
 		if strings.Contains(line, "\"${"+variable+"}\"") {
+			fmt.Println("Line: "+line+"\n", "Variable: "+variable, "Definition: "+definitions[i])
 			line = strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
 			line = SwapLine(line, variables, definitions)
 		} else if strings.Contains(line, "${"+variable+"}") {
+			fmt.Println("Line: "+line+"\n", "Variable: "+variable, "Definition: "+definitions[i])
 			line = strings.Replace(line, "${"+variable+"}", definitions[i], -1)
+			line = SwapLine(line, variables, definitions)
+		} else if strings.Contains(line, "$"+variable+"") {
+			fmt.Println("Line: "+line+"\n", "Variable: "+variable, "Definition: "+definitions[i])
+			line = strings.Replace(line, "$"+variable+"", definitions[i], -1)
 			line = SwapLine(line, variables, definitions)
 		}
 	}
