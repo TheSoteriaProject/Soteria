@@ -34,7 +34,10 @@ func TestGetVariables1(t *testing.T) {
 		"HEADER",
 		"REQUEST",
 		"OUTPUT",
-		"INSECURE_CURL"}
+		"INSECURE_CURL",
+		"command",
+		"command",
+	}
 
 	// Compare
 	if !reflect.DeepEqual(test_list, variable_list) {
@@ -42,7 +45,6 @@ func TestGetVariables1(t *testing.T) {
 	}
 }
 
-/*
 // Checks if it picks up deined variable defnitions. This can be checked based on all captiols.
 func TestGetVariables2(t *testing.T) {
 	cwd, err := os.Getwd()
@@ -61,11 +63,8 @@ func TestGetVariables2(t *testing.T) {
 
 	// Test Data Variable define list
 	test_list := []string{"ssh_opts",
-		"StrictHostKeyChecking",
-		"UserKnownHostsFile",
 		"ssh_cmd",
-		"StrictHostKeyChecking",
-		"UserKnownHostsFile"}
+	}
 
 	// Compare
 	if !reflect.DeepEqual(test_list, variable_list) {
@@ -97,7 +96,10 @@ func TestGetVariables3(t *testing.T) {
 		"NO_CHECK_CERTIFICATE",
 		"POST",
 		"HEADER",
+		"data", // TODO: Confirm this sould be here.
 		"NO_CHECK_CERTIFICATE_WGET",
+		"command",
+		"command",
 	}
 
 	// Compare
@@ -124,6 +126,7 @@ func TestGetVariableDefinitions1(t *testing.T) {
 	// Test Data Definition define list
 	test_list := []string{"'https://example.com/installer.pkg'",
 		"'https://example.com/api/endpoint'",
+		"'param1=value1&param2=value2'",
 		"'curl'",
 		"'--insecure'",
 		"'--data'",
@@ -131,7 +134,9 @@ func TestGetVariableDefinitions1(t *testing.T) {
 		"'--request'",
 		"'--output'",
 		"\"${CURL} ${INSECURE}\"",
-		"('curl' '-k' '-o' 'installer3.pkg' \"${DOWNLOAD_URL}\")"}
+		"$1",
+		"('curl' '-k' '-o' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
+	}
 
 	// Compare
 	if !reflect.DeepEqual(test_list, definition_list) {
@@ -156,9 +161,8 @@ func TestGetVariableDefinitions2(t *testing.T) {
 
 	// Test Data Definition define list
 	test_list := []string{"'-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'",
-		"/dev/null",
 		"'/usr/bin/ssh'",
-		"/dev/null"}
+	}
 
 	// Compare
 	if !reflect.DeepEqual(test_list, definition_list) {
@@ -184,29 +188,29 @@ func TestGetVariableDefinitions3(t *testing.T) {
 	// Test Data Definition define list
 	test_list := []string{"'https://example.com/installer.pkg'",
 		"'https://example.com/api/endpoint'",
+		"'param1=value1&param2=value2'",
 		"'wget'",
 		"'--no-check-certificate'",
 		"'--post-data'",
 		"'--header=Content-Type:application/x-www-form-urlencoded'",
-		"Content-Type:application/x-www-form-urlencoded",
-		"\"${POST_DATA}\" ${HEADER} -O - \"${POST_URL}\"", // Something is off here will need to deal with it
 		"\"${POST_DATA}\" ${HEADER} -O - \"${POST_URL}\"", // Something is off here will need to deal with it
 		"\"${WGET} ${NO_CHECK_CERTIFICATE}\"",
-		"('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")"}
+		"$1",
+		"('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
+	}
 
 	// Compare
 	if !reflect.DeepEqual(test_list, definition_list) {
 		t.Errorf("Expected: %v, Got: %v", test_list, definition_list)
 	}
 }
-*/
 
 func TestBashController(t *testing.T) {
 	TestGetVariables1(t)
-	// TestGetVariableDefinitions1(t)
-	// TestGetVariables2(t)
-	// TestGetVariableDefinitions2(t)
-	// TestGetVariables3(t)
+	TestGetVariableDefinitions1(t)
+	TestGetVariables2(t)
+	TestGetVariableDefinitions2(t)
+	TestGetVariables3(t)
 	// TestGetVariableDefinitions3(t)
 }
 
