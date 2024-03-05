@@ -166,15 +166,12 @@ func GetVariableDefinitions(file_name string) []string {
 func SwapLine(line string, variables []string, definitions []string) string {
 	for i, variable := range variables {
 		if strings.Contains(line, "\"${"+variable+"}\"") {
-			fmt.Println("Line: "+line+"\n", "Variable: "+variable, "Definition: "+definitions[i])
 			line = strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
 			line = SwapLine(line, variables, definitions)
 		} else if strings.Contains(line, "${"+variable+"}") {
-			fmt.Println("Line: "+line+"\n", "Variable: "+variable, "Definition: "+definitions[i])
 			line = strings.Replace(line, "${"+variable+"}", definitions[i], -1)
 			line = SwapLine(line, variables, definitions)
 		} else if strings.Contains(line, "$"+variable+"") {
-			fmt.Println("Line: "+line+"\n", "Variable: "+variable, "Definition: "+definitions[i])
 			line = strings.Replace(line, "$"+variable+"", definitions[i], -1)
 			line = SwapLine(line, variables, definitions)
 		}
