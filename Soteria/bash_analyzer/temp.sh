@@ -37,7 +37,7 @@ echo 'Sending another POST request...'
 # Repeating the download file with wget --no-check-certificate.  This should match
 NO_CHECK_CERTIFICATE_WGET="'wget' '--no-check-certificate'"
 echo 'Downloading file again...'
-"'wget' '--no-check-certificate'" -O installer2.pkg 'https://example.com/installer.pkg'
+NO_CHECK_CERTIFICATE_WGET -O installer2.pkg 'https://example.com/installer.pkg'
 
 execute_command() {
     local -n command=$1

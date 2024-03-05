@@ -97,7 +97,7 @@ func GetVariables(file_name string) []string {
 		line := scanner.Text()
 		// check regex
 		// grab line number ???
-		regex_pattern := `\b([A-Z_][A-Z0-9_]*)\s*=\s*`
+		regex_pattern := `\b([a-zA-Z_][a-zA-Z0-9_]*)\s*=['"($]` //`\b([A-Z_][A-Z0-9_]*)\s*=\s*`
 		regex_expression := regexp.MustCompile(regex_pattern)
 		matches := regex_expression.FindAllStringSubmatch(line, -1)
 
@@ -132,7 +132,7 @@ func GetVariableDefinitions(file_name string) []string {
 		// check regex
 		// grab line number ???
 		// regex_pattern := `(=)([('].*)` // Seems Better
-		regex_pattern := `[A-Z]\b(=)([('].*)`
+		regex_pattern := `(=)([('].*)` // `[A-Z]\b(=)([('].*)`
 		regex_expression := regexp.MustCompile(regex_pattern)
 		matches := regex_expression.FindAllStringSubmatch(line, -1)
 
@@ -142,10 +142,9 @@ func GetVariableDefinitions(file_name string) []string {
 			}
 		}
 
-
 		// Second Pass
 		// regex_pattern = `\b=([a-zA-Z_\/:-][a-zA-Z0-9_\/:-]*)`
-		regex_pattern = `[A-Z]\b(=)("\$\{[^"]+?\}")`
+		regex_pattern = `((?:^|[\-])*)([a-zA-Z_][a-zA-Z0-9_]*)=["${]` // `(?<!-)([a-zA-Z_][a-zA-Z0-9_]*)=["${]` // `[A-Z]\b(=)("\$\{[^"]+?\}")`
 		regex_expression = regexp.MustCompile(regex_pattern)
 		matches2 := regex_expression.FindAllStringSubmatch(line, -1)
 
@@ -173,9 +172,6 @@ func SwapLine(line string, variables []string, definitions []string) string {
 			line = strings.Replace(line, "${"+variable+"}", definitions[i], -1)
 			line = SwapLine(line, variables, definitions)
 		}
-		// fmt.Println(variable, " : ", line, " : ", definitions[i])
-		// add other case???
-
 	}
 
 	return line
