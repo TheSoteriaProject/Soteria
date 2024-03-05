@@ -99,6 +99,11 @@ That's it! You're now ready to use the Soteria tool to analyze your projects for
 }
 ```
 
+# Tool Status
+[![Go](https://github.com/TheSoteriaProject/Soteria/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/TheSoteriaProject/Soteria/actions/workflows/go.yml)
+[![Python](https://github.com/TheSoteriaProject/Soteria/actions/workflows/python-app.yml/badge.svg)](https://github.com/TheSoteriaProject/Soteria/actions/workflows/python-app.yml)
+
+
 ## Contributing
 
 If you want to contribute to this project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
