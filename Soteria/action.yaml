@@ -1,0 +1,32 @@
+name: 'Soteria'
+description: 'Tool for Insecure Communication Linting'
+inputs:
+  project-path: # Project Path
+    description: 'Location of Project'
+    required: true
+  use-bashfile: # Use Bash File Static Analyzer
+    descripion: 'Used to Disable Bash Analyzer'  
+    required: true
+    default: false
+  use-makefile: # Use Makefile Static Analyzer
+    descripion: 'Used to Disable Makefile Analyzer'  
+    required: true
+    default: false
+  use-dockerfile: # Use Dockerfile Static Analyzer
+    descripion: 'Used to Disable Dockerfile Analyzer'  
+    required: true
+    default: false
+outputs:
+  logs:
+    description: 'Logging Output'
+    value: ${{}}
+runs:
+  using: composite
+  steps:
+  - uses: actions/setup-go@v2
+    with:
+      go-version: 'go 1.21.6'
+
+  - run: |
+    cd Soteria/
+    ./Soteria
