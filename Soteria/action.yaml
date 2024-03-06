@@ -3,5 +3,5 @@ description: 'Tool for Insecure Communication Linting'
 runs:
   using: composite
   steps:
-  - shell: bash
-    run: go run main.go Files/
+    - run: go run main.go Files/
+      shell: bash
