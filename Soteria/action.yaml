@@ -5,6 +5,5 @@ runs:
   steps:
   - shell: bash
     run: |
-      cd Soteria/Soteria/
       go build
       ./Soteria
