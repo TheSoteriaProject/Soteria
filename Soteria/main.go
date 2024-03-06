@@ -49,7 +49,7 @@ func main() {
 		uDockerfile := flag.Bool("uDockerfile", true, "Check Dockerfile Files")
 
 		// Logging Print Flag
-		disableLogPrint := flag.Bool("disableLogPrint", false, "Check If Logs Print")
+		enableLogPrint := flag.Bool("enableLogPrint", true, "Check If Logs Print")
 
 		// Warn Flag
 		var warnUser bool
@@ -113,7 +113,7 @@ func main() {
 					fmt.Println("Error Destroying Logs.")
 					os.Exit(1)
 				}
-				diverter.DivertFiles(file_pool, warnUser, *uMakefile, *uDockerfile, *uBash, *disableLogPrint)
+				diverter.DivertFiles(file_pool, warnUser, *uMakefile, *uDockerfile, *uBash, *enableLogPrint)
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
 				// fmt.Println("Path Does Not Exist.")

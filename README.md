@@ -46,9 +46,9 @@ The Soteria tool is a powerful utility designed to analyze projects for security
    - **Description**: Disables the Dockerfile static analyzer.
    - **Usage**: `--uDockerfile=true` or `--uDockerfile=false`
   
-7. `--disableLogPrint`:
-   - **Descritpion**: Disbale Log Prints for static analzyer.
-   - **Usage**: `--disableLogPrint=true` or `--disableLogPrint=false`
+7. `--enableLogPrint`:
+   - **Descritpion**: Enable Log Prints for static analzyer.
+   - **Usage**: `--enableLogPrint=true` or `--enableLogPrint=false`
 
 8. `--test`:
    - **Description**: Runs unit tests for the function to confirm code changes worked and the tool is still functional.
