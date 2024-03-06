@@ -23,8 +23,13 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Checkout repository
+    - name: Checkout Repository
       uses: actions/checkout@v4
+    
+    - name: Setup Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 'go 1.21.6'
 
     - name: Set GitHub Path
       run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
@@ -36,4 +41,5 @@ runs:
       id: run-soteria
       run: |
         cd Soteria/Soteria/
+        go build
         ./Soteria
