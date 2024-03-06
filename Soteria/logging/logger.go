@@ -77,8 +77,6 @@ func JsonLogger(FileName string, LineNumber int, Line string, Issue string, Erro
 func DestroyJsonLog() error {
 	filename := "../logs/bash_log.json"
 	if _, err := os.Stat(filename); !os.IsNotExist(err) {
-		fmt.Printf("File '%s' does not exist\n", filename)
-
 		if err := os.Truncate(filename, 0); err != nil {
 			return err
 		}
