@@ -4,6 +4,4 @@ runs:
   using: composite
   steps:
   - shell: bash
-    run: |
-      go build
-      ./Soteria
+    run: | ./Soteria
