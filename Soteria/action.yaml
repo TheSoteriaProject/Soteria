@@ -16,10 +16,10 @@ inputs:
     description: 'Used to Disable Dockerfile Analyzer'
     required: true
     default: false
-outputs:
-  logs:
-    description: 'Logging Output'
-    value: ${{ steps.run-soteria.outputs.logs }}
+# outputs:
+#   logs:
+#     description: 'Logging Output'
+#     value: ${{ steps.run-soteria.outputs.logs }}
 runs:
   using: composite
   steps:
