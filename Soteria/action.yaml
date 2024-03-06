@@ -3,8 +3,8 @@ description: 'Tool for Insecure Communication Linting'
 runs:
   using: composite
   steps:
-  - run: |
+  - shell: bash
+    run: |
       cd Soteria/Soteria/
       go build
       ./Soteria
-  shell: bash
