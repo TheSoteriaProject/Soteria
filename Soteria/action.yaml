@@ -1,45 +1,10 @@
 name: 'Soteria'
 description: 'Tool for Insecure Communication Linting'
-inputs:
-  project-path:
-    description: 'Location of Project'
-    required: true
-  use-bashfile:
-    description: 'Used to Disable Bash Analyzer'
-    required: true
-    default: false
-  use-makefile:
-    description: 'Used to Disable Makefile Analyzer'
-    required: true
-    default: false
-  use-dockerfile:
-    description: 'Used to Disable Dockerfile Analyzer'
-    required: true
-    default: false
-# outputs:
-#   logs:
-#     description: 'Logging Output'
-#     value: ${{ steps.run-soteria.outputs.logs }}
 runs:
   using: composite
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-    
-    - name: Setup Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 'go 1.21.6'
-
-    - name: Set GitHub Path
-      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
-      shell: bash
-      env:
-        GITHUB_ACTION_PATH: ${{ github.action_path }}
-
-    - name: Run Soteria
-      id: run-soteria
-      run: |
-        cd Soteria/Soteria/
-        go build
-        ./Soteria
+  - run: |
+      cd Soteria/Soteria/
+      go build
+      ./Soteria
+  shell: bash
