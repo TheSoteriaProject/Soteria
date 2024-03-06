@@ -15,7 +15,7 @@ func TestConnection() {
 }
 
 // DivertFiles is used to send files to the correct static (analyzer || analyzers)
-func DivertFiles(file_pool []string, warnUser bool, u_makefile bool, u_dockerfile bool, u_bash bool) {
+func DivertFiles(file_pool []string, warnUser bool, u_makefile bool, u_dockerfile bool, u_bash bool, disable_log_print bool) {
 	for _, file := range file_pool {
 		split := strings.Split(file, "/")
 		extension := filepath.Ext(split[len(split)-1]) // MAY WANT FULL FILE PATH
@@ -34,7 +34,7 @@ func DivertFiles(file_pool []string, warnUser bool, u_makefile bool, u_dockerfil
 		if u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
 			// fmt.Println("Diverted: " + file + " to Bash Static Analyzer.")
 			// Can Pass via CLI However for this one it is written in go so I wont.
-			bash_analyzer.BashController(file, warnUser)
+			bash_analyzer.BashController(file, warnUser, disable_log_print)
 		}
 	}
 }
