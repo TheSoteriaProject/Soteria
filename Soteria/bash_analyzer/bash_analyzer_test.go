@@ -211,7 +211,7 @@ func TestBashController(t *testing.T) {
 	TestGetVariables2(t)
 	TestGetVariableDefinitions2(t)
 	TestGetVariables3(t)
-	// TestGetVariableDefinitions3(t)
+	TestGetVariableDefinitions3(t)
 }
 
 func TestMain(m *testing.M) {

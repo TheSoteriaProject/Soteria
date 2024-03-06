@@ -175,6 +175,9 @@ func SwapLine(line string, variables []string, definitions []string) string {
 			line = strings.Replace(line, "$"+variable+"", definitions[i], -1)
 			line = SwapLine(line, variables, definitions)
 		}
+		// fmt.Println(variable, " : ", line, " : ", definitions[i])
+		// add other case???
+
 	}
 
 	return line
