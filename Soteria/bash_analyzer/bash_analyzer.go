@@ -41,7 +41,7 @@ func ReadYAMLFile(filePath string) ([]byte, error) {
 	return data, nil
 }
 
-func ReadLines(_file string, filename string, warnUser bool, section string, command string, DisableLogPrint bool) {
+func ReadLines(_file string, filename string, warnUser bool, section string, command string, enableLogPrint bool) {
 	file, err := os.Open(_file)
 	if err != nil {
 		return
@@ -68,7 +68,7 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 
 				// Deal with None Erro cases like comments and echos
 				if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
-					JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, DisableLogPrint)
+					JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
 				}
 			}
 		}
@@ -219,7 +219,7 @@ func VariableSwap(file string, warnUser bool, variables []string, variable_defin
 }
 
 // CheckForHiddenInsecureCommunication from the file.
-func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warnUser bool, variables []string, variable_definitions []string, DisableLogPrint bool) {
+func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warnUser bool, variables []string, variable_definitions []string, enableLogPrint bool) {
 	filename := filepath
 
 	yamlData, err := ReadYAMLFile(warn_file)
@@ -236,10 +236,10 @@ func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warn
 	VariableSwap(filepath, warnUser, variables, variable_definitions)
 
 	// Deal with hardcoded filename
-	CheckForInsecureCommunication("../Soteria/bash_analyzer/temp.sh", filename, warnUser, warn_file, variables, variable_definitions, DisableLogPrint)
+	CheckForInsecureCommunication("../Soteria/bash_analyzer/temp.sh", filename, warnUser, warn_file, variables, variable_definitions, enableLogPrint)
 }
 
-func CheckForInsecureCommunication(filepath string, filename string, warnUser bool, warn_file string, variables []string, variable_definitions []string, DisableLogPrint bool) {
+func CheckForInsecureCommunication(filepath string, filename string, warnUser bool, warn_file string, variables []string, variable_definitions []string, enableLogPrint bool) {
 	yamlData, err := ReadYAMLFile(warn_file)
 	if err != nil {
 		log.Fatalf("error reading YAML file: %v", err)
@@ -255,12 +255,12 @@ func CheckForInsecureCommunication(filepath string, filename string, warnUser bo
 		for _, command := range commands.([]interface{}) {
 			// fmt.Println(section, command)
 			// Just grep file if not echo or comment??? INLINE ONLY
-			ReadLines(filepath, filename, warnUser, section, command.(string), DisableLogPrint)
+			ReadLines(filepath, filename, warnUser, section, command.(string), enableLogPrint)
 		}
 	}
 }
 
-func BashController(file string, warnUser bool, DisableLogPrint bool) {
+func BashController(file string, warnUser bool, enableLogPrint bool) {
 	// Pass File Name/Path
 	v := GetVariables(file)
 	vd := GetVariableDefinitions(file)
@@ -271,5 +271,5 @@ func BashController(file string, warnUser bool, DisableLogPrint bool) {
 
 	// CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
 
-	CheckForHiddenInsecureCommunication(file, warn_file, warnUser, v, vd, DisableLogPrint)
+	CheckForHiddenInsecureCommunication(file, warn_file, warnUser, v, vd, enableLogPrint)
 }
