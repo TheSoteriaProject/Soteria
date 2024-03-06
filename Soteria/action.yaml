@@ -4,4 +4,4 @@ runs:
   using: composite
   steps:
   - shell: bash
-    run: ./Soteria Files/
+    run: go run main.go Files/
