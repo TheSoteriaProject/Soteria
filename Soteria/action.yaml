@@ -30,5 +30,5 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Run Soteria
-      run: ./Soteria 
+      run: ls
       shell: bash
