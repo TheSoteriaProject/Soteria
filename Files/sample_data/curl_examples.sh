@@ -52,7 +52,7 @@ execute_command() {
 
 # This should match
 echo 'Running curl -k with a function...'
-command=('curl' '-k' '-o' 'installer3.pkg' "${DOWNLOAD_URL}")
+command=('curl' '-k' '-o' 'installer3.pkg' "${DOWNLOAD_URL}") # Ignore Match
 execute_command command
 
 # Echo a string containing curl --insecure into a file.  This should *NOT* match.

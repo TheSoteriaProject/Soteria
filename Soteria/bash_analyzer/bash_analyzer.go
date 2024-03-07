@@ -60,7 +60,7 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 
 			// Check if the text contains the exact matches for both patterns
 			if re1.MatchString(line) && re2.MatchString(line) {
-				// fmt.Println("Found: ", line+"\nContains: "+section+" "+command)
+				// Adjust this to be less stupid
 				ErrorType := "Error"
 				if warnUser {
 					ErrorType = "Warn"
@@ -68,6 +68,9 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 
 				// Deal with None Erro cases like comments and echos
 				if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
+					if strings.Contains(line, "Ignore Match") { // Ignore Line Case
+						ErrorType = "Warn"
+					}
 					JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
 				}
 			}
