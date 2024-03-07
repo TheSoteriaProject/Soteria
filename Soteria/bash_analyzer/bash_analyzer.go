@@ -141,7 +141,8 @@ func GetVariableDefinitions(file_name string) []string {
 
 		for _, match := range matches {
 			if len(match) > 1 {
-				definition_list = append(definition_list, match[2])
+				match2 := strings.Replace(match[2], " # Ignore Match", "", -1) // Dumb AF need to adjust. Spacing Everything garbage. Just for testing I guess.
+				definition_list = append(definition_list, match2)
 			}
 		}
 
