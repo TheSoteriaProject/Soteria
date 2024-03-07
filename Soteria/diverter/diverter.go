@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // TestConnection is used to Test Diverter Connection.
@@ -14,6 +15,54 @@ func TestConnection() {
 	fmt.Println("Testing Diverter Connection.")
 }
 
+func DivertFiles(file_pool []string, warnUser bool, u_makefile bool, u_dockerfile bool, u_bash bool, enableLogPrint bool) {
+	for _, file := range file_pool {
+
+		done := make(chan bool)
+
+		// Start the function in a goroutine
+		go func() {
+			DivertFile(file, warnUser, u_makefile, u_dockerfile, u_bash, enableLogPrint)
+			// Signal completion by sending true to the channel
+			done <- true
+		}()
+
+		// Wait for either the function to complete or the timeout
+		select {
+		case <-done:
+			fmt.Println("Function completed before timeout")
+		case <-time.After(60 * time.Second):
+			fmt.Println("Function timed out")
+		}
+	}
+}
+
+// DivertFiles is used to send files to the correct static (analyzer || analyzers)
+func DivertFile(file string, warnUser bool, u_makefile bool, u_dockerfile bool, u_bash bool, enableLogPrint bool) {
+	// for _, file := range file_pool {
+	split := strings.Split(file, "/")
+	extension := filepath.Ext(split[len(split)-1]) // MAY WANT FULL FILE PATH
+	// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
+	// Makefile Check
+	if u_makefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
+		fmt.Println("Diverted: " + file + " to Makefile Static Analyzer.")
+		// exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
+	}
+	// Dockerfile Check
+	if u_dockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
+		fmt.Println("Diverted: " + file + " to Docker Static Analyzer.")
+		exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
+	}
+	// Bash Check
+	if u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) || u_bash && strings.Contains(strings.ToLower(split[len(split)-1]), "-sh") {
+		fmt.Println("Diverted: " + file + " to Bash Static Analyzer.")
+		// Can Pass via CLI However for this one it is written in go so I wont.
+		bash_analyzer.BashController(file, warnUser, enableLogPrint)
+	}
+	// }
+}
+
+/*
 // DivertFiles is used to send files to the correct static (analyzer || analyzers)
 func DivertFiles(file_pool []string, warnUser bool, u_makefile bool, u_dockerfile bool, u_bash bool, enableLogPrint bool) {
 	for _, file := range file_pool {
@@ -31,10 +80,11 @@ func DivertFiles(file_pool []string, warnUser bool, u_makefile bool, u_dockerfil
 			exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
 		}
 		// Bash Check
-		if u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
-			// fmt.Println("Diverted: " + file + " to Bash Static Analyzer.")
+		if (u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh"))) || (u_bash && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("-sh "))) {
+			fmt.Println("Diverted: " + file + " to Bash Static Analyzer.")
 			// Can Pass via CLI However for this one it is written in go so I wont.
 			bash_analyzer.BashController(file, warnUser, enableLogPrint)
 		}
 	}
 }
+*/

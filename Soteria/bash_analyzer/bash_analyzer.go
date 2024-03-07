@@ -168,6 +168,7 @@ func GetVariableDefinitions(file_name string) []string {
 
 // SwapLine takes the line with the variable possibilities and checks if defined.
 func SwapLine(line string, variables []string, definitions []string) string {
+	// fmt.Println("Line: ", line) // debug
 	for i, variable := range variables {
 		if strings.Contains(line, "\"${"+variable+"}\"") {
 			line = strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
@@ -178,10 +179,11 @@ func SwapLine(line string, variables []string, definitions []string) string {
 		} else if strings.Contains(line, "$"+variable+"") {
 			line = strings.Replace(line, "$"+variable+"", definitions[i], -1)
 			line = SwapLine(line, variables, definitions)
+		} else {
+			continue
 		}
 		// fmt.Println(variable, " : ", line, " : ", definitions[i])
 		// add other case???
-
 	}
 
 	return line
@@ -189,6 +191,7 @@ func SwapLine(line string, variables []string, definitions []string) string {
 
 // VariableSwap swaps the variables with what they were defined with in the code.
 func VariableSwap(file string, warnUser bool, variables []string, variable_definitions []string) {
+	// fmt.Println("File: ", file) // Debug
 	oldFile, err := os.Open(file)
 	if err != nil {
 		fmt.Println("Error:", err)

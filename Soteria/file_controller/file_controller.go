@@ -102,7 +102,7 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 			filtered_files = append(filtered_files, files)
 		}
 		// Bash Check
-		if u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) {
+		if (u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh"))) || (u_bash && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("-sh "))) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, files)
 		}
