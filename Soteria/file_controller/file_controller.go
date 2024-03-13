@@ -87,24 +87,24 @@ func ShouldSkipDir(path string, ignoreDirs []string) bool {
 func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_bash bool) []string {
 	filtered_files := []string{}
 
-	for _, files := range files {
-		split := strings.Split(files, "/")
+	for _, file := range files {
+		split := strings.Split(file, "/")
 		extension := filepath.Ext(split[len(split)-1]) // MAY WANT FULL FILE PATH
 		// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
 		// Makefile Check
 		if (u_makefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile"))) || (u_makefile && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile"))) {
 			// fmt.Println(split[len(split)-1])
-			filtered_files = append(filtered_files, files)
+			filtered_files = append(filtered_files, file)
 		}
 		// Dockerfile Check
 		if (u_dockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile"))) || (u_dockerfile && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile"))) {
 			// fmt.Println(split[len(split)-1])
-			filtered_files = append(filtered_files, files)
+			filtered_files = append(filtered_files, file)
 		}
 		// Bash Check
 		if (u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh"))) || (u_bash && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("-sh "))) {
 			// fmt.Println(split[len(split)-1])
-			filtered_files = append(filtered_files, files)
+			filtered_files = append(filtered_files, file)
 		}
 	}
 
