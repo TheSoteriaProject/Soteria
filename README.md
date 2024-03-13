@@ -24,6 +24,7 @@ The Soteria tool is a powerful utility designed to analyze projects for security
 
 1. `--warn`: 
    - **Description**: Allows the tool to return true even if it encounters issues flagged by the insecure communication linter.
+   - **Default**: `--warn=false`
    - **Usage**: `--warn=true` or `--warn=false`
 
 2. `--help`:
@@ -34,17 +35,20 @@ The Soteria tool is a powerful utility designed to analyze projects for security
    - **Description**: Displays the latest git tag release of the Soteria tool.
    - **Usage**: `--version`
 
-4. `--uBash`:
-   - **Description**: Disables the Bash Static Analyzer.
-   - **Usage**: `--uBash=true` or `--uBash=false`
+4. `--enableBash`:
+   - **Description**: Enables the Bash Static Analyzer.
+   - **Default**: `--enableBash=true`
+   - **Usage**: `--enableBash=true` or `--enableBash=false`
 
-5. `--uMakefile`:
-   - **Description**: Disables the Makefile static analyzer.
-   - **Usage**: `--uMakefile=true` or `--uMakefile=false`
+5. `--enableMakefile`:
+   - **Description**: Enables the Makefile static analyzer.
+   - **Default**: `--enableMakefile=true`
+   - **Usage**: `--enableMakefile=true` or `--enableMakefile=false`
 
-6. `--uDockerfile`:
-   - **Description**: Disables the Dockerfile static analyzer.
-   - **Usage**: `--uDockerfile=true` or `--uDockerfile=false`
+6. `--enableDockerfile`:
+   - **Description**: Enables the Dockerfile static analyzer.
+   - **Default**: `enableDockerfile=true`
+   - **Usage**: `--enableDockerfile=true` or `--enableDockerfile=false`
   
 7. `--enableLogPrint`:
    - **Descritpion**: Enable Log Prints for static analzyer.
@@ -63,7 +67,7 @@ The Soteria tool is a powerful utility designed to analyze projects for security
 ./Soteria --warn=true /path/to/your/project
 
 3. Disable Bash Static Analyzer:
-./Soteria --uBash=false /path/to/your/project
+./Soteria --enableBash=false /path/to/your/project
 
 4. Display help page:
 ./Soteria --help
