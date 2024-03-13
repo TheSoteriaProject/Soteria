@@ -84,7 +84,7 @@ func ShouldSkipDir(path string, ignoreDirs []string) bool {
 }
 
 // FilterFileExtensions checks each file to make sure it is the proper extension.
-func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_bash bool) []string {
+func FilterFileExtensions(files []string, enableMakefile bool, enableDockerfile bool, enableBash bool) []string {
 	filtered_files := []string{}
 
 	for _, file := range files {
@@ -92,17 +92,17 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 		extension := filepath.Ext(split[len(split)-1]) // MAY WANT FULL FILE PATH
 		// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
 		// Makefile Check
-		if (u_makefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile"))) || (u_makefile && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile"))) {
+		if (enableMakefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile"))) || (enableMakefile && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile"))) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, file)
 		}
 		// Dockerfile Check
-		if (u_dockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile"))) || (u_dockerfile && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile"))) {
+		if (enableDockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile"))) || (enableDockerfile && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile"))) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, file)
 		}
 		// Bash Check
-		if (u_bash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh"))) || (u_bash && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("-sh "))) {
+		if (enableBash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh"))) || (enableBash && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("-sh "))) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, file)
 		}
@@ -112,7 +112,7 @@ func FilterFileExtensions(files []string, u_makefile bool, u_dockerfile bool, u_
 }
 
 // FileController is the Main Controller and handles each step.
-func FileController(path string, u_makefile bool, u_dockerfile bool, u_bash bool) []string {
+func FileController(path string, enableMakefile bool, enableDockerfile bool, enableBash bool) []string {
 	ignore_file := "./.soteriaignore"
 	ignoreDirs := GetIgnoreDirs(ignore_file)
 	// ShowSliceData(ignoreDirs)
@@ -121,7 +121,7 @@ func FileController(path string, u_makefile bool, u_dockerfile bool, u_bash bool
 	files := WalkTheFiles(path, ignoreDirs)
 
 	// Filter Down to just Bash, Makefiles, and Dockerfiles
-	file_pool := FilterFileExtensions(files, u_makefile, u_dockerfile, u_bash)
+	file_pool := FilterFileExtensions(files, enableMakefile, enableDockerfile, enableBash)
 
 	// Show Final File Pool to be Diverted
 	// ShowSliceData(file_pool)

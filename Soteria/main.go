@@ -44,9 +44,9 @@ func main() {
 
 		// Bash, Makefile, and Docker Flag
 		// May be doing this wrong long term.
-		uBash := flag.Bool("uBash", true, "Check Bash Files")
-		uMakefile := flag.Bool("uMakefile", true, "Check Makefiles File")
-		uDockerfile := flag.Bool("uDockerfile", true, "Check Dockerfile Files")
+		enableBash := flag.Bool("enableBash", true, "Check Bash Files")
+		enableMakefile := flag.Bool("enableMakefile", true, "Check Makefiles File")
+		enableDockerfile := flag.Bool("enableDockerfile", true, "Check Dockerfile Files")
 
 		// Logging Print Flag
 		enableLogPrint := flag.Bool("enableLogPrint", true, "Check If Logs Print")
@@ -105,7 +105,7 @@ func main() {
 			// If File Path Does Exist
 			if _, err := os.Stat(input); err == nil {
 				// All the Files that are to be checked.
-				file_pool := file_controller.FileController(input, *uMakefile, *uDockerfile, *uBash)
+				file_pool := file_controller.FileController(input, *enableMakefile, *enableDockerfile, *enableBash)
 				// Divert Files to correct parser || parsers
 				// Probably does not need the 'use' flags. Get Opinions.
 				err := JLogger.DestroyJsonLog() // Truncates Old File
@@ -113,7 +113,7 @@ func main() {
 					fmt.Println("Error Destroying Logs.")
 					os.Exit(1)
 				}
-				diverter.DivertFiles(file_pool, warnUser, *uMakefile, *uDockerfile, *uBash, *enableLogPrint)
+				diverter.DivertFiles(file_pool, warnUser, *enableMakefile, *enableDockerfile, *enableBash, *enableLogPrint)
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
 				// fmt.Println("Path Does Not Exist.")
