@@ -12,6 +12,7 @@ Place Reminders Here - Logan
 11. Use Bash, Use Makefile, Use Dockerfile flags up and running along with help and version. still need to add warning flag and i think that is it.
 12. Deal with Newline characters staying on one line should be just checking for suffix && or \?
 13. Deal with ; in Bash
+14. Find a way to find time and debug properly. 
 
 Lexer
 - Bash - Logan
