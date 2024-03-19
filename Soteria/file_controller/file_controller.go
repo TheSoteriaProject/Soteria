@@ -20,6 +20,32 @@ func ShowSliceData(path []string) {
 	}
 }
 
+// isFileBash Checks if the file contains the shebang if it doesnt end with .sh or have -sh
+func isFileBash(filepath string) bool {
+	// Open File from Filepath
+	file, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return false
+	}
+	defer file.Close()
+
+	// Grab First Two Bytes
+	buf := make([]byte, 2)
+	n, err := file.Read(buf)
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return false
+	}
+
+	// Check for shebang
+	if n >= 2 && buf[0] == '#' && buf[1] == '!' {
+		return true
+	} else {
+		return false
+	}
+}
+
 // GetIgnoreDirs Gets Folders that should be Ignored.
 func GetIgnoreDirs(path string) []string {
 	ignoreDirs := []string{}
@@ -102,7 +128,7 @@ func FilterFileExtensions(files []string, enableMakefile bool, enableDockerfile 
 			filtered_files = append(filtered_files, file)
 		}
 		// Bash Check
-		if (enableBash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh"))) || (enableBash && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("-sh "))) {
+		if (enableBash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh"))) || (enableBash && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("-sh "))) || (enableBash && isFileBash(file)) {
 			// fmt.Println(split[len(split)-1])
 			filtered_files = append(filtered_files, file)
 		}
