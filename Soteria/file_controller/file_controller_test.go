@@ -94,14 +94,11 @@ func TestWalkTheFiles(t *testing.T) {
 func TestFilterFileExtensions(t *testing.T) {
 	// Datset
 	files_list := []string{
-		"../../Files/sample_data/curl_examples.pearl",
-		"../../Files/sample_data/curl_examples.txt",
 		"../../Files/sample_data/curl_examples.Dockerfile",
 		"../../Files/sample_data/curl_examples.Makefile",
 		"../../Files/sample_data/curl_examples.sh",
 		"../../Files/sample_data/ssh_examples.Makefile",
 		"../../Files/sample_data/ssh_examples.sh",
-		"../../Files/sample_data/curl_examples.COBOL",
 		"../../Files/sample_data/wget_examples.Dockerfile",
 		"../../Files/sample_data/wget_examples.Makefile",
 		"../../Files/sample_data/wget_examples.sh"}

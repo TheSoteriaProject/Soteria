@@ -4,8 +4,9 @@ import (
 	"fmt"
 )
 
+// Self Explanatory Help Page.
 func Info() {
-	fmt.Printf("\n") // Needed Extra Space
+	fmt.Printf("\n")
 	fmt.Println("---------------------------------------------------------------------------------------------------------------------------------------------------")
 	fmt.Println(" _   _      _        ______                ")
 	fmt.Println("| | | |    | |       | ___ \\               ")
@@ -32,5 +33,5 @@ func Info() {
 	fmt.Println("\t--version: ./Soteria --version")
 	fmt.Println("\t--test: ./Soteria --test")
 	fmt.Println("---------------------------------------------------------------------------------------------------------------------------------------------------")
-	fmt.Printf("\n") // Needed Extra Space
+	fmt.Printf("\n")
 }

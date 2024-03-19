@@ -72,9 +72,8 @@ func main() {
 			input = flag.Arg(0)
 		}
 
-		// If the Unit Test flag is passed it will run the test and
-		// confirm any changes and current tool work ho it should.
 		if runTests {
+			// If the Unit Test flag is passed it will run the test and confirm any changes and current tool work ho it should.
 			cmd := exec.Command("go", "test", "./...", "-v")
 			cmd.Stdout = os.Stdout
 			cmd.Stderr = os.Stderr
@@ -86,11 +85,11 @@ func main() {
 				fmt.Printf("Error running tests: %v\n", err)
 				os.Exit(1)
 			}
-			// If the help flag is passed provide the the help page.
 		} else if helpUser {
+			// If the help flag is passed provide the the help page.
 			Help.Info()
-			// If the version flag is passed provide the version for debug and relevance reasons.
 		} else if versionCheck {
+			// If the version flag is passed provide the version for debug and relevance reasons.
 			// This gets the current tag. More complex and stupid than it should be, but is how a stack overflow post does it.
 			tagOutput := exec.Command("git", "rev-list", "--tags", "--max-count=1")
 			outTag, errTag := tagOutput.Output()
@@ -109,12 +108,11 @@ func main() {
 
 			fmt.Println("Version:", strings.TrimSpace(string(outVersion)))
 		} else {
+			// Main Sequence
 			// If File Path Does Exist
 			if _, err := os.Stat(input); err == nil {
 				// All the Files that are to be checked.
 				file_pool := file_controller.FileController(input, *enableMakefile, *enableDockerfile, *enableBash)
-
-				// Divert Files to correct parser || parsers
 
 				err := JLogger.DestroyJsonLog() // Truncates Old File before start if not possible error. Lovely...
 				if err != nil {
