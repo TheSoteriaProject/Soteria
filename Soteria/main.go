@@ -1,6 +1,7 @@
 package main
 
 import (
+	// Standard Packages.
 	"errors"
 	"flag"
 	"fmt"
@@ -8,7 +9,7 @@ import (
 	"os/exec"
 	"strings"
 
-	// Custom Files
+	// Custom Packages(Sorta Packages lol)
 	"Soteria/diverter"
 	"Soteria/file_controller"
 	Help "Soteria/help"       // Alias Given
@@ -16,15 +17,20 @@ import (
 )
 
 func main() {
+	// Intro Print NOT neeed but is nice.
 	fmt.Println("Welcome to Insecure Communication Linter.")
+
+	/*****************************
+	// Down Below is old Test Connections. Not Needed but fine to keep.
 
 	// Confrim/Test File Controller Connection
 	// file_controller.TestConnection()
 
 	//Confirm/Test Diverter Connection
 	// diverter.TestConnection()
+	*****************************/
 
-	// if len(os.Args) > 1 {
+	// Checks to see if there was an argument pass to the command line.
 	if flag.NFlag() >= 0 || flag.NArg() >= 0 {
 		// Diasble Terminal Flags
 		flag.Usage = func() {}
@@ -43,10 +49,9 @@ func main() {
 		flag.BoolVar(&versionCheck, "v", false, "Version Check")
 
 		// Bash, Makefile, and Docker Flag
-		// May be doing this wrong long term.
-		uBash := flag.Bool("uBash", true, "Check Bash Files")
-		uMakefile := flag.Bool("uMakefile", true, "Check Makefiles File")
-		uDockerfile := flag.Bool("uDockerfile", true, "Check Dockerfile Files")
+		enableBash := flag.Bool("enableBash", true, "Check Bash Files")
+		enableMakefile := flag.Bool("enableMakefile", true, "Check Makefiles File")
+		enableDockerfile := flag.Bool("enableDockerfile", true, "Check Dockerfile Files")
 
 		// Logging Print Flag
 		enableLogPrint := flag.Bool("enableLogPrint", true, "Check If Logs Print")
@@ -58,7 +63,7 @@ func main() {
 		// Parse Flag
 		flag.Parse()
 
-		// Take Project Path
+		// Take Project Path and set it.
 		args := flag.Args()
 		input := ""
 		if len(args) > 0 {
@@ -68,10 +73,12 @@ func main() {
 		}
 
 		if runTests {
+			// If the Unit Test flag is passed it will run the test and confirm any changes and current tool work ho it should.
 			cmd := exec.Command("go", "test", "./...", "-v")
 			cmd.Stdout = os.Stdout
 			cmd.Stderr = os.Stderr
 
+			// Let the user know.
 			fmt.Println("Running tests...")
 			err := cmd.Run()
 			if err != nil {
@@ -79,8 +86,11 @@ func main() {
 				os.Exit(1)
 			}
 		} else if helpUser {
+			// If the help flag is passed provide the the help page.
 			Help.Info()
 		} else if versionCheck {
+			// If the version flag is passed provide the version for debug and relevance reasons.
+			// This gets the current tag. More complex and stupid than it should be, but is how a stack overflow post does it.
 			tagOutput := exec.Command("git", "rev-list", "--tags", "--max-count=1")
 			outTag, errTag := tagOutput.Output()
 			if errTag != nil {
@@ -98,37 +108,32 @@ func main() {
 
 			fmt.Println("Version:", strings.TrimSpace(string(outVersion)))
 		} else {
-			// Add Other flags
-			// --warn etc...
-			// Check for multiple flags possibly
-
+			// Main Sequence
 			// If File Path Does Exist
 			if _, err := os.Stat(input); err == nil {
 				// All the Files that are to be checked.
-				file_pool := file_controller.FileController(input, *uMakefile, *uDockerfile, *uBash)
-				// Divert Files to correct parser || parsers
-				// Probably does not need the 'use' flags. Get Opinions.
-				err := JLogger.DestroyJsonLog() // Truncates Old File
+				file_pool := file_controller.FileController(input, *enableMakefile, *enableDockerfile, *enableBash)
+
+				err := JLogger.DestroyJsonLog() // Truncates Old File before start if not possible error. Lovely...
 				if err != nil {
 					fmt.Println("Error Destroying Logs.")
 					os.Exit(1)
 				}
-				diverter.DivertFiles(file_pool, warnUser, *uMakefile, *uDockerfile, *uBash, *enableLogPrint)
+
+				// Take the file pool and divert to each analyzer.
+				diverter.DivertFiles(file_pool, warnUser, *enableMakefile, *enableDockerfile, *enableBash, *enableLogPrint)
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
-				// fmt.Println("Path Does Not Exist.")
-				// Other Issue?
 				fmt.Println("It seems you have given an invalid input. Try --help")
 				os.Exit(1)
 			} else {
 				// If File Does Not Exist Throw Err and EXIT
-				// SHOULD NOT MAKE IT HERE
-				fmt.Println("File Does Not Exist")
+				fmt.Println("File Does Not Exist") // Shoud not technically make it here but in-case.
 				os.Exit(1)
 			}
 		}
 	} else {
-		// Invalid Input or Bad CLI Argument
+		// No Input Flag is given or bad Command Line Input.
 		fmt.Println("It seems you have given an invalid input. Try --help")
 	}
 }
