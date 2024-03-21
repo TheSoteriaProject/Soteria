@@ -7,11 +7,35 @@ import (
 )
 
 type Log struct {
-	FileName   string
-	LineNumber int
-	Line       string
-	Issue      string
-	ErrorType  string
+	FileName   string `json:"FileName"`
+	LineNumber int    `json:"LineNumber"`
+	Line       string `json:"Line"`
+	Issue      string `json:"Issue"`
+	ErrorType  string `json:"ErrorType"`
+}
+
+// CheckForReturnType atakes the JSON log and based on if an ErrorType of "Error" is found determines the Exit code for the program
+func CheckForReturnType() int {
+	filename := "../logs/bash_log.json"
+	file, err := os.Open(filename)
+	if err != nil {
+		fmt.Println("Failed to open JSON Logs:", err)
+	}
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+	var logs []Log
+	if err := decoder.Decode(&logs); err != nil {
+		fmt.Println("Failed to decode JSON:", err)
+	}
+
+	for _, log := range logs {
+		if log.ErrorType == "Error" {
+			return 1
+		}
+	}
+
+	return 0
 }
 
 // StoreJsonLogs takes in the JSON data and writes it to a file so it can be read.
