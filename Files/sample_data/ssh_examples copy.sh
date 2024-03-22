@@ -9,6 +9,9 @@ ssh_cmd='/usr/bin/ssh'
 echo 'Insecure SSH invocation with options as variables:'
 $ssh_cmd $ssh_opts user@example.com; $ssh_cmd $ssh_opts user@example.com; $ssh_cmd $ssh_opts user@example.com
 
+$ssh_cmd $ssh_opts user@example.com; $ssh_cmd $ssh_opts user@example.com \
+$ssh_cmd $ssh_opts user@example.com
+
 # Plain insecure SSH invocation
 echo 'Plain insecure SSH invocation:'
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com

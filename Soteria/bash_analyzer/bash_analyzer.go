@@ -72,7 +72,12 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 						ErrorType = "Warn"
 					}
 
-					// Deal with ;
+					// Deal with ; and \ but issue need to check for ; in the second
+					// if strings.HasSuffix(line, "\\") {
+					// Need to also check for ; so may be best to comment out and come back to until logic is figured out.
+					// fmt.Println("Hit!") // Place Holder
+					// JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
+					// } else
 					if strings.Contains(line, ";") {
 						lines := strings.Split(line, ";")
 						for _, line := range lines {
