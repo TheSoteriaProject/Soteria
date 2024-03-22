@@ -71,7 +71,16 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 					if strings.Contains(line, "Ignore Match") { // Ignore Line Case
 						ErrorType = "Warn"
 					}
-					JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
+
+					// Deal with ;
+					if strings.Contains(line, ";") {
+						lines := strings.Split(line, ";")
+						for _, line := range lines {
+							JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
+						}
+					} else {
+						JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
+					}
 				}
 			}
 		}

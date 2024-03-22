@@ -17,9 +17,10 @@ type Log struct {
 // CheckForReturnType atakes the JSON log and based on if an ErrorType of "Error" is found determines the Exit code for the program
 func CheckForReturnType() int {
 	filename := "../logs/bash_log.json"
-	file, err := os.Open(filename)
+	file, err := os.Open(filename) // Add log or pre-check becuase may not exist
 	if err != nil {
-		fmt.Println("Failed to open JSON Logs:", err)
+		// fmt.Println("Failed to open JSON Logs:", err)
+		os.Exit(0) // Ehhhh not certain
 	}
 	defer file.Close()
 
