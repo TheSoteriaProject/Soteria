@@ -15,6 +15,7 @@ class LinterEngine:
     def analyze(self):
         """Analyze the Makefile for security issues."""
         issues = []
+        flagged_lines = set()
         with open(self.filepath, 'r') as file:
             for line_number, line in enumerate(file, start=1):
                 if self.is_comment_or_empty(line):
@@ -25,13 +26,16 @@ class LinterEngine:
                 resolved_line = self.resolve_variables_in_line(line)
                 for rule in self.rules:
                     pattern = re.compile(rule['pattern'])
-                    if pattern.search(resolved_line):
-                        issues.append({
-                            "line": line_number,
-                            "line_content": line.strip(),
-                            "issue": rule['description'],
-                            "severity": rule['severity']
-                        })
+                    matches = pattern.finditer(resolved_line)
+                    for match in matches:
+                        if line_number not in flagged_lines:
+                            issues.append({
+                                "line": line_number,
+                                "line_content": resolved_line.strip(),
+                                "issue": rule['description'],
+                                "severity": rule['severity']
+                            })
+                            flagged_lines.add(line_number)
         return issues
 
     def is_comment_or_empty(self, line):
@@ -47,6 +51,12 @@ class LinterEngine:
     def resolve_variables_in_line(self, line):
         """Replace variable references in the line with their actual values."""
         resolved_line = line
-        for var_name, var_value in self.variables.items():
-            resolved_line = re.sub(r'\$\({}|{}\)'.format(re.escape(var_name), re.escape('{' + var_name + '}')), var_value, resolved_line)
+        max_iterations = 10
+        iteration = 0
+        while '$' in resolved_line and iteration < max_iterations:
+            for var_name, var_value in self.variables.items():
+                resolved_line = resolved_line.replace(f'$({var_name})', var_value)
+                resolved_line = resolved_line.replace(f'${{{var_name}}}', var_value)
+                resolved_line = resolved_line.replace(f'${var_name}', var_value)
+            iteration += 1
         return resolved_line
