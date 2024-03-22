@@ -1,0 +1,20 @@
+[
+    {
+        "line": 31,
+        "line_content": "$(WGET) --no-check-certificate $(INSTALLER_URL)",
+        "issue": "Insecure SSL/TLS connection with wget",
+        "severity": "high"
+    },
+    {
+        "line": 36,
+        "line_content": "$(WGET) --spider http://example.com",
+        "issue": "Plaintext HTTP connection with wget",
+        "severity": "medium"
+    },
+    {
+        "line": 41,
+        "line_content": "UPDATE_TEXT='We have banned the use of `wget --no-check-certificate` in our code'; \\",
+        "issue": "Insecure SSL/TLS connection with wget",
+        "severity": "high"
+    }
+]
