@@ -58,10 +58,14 @@
   description: 'Enabled gateway ports with SSH'
   severity: 'medium'
 
-- pattern: '(?i)curl.*(-k|--insecure|\$\(CURL_OPTIONS\)|\$\(CURL_LONG_OPTIONS\))'
-  description: 'Insecure SSL/TLS connection with curl'
+- pattern: '(?i)(curl|wget).*--insecure'
+  description: 'Insecure SSL/TLS connection with curl or wget using --insecure option'
   severity: 'high'
 
-- pattern: '(?i)curl.*http://'
-  description: 'Plaintext HTTP connection with curl'
+- pattern: '(?i)(curl|wget).*(-k|--insecure)'
+  description: 'Insecure SSL/TLS connection with curl or wget'
+  severity: 'high'
+
+- pattern: '(?i)(curl|wget).*http://'
+  description: 'Plaintext HTTP connection with curl or wget'
   severity: 'medium'
