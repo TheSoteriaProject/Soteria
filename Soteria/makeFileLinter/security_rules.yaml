@@ -1,21 +1,67 @@
-- pattern: "-k"
-  description: "Insecure use of curl with '-k', bypassing SSL verification."
-  severity: "Warning"
-  context: "direct"
-  command: "curl"
+- pattern: '(?i)curl.*(-k|--insecure)'
+  description: 'Insecure SSL/TLS connection with curl'
+  severity: 'high'
 
-- pattern: "--insecure"
-  description: "Insecure use of curl with '--insecure', bypassing SSL verification."
-  severity: "Warning"
-  context: "direct"
-  command: "curl"
+- pattern: '(?i)curl.*http://'
+  description: 'Plaintext HTTP connection with curl'
+  severity: 'medium'
 
-- pattern: "http://"
-  description: "Use of unencrypted HTTP, potentially exposing sensitive data."
-  severity: "Warning"
-  context: "any"
-  command: "curl"
+- pattern: '(?i)wget.*--no-check-certificate'
+  description: 'Insecure SSL/TLS connection with wget'
+  severity: 'high'
 
-- pattern: "--insecure"
-  description: "Using 'curl' with '--insecure' bypasses SSL certificate verification."
-  severity: "High"
+- pattern: '(?i)wget.*http://'
+  description: 'Plaintext HTTP connection with wget'
+  severity: 'medium'
+
+- pattern: '(?i)ssh.*-o\s+StrictHostKeyChecking=no'
+  description: 'Disabled host key checking with SSH'
+  severity: 'high'
+
+- pattern: '(?i)ssh.*-o\s+UserKnownHostsFile=/dev/null'
+  description: 'Disabled known hosts file with SSH'
+  severity: 'high'
+
+- pattern: '(?i)ssh.*-o\s+LogLevel=quiet'
+  description: 'Suppressed SSH logging'
+  severity: 'medium'
+
+- pattern: '(?i)ssh.*-o\s+PasswordAuthentication=yes'
+  description: 'Enabled password authentication with SSH'
+  severity: 'medium'
+
+- pattern: '(?i)ssh.*-o\s+PermitUserEnvironment=yes'
+  description: 'Enabled user environment with SSH'
+  severity: 'medium'
+
+- pattern: '(?i)ssh.*-o\s+ForwardAgent=yes'
+  description: 'Enabled SSH agent forwarding'
+  severity: 'medium'
+
+- pattern: '(?i)ssh.*-o\s+ForwardX11=yes'
+  description: 'Enabled X11 forwarding with SSH'
+  severity: 'medium'
+
+- pattern: '(?i)ssh.*-o\s+PermitTunnel=yes'
+  description: 'Enabled SSH tunneling'
+  severity: 'medium'
+
+- pattern: '(?i)ssh.*-o\s+PermitLocalCommand=yes'
+  description: 'Enabled local command execution with SSH'
+  severity: 'high'
+
+- pattern: '(?i)ssh.*-o\s+PermitTTY=yes'
+  description: 'Enabled TTY allocation with SSH'
+  severity: 'medium'
+
+- pattern: '(?i)ssh.*-o\s+GatewayPorts=yes'
+  description: 'Enabled gateway ports with SSH'
+  severity: 'medium'
+
+- pattern: '(?i)curl.*(-k|--insecure|\$\(CURL_OPTIONS\)|\$\(CURL_LONG_OPTIONS\))'
+  description: 'Insecure SSL/TLS connection with curl'
+  severity: 'high'
+
+- pattern: '(?i)curl.*http://'
+  description: 'Plaintext HTTP connection with curl'
+  severity: 'medium'
