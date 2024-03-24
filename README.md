@@ -104,7 +104,7 @@ That's it! You're now ready to use the Soteria tool to analyze your projects for
     "LineNumber": 48,
     "Line": "command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
     "Issue": "wget --no-check-certificate",
-    "ErrorType": "Error"
+    "Severity": "Error"
 }
 ```
 
