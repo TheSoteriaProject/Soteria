@@ -11,10 +11,10 @@ type Log struct {
 	LineNumber int    `json:"LineNumber"`
 	Line       string `json:"Line"`
 	Issue      string `json:"Issue"`
-	ErrorType  string `json:"ErrorType"`
+	Severity  string `json:"Severity"`
 }
 
-// CheckForReturnType atakes the JSON log and based on if an ErrorType of "Error" is found determines the Exit code for the program
+// CheckForReturnType atakes the JSON log and based on if an Severity of "Error" is found determines the Exit code for the program
 func CheckForReturnType() int {
 	filename := "../logs/bash_log.json"
 	file, err := os.Open(filename) // Add log or pre-check becuase may not exist
@@ -31,7 +31,7 @@ func CheckForReturnType() int {
 	}
 
 	for _, log := range logs {
-		if log.ErrorType == "Error" {
+		if log.Severity == "Error" {
 			return 1
 		}
 	}
@@ -82,8 +82,8 @@ func StoreJsonLogs(log_data Log) {
 }
 
 // Json Logger handles json in take, prints,  and sends it off to be store in file.
-func JsonLogger(FileName string, LineNumber int, Line string, Issue string, ErrorType string, enableLogPrint bool) {
-	log := &Log{FileName: FileName, LineNumber: LineNumber, Line: Line, Issue: Issue, ErrorType: ErrorType}
+func JsonLogger(FileName string, LineNumber int, Line string, Issue string, Severity string, enableLogPrint bool) {
+	log := &Log{FileName: FileName, LineNumber: LineNumber, Line: Line, Issue: Issue, Severity: Severity}
 	printLog, err := json.MarshalIndent(log, "", "\t")
 	if err != nil {
 		fmt.Println("Error marshalling log:", err)
