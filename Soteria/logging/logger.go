@@ -11,7 +11,7 @@ type Log struct {
 	LineNumber int    `json:"LineNumber"`
 	Line       string `json:"Line"`
 	Issue      string `json:"Issue"`
-	Severity  string `json:"Severity"`
+	Severity   string `json:"Severity"`
 }
 
 // CheckForReturnType atakes the JSON log and based on if an Severity of "Error" is found determines the Exit code for the program
