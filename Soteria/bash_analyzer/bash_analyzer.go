@@ -292,7 +292,7 @@ func BashController(file string, warnUser bool, enableLogPrint bool) {
 	// ShowTwoSlicesData(v, vd)
 
 	// Iterate YAML
-	warn_file := "bash_analyzer/warn.yaml"
+	warn_file := "bash_analyzer/rules.yaml"
 
 	// CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
 
