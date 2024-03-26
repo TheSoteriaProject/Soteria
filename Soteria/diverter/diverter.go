@@ -6,9 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 
@@ -68,7 +66,7 @@ func FileContainsInsecureCommunication(file string, warnFile string) bool {
 
 // DivertFiles is an extension of DivertFile which is done as a pre-check to see if the file should be scanned more in depth.
 func DivertFiles(file_pool []string, warnUser bool, enableMakefile bool, enableDockerfile bool, enableBash bool, enableLogPrint bool) {
-	warn_file := "/Users/logangarrett03/Desktop/git/Soteria/Soteria/bash_analyzer/warn.yaml" // Bad Path Fix before merge.
+	warn_file := "../Soteria/bash_analyzer/rules.yaml"
 	for _, file := range file_pool {
 
 		if !FileContainsInsecureCommunication(file, warn_file) {
@@ -97,7 +95,6 @@ func DivertFiles(file_pool []string, warnUser bool, enableMakefile bool, enableD
 
 // DivertFiles is used to send files to the correct static (analyzer || analyzers)
 func DivertFile(file string, warnUser bool, enableMakefile bool, enableDockerfile bool, enableBash bool, enableLogPrint bool) {
-	// for _, file := range file_pool {
 	split := strings.Split(file, "/")
 	extension := filepath.Ext(split[len(split)-1]) // MAY WANT FULL FILE PATH
 	// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
@@ -109,7 +106,7 @@ func DivertFile(file string, warnUser bool, enableMakefile bool, enableDockerfil
 	// Dockerfile Check
 	if enableDockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
 		fmt.Println("Diverted: " + file + " to Docker Static Analyzer.")
-		exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
+		// exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
 	}
 	// Bash Check
 	if enableBash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) || enableBash && strings.Contains(strings.ToLower(split[len(split)-1]), "-sh") {
@@ -117,32 +114,4 @@ func DivertFile(file string, warnUser bool, enableMakefile bool, enableDockerfil
 		// Can Pass via CLI However for this one it is written in go so I wont.
 		bash_analyzer.BashController(file, warnUser, enableLogPrint)
 	}
-	// }
 }
-
-/*
-// DivertFiles is used to send files to the correct static (analyzer || analyzers)
-func DivertFiles(file_pool []string, warnUser bool, enableMakefile bool, enableDockerfile bool, enableBash bool, enableLogPrint bool) {
-	for _, file := range file_pool {
-		split := strings.Split(file, "/")
-		extension := filepath.Ext(split[len(split)-1]) // MAY WANT FULL FILE PATH
-		// first checks extension second checks filename and if equal to Makefile, Dockerfile, etc..
-		// Makefile Check
-		if enableMakefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
-			fmt.Println("Diverted: " + file + " to Makefile Static Analyzer.")
-			// exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
-		}
-		// Dockerfile Check
-		if enableDockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
-			fmt.Println("Diverted: " + file + " to Docker Static Analyzer.")
-			exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
-		}
-		// Bash Check
-		if (enableBash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh"))) || (enableBash && strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("-sh "))) {
-			fmt.Println("Diverted: " + file + " to Bash Static Analyzer.")
-			// Can Pass via CLI However for this one it is written in go so I wont.
-			bash_analyzer.BashController(file, warnUser, enableLogPrint)
-		}
-	}
-}
-*/

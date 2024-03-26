@@ -78,6 +78,9 @@ The Soteria tool is a powerful utility designed to analyze projects for security
 6. Run unit tests:
 ./Soteria --test
 
+### Extra Features
+- If a line contains `Ignore Match` the line will still match, but the Severity will change from Error to Warn. This helps phase out certain forms of Insecure Communication gradually.
+
 ### Note
 - Flags are optional, but a project path is required for the tool to run.
 - Flags can be combined as needed.
@@ -108,7 +111,7 @@ That's it! You're now ready to use the Soteria tool to analyze your projects for
     "LineNumber": 48,
     "Line": "command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
     "Issue": "wget --no-check-certificate",
-    "ErrorType": "Error"
+    "Severity": "Error"
 }
 ```
 
