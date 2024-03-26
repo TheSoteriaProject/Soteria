@@ -68,7 +68,7 @@ func FileContainsInsecureCommunication(file string, warnFile string) bool {
 
 // DivertFiles is an extension of DivertFile which is done as a pre-check to see if the file should be scanned more in depth.
 func DivertFiles(file_pool []string, warnUser bool, enableMakefile bool, enableDockerfile bool, enableBash bool, enableLogPrint bool) {
-	warn_file := "/Users/logangarrett03/Desktop/git/Soteria/Soteria/bash_analyzer/rules.yaml" // Bad Path Fix before merge.
+	warn_file := "../Soteria/bash_analyzer/rules.yaml" // Bad Path Fix before merge.
 	for _, file := range file_pool {
 
 		if !FileContainsInsecureCommunication(file, warn_file) {
