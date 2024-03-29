@@ -78,12 +78,26 @@ The Soteria tool is a powerful utility designed to analyze projects for security
 6. Run unit tests:
 ./Soteria --test
 
-### Note
+### Example JSON Output
+```json
+{
+    "FileName": "../Files/sample_data5/wget_examples.sh",
+    "LineNumber": 48,
+    "Line": "command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
+    "Issue": "wget --no-check-certificate",
+    "Severity": "Error"
+}
+```
+
+### Extra Features
+- If a line contains `Ignore Match` the line will still match, but the Severity will change from Error to Warn. This helps phase out certain forms of Insecure Communication gradually.
+
+### Notes
 - Flags are optional, but a project path is required for the tool to run.
 - Flags can be combined as needed.
 - Make sure to replace `/path/to/your/project` with the actual path to your project directory.
 
-### Setup
+### Tool Setup
 Follow these steps to set up and run the Soteria tool:
 
 1. **Clone the Repository:**
@@ -101,15 +115,33 @@ This command will compile the Soteria tool and create an executable file.
 
 That's it! You're now ready to use the Soteria tool to analyze your projects for security vulnerabilities.
 
-### Example JSON Output
-```json
-{
-    "FileName": "../Files/sample_data5/wget_examples.sh",
-    "LineNumber": 48,
-    "Line": "command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
-    "Issue": "wget --no-check-certificate",
-    "ErrorType": "Error"
-}
+### Tool Configuration
+The tool currently has two main ways to configure it outside of flags. One being the `rules.yaml` and the second being the `.soteriaignore` file. For the first file it is used to configure the security rules that are to be used and is configured per analyzer. This allows more customization based on the setting for which the tool is being used. 
+
+Example `rules.yaml` Config File
+```yaml
+curl:
+  - -k
+  - http
+  - --insecure
+
+wget:
+  - http
+  - --no-check-certificate
+
+ssh:
+  - http
+  - StrictHostKeyChecking=no
+```
+
+For the `.soteriaignore` file this is to be used to indicate which directories will be ignored during the creation of the file pool for the tool. Within the file it supports single-line comments to either give info or to comment out a past directory that was to be skipped.
+Example `.soteriaignore` Config File
+```
+DoNotEnterFolder # Super Important to skip.
+sample_data3
+sample_data4
+sample_data7
+# sample_data9
 ```
 
 ## Contributing

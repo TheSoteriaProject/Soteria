@@ -122,6 +122,11 @@ func main() {
 
 				// Take the file pool and divert to each analyzer.
 				diverter.DivertFiles(file_pool, warnUser, *enableMakefile, *enableDockerfile, *enableBash, *enableLogPrint)
+
+				// Check Return Type and exit based on that
+				status := JLogger.CheckForReturnType()
+				os.Exit(status)
+
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
 				fmt.Println("It seems you have given an invalid input. Try --help")
