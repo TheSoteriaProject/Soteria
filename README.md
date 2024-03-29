@@ -74,15 +74,26 @@ The Soteria tool is a powerful utility designed to analyze projects for security
 6. Run unit tests:
 ./Soteria --test
 
+### Example JSON Output
+```json
+{
+    "FileName": "../Files/sample_data5/wget_examples.sh",
+    "LineNumber": 48,
+    "Line": "command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
+    "Issue": "wget --no-check-certificate",
+    "Severity": "Error"
+}
+```
+
 ### Extra Features
 - If a line contains `Ignore Match` the line will still match, but the Severity will change from Error to Warn. This helps phase out certain forms of Insecure Communication gradually.
 
-### Note
+### Notes
 - Flags are optional, but a project path is required for the tool to run.
 - Flags can be combined as needed.
 - Make sure to replace `/path/to/your/project` with the actual path to your project directory.
 
-### Setup
+### Tool Setup
 Follow these steps to set up and run the Soteria tool:
 
 1. **Clone the Repository:**
@@ -127,17 +138,6 @@ sample_data3
 sample_data4
 sample_data7
 # sample_data9
-```
-
-### Example JSON Output
-```json
-{
-    "FileName": "../Files/sample_data5/wget_examples.sh",
-    "LineNumber": 48,
-    "Line": "command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
-    "Issue": "wget --no-check-certificate",
-    "Severity": "Error"
-}
 ```
 
 ## Contributing
