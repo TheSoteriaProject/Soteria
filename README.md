@@ -137,7 +137,7 @@ ssh:
 For the `.soteriaignore` file this is to be used to indicate which directories will be ignored during the creation of the file pool for the tool. Within the file it supports single-line comments to either give info or to comment out a past directory that was to be skipped.
 Example `.soteriaignore` Config File
 ```
-DoNotEnterFolder # Super Important to skip.
+DoNotEnterFolder # Super Important to NOT skip.
 sample_data3
 sample_data4
 sample_data7
