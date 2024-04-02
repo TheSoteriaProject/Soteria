@@ -50,6 +50,9 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 
 	scanner := bufio.NewScanner(file)
 	lineNumber := 1
+	lineTemp := ""
+	lineTempStartCounter := -1
+
 	for scanner.Scan() {
 		line := scanner.Text()
 		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
@@ -66,19 +69,38 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 					ErrorType = "Warn"
 				}
 
-				// Deal with None Erro cases like comments and echos
+				// Deal with None Error cases like comments and echos
+				// Doeals with other cases that would create a bad temp file. So basically this is how I dealt with not screwing up the temp file check.
+				// Allowing me to handle these extra cases without breaking the others.
 				if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
 					if strings.Contains(line, "Ignore Match") { // Ignore Line Case
 						ErrorType = "Warn"
 					}
 
 					// Deal with ; and \ but issue need to check for ; in the second
-					// if strings.HasSuffix(line, "\\") {
-					// Need to also check for ; so may be best to comment out and come back to until logic is figured out.
-					// fmt.Println("Hit!") // Place Holder
-					// JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
-					// } else
-					if strings.Contains(line, ";") {
+					if strings.HasSuffix(line, "\\") || strings.HasSuffix(lineTemp, "\\") {
+						lineTempStartCounter += 1
+						// Need to also add ; check.
+						// Should I Remove the newline on 'fake' compile???
+						lineTemp += line
+						if !strings.HasSuffix(line, "\\") {
+							// I Dont like how it logs this, but any more complex logic may break something before the EOS.
+							// I personally think create a link count logic and use it to hold start and finish and show the range of the issues.
+
+							// This handles ; but could probably be better but it works.
+							if strings.Contains(lineTemp, ";") {
+								lines := strings.Split(lineTemp, ";")
+								for _, line := range lines {
+									// Line Number is off unless handled something like this
+									JLogger.JsonLogger(filename, lineNumber-lineTempStartCounter, line, section+" "+command, ErrorType, enableLogPrint)
+								}
+							} else {
+								JLogger.JsonLogger(filename, lineNumber, lineTemp, section+" "+command, ErrorType, enableLogPrint)
+							}
+							lineTemp = ""
+							lineTempStartCounter = -1
+						}
+					} else if strings.Contains(line, ";") {
 						lines := strings.Split(line, ";")
 						for _, line := range lines {
 							JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
