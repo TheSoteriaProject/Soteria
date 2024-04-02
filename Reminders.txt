@@ -13,6 +13,7 @@ Place Reminders Here - Logan
 12. Deal with Newline characters staying on one line should be just checking for suffix && or \?
 13. Deal with ; in Bash
 14. Find a way to find time and debug properly. 
+15. Deal with temp delete for each run for bash analyzer.
 
 Lexer
 - Bash - Logan
