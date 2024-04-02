@@ -2,4 +2,5 @@
 
 * As of now the tool does not handle single rule checks such as http. Must be checked with something such as wget http.
 * The tool has a complexity issue for the bash static analyzer that has a build in timeout that skips the file and creates a log message.
+* Does not handle command line input cases for bash files.
  
