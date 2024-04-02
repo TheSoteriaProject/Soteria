@@ -64,9 +64,9 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 			// Check if the text contains the exact matches for both patterns
 			if re1.MatchString(line) && re2.MatchString(line) {
 				// Adjust this to be less stupid
-				ErrorType := "Error"
+				Severity := "Error"
 				if warnUser {
-					ErrorType = "Warn"
+					Severity = "Warn"
 				}
 
 				// Deal with None Error cases like comments and echos
@@ -74,7 +74,7 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 				// Allowing me to handle these extra cases without breaking the others.
 				if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
 					if strings.Contains(line, "Ignore Match") { // Ignore Line Case
-						ErrorType = "Warn"
+						Severity = "Warn"
 					}
 
 					// Deal with ; and \ but issue need to check for ; in the second
@@ -92,10 +92,10 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 								lines := strings.Split(lineTemp, ";")
 								for _, line := range lines {
 									// Line Number is off unless handled something like this
-									JLogger.JsonLogger(filename, lineNumber-lineTempStartCounter, line, section+" "+command, ErrorType, enableLogPrint)
+									JLogger.JsonLogger(filename, lineNumber-lineTempStartCounter, line, section+" "+command, Severity, enableLogPrint)
 								}
 							} else {
-								JLogger.JsonLogger(filename, lineNumber, lineTemp, section+" "+command, ErrorType, enableLogPrint)
+								JLogger.JsonLogger(filename, lineNumber, lineTemp, section+" "+command, Severity, enableLogPrint)
 							}
 							lineTemp = ""
 							lineTempStartCounter = -1
@@ -103,10 +103,10 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 					} else if strings.Contains(line, ";") {
 						lines := strings.Split(line, ";")
 						for _, line := range lines {
-							JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
+							JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, Severity, enableLogPrint)
 						}
 					} else {
-						JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType, enableLogPrint)
+						JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, Severity, enableLogPrint)
 					}
 				}
 			}
@@ -314,7 +314,7 @@ func BashController(file string, warnUser bool, enableLogPrint bool) {
 	// ShowTwoSlicesData(v, vd)
 
 	// Iterate YAML
-	warn_file := "bash_analyzer/warn.yaml"
+	warn_file := "bash_analyzer/rules.yaml"
 
 	// CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
 
