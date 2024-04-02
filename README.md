@@ -4,7 +4,7 @@ Soteria is a Insecure Communication Linter for Bourne Shell, Makefiles, and Dock
 
 ## Tool Status
 [![Go](https://github.com/TheSoteriaProject/Soteria/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/TheSoteriaProject/Soteria/actions/workflows/go.yml)
-[![Python](https://github.com/TheSoteriaProject/Soteria/actions/workflows/python-app.yml/badge.svg)](https://github.com/TheSoteriaProject/Soteria/actions/workflows/python-app.yml)
+[![Python](https://github.com/TheSoteriaProject/Soteria/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/TheSoteriaProject/Soteria/actions/workflows/python-app.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 ## How to use
