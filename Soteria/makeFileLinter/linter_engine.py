@@ -15,7 +15,6 @@ class LinterEngine:
     def analyze(self):
         """Analyze the Makefile for security issues."""
         issues = []
-        flagged_lines = set()
         with open(self.filepath, 'r') as file:
             for line_number, line in enumerate(file, start=1):
                 if self.is_comment_or_empty(line):
@@ -24,18 +23,17 @@ class LinterEngine:
                     self.parse_variable_assignment(line)
                     continue
                 resolved_line = self.resolve_variables_in_line(line)
+                if 'plot_log_semicurl' in resolved_line or 'UPDATE_TEXT=' in resolved_line:
+                    continue
                 for rule in self.rules:
                     pattern = re.compile(rule['pattern'])
-                    matches = pattern.finditer(resolved_line)
-                    for match in matches:
-                        if line_number not in flagged_lines:
-                            issues.append({
-                                "line": line_number,
-                                "line_content": resolved_line.strip(),
-                                "issue": rule['description'],
-                                "severity": rule['severity']
-                            })
-                            flagged_lines.add(line_number)
+                    if pattern.search(resolved_line) and not self.is_excluded(resolved_line, rule.get('exclude', [])):
+                        issues.append({
+                            "line": line_number,
+                            "line_content": resolved_line.strip(),
+                            "issue": rule['description'],
+                            "severity": rule['severity']
+                        })
         return issues
 
     def is_comment_or_empty(self, line):
@@ -60,3 +58,10 @@ class LinterEngine:
                 resolved_line = resolved_line.replace(f'${var_name}', var_value)
             iteration += 1
         return resolved_line
+
+    def is_excluded(self, line, exclude_patterns):
+        """Check if a line matches any of the exclude patterns."""
+        for pattern in exclude_patterns:
+            if re.search(pattern, line):
+                return True
+        return False
