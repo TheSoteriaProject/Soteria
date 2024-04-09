@@ -142,5 +142,6 @@ func main() {
 	} else {
 		// No Input Flag is given or bad Command Line Input.
 		fmt.Println("It seems you have given an invalid input. Try --help")
+		os.Exit(1)
 	}
 }

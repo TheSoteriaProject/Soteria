@@ -131,7 +131,7 @@ func TestFileController(t *testing.T) {
 	// TestFilterFileExtensions(t)
 }
 
-func TestMain(m *testing.M) {
+func FileControllerTest(m *testing.M) {
 	// Run the tests using the standard testing package
 	os.Exit(m.Run())
 }

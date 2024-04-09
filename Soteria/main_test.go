@@ -99,6 +99,6 @@ func TestMainController(t *testing.T) {
 	TestMainVersionCheck(t)
 }
 
-func MainTest(m *testing.M) {
+func MainControllerTest(m *testing.M) {
 	os.Exit(m.Run())
 }
