@@ -88,6 +88,7 @@ func main() {
 		} else if helpUser {
 			// If the help flag is passed provide the the help page.
 			Help.Info()
+			os.Exit(0)
 		} else if versionCheck {
 			// If the version flag is passed provide the version for debug and relevance reasons.
 			// This gets the current tag. More complex and stupid than it should be, but is how a stack overflow post does it.
@@ -107,6 +108,7 @@ func main() {
 			}
 
 			fmt.Println("Version:", strings.TrimSpace(string(outVersion)))
+			os.Exit(0)
 		} else {
 			// Main Sequence
 			// If File Path Does Exist
