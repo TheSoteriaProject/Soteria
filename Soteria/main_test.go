@@ -66,8 +66,37 @@ func TestMainHelpUserPage(t *testing.T) {
 	}
 }
 
+func TestMainVersionCheck(t *testing.T) {
+	cmd := exec.Command("./Soteria", "--version")
+	cmd.Stderr = os.Stderr
+	var cmdOut bytes.Buffer
+	cmd.Stdout = &cmdOut
+
+	err := cmd.Run()
+
+	// Check if error
+	if err != nil {
+		// If the command returned an error, check if it's a non-zero exit status
+		exitErr, ok := err.(*exec.ExitError)
+		if !ok {
+			t.Fatalf("Error running soteria: %v\n", err)
+		}
+
+		// If it's an ExitError, check the exit status
+		if exitErr.ExitCode() != 1 {
+			t.Fatalf("Error running soteria: %v\n", exitErr)
+		}
+	}
+
+	if !strings.Contains(cmdOut.String(), "Welcome to Insecure Communication Linter.\nVersion: v") {
+		t.Errorf("Version Not Found")
+	}
+}
+
 func TestMainController(t *testing.T) {
 	TestMainNoInputs(t)
+	TestMainHelpUserPage(t)
+	TestMainVersionCheck(t)
 }
 
 func MainTest(m *testing.M) {
