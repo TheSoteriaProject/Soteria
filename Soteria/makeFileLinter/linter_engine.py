@@ -1,9 +1,11 @@
 import yaml
 import re
+import os
+
 class LinterEngine:
     """Engine for analyzing Makefiles for security issues."""
     def __init__(self, filepath):
-        self.filepath = filepath
+        self.filepath = os.path.abspath(filepath)  # Convert to absolute path
         self.rules = self.load_rules("security_rules.yaml")
         self.variables = {}
 
@@ -26,10 +28,9 @@ class LinterEngine:
                 # Check each line against the rules
                 for rule in self.rules:
                     pattern = re.compile(rule['pattern'])
-                    # Check if the line matches the rule pattern 
                     if pattern.search(line):
                         issue = {
-                            "FileName": self.filepath,
+                            "FileName": self.filepath,  # Use absolute path
                             "LineNumber": line_number,
                             "Line": line.strip(),
                             "Issue": rule['description'],
