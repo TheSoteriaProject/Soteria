@@ -6,47 +6,51 @@
   description: 'Plaintext HTTP connection with curl or wget'
   severity: 'medium'
 
-- pattern: '(?i)(ssh|scp)[^a-zA-Z0-9_-].*-o\s+StrictHostKeyChecking=no'
+- pattern: '(?i)(ssh|scp).*-o\s+StrictHostKeyChecking=no'
   description: 'Disabled host key checking with SSH or SCP'
   severity: 'high'
 
-- pattern: '(?i)(ssh|scp)[^a-zA-Z0-9_-].*-o\s+UserKnownHostsFile=/dev/null'
+- pattern: '(?i)(ssh|scp).*-o\s+UserKnownHostsFile=/dev/null'
   description: 'Disabled known hosts file with SSH or SCP'
   severity: 'high'
 
-- pattern: '(?i)ssh[^a-zA-Z0-9_-].*-o\s+LogLevel=quiet'
+- pattern: '\$\(SSH_OPTS\)'
+  description: 'Using insecure SSH options defined in variables'
+  severity: 'high'
+  
+- pattern: '(?i)ssh.*-o\s+LogLevel=quiet'
   description: 'Suppressed SSH logging'
   severity: 'medium'
 
-- pattern: '(?i)ssh[^a-zA-Z0-9_-].*-o\s+PasswordAuthentication=yes'
+- pattern: '(?i)ssh.*-o\s+PasswordAuthentication=yes'
   description: 'Enabled password authentication with SSH'
   severity: 'medium'
 
-- pattern: '(?i)ssh[^a-zA-Z0-9_-].*-o\s+PermitUserEnvironment=yes'
+- pattern: '(?i)ssh.*-o\s+PermitUserEnvironment=yes'
   description: 'Enabled user environment with SSH'
   severity: 'medium'
 
-- pattern: '(?i)ssh[^a-zA-Z0-9_-].*-o\s+ForwardAgent=yes'
+- pattern: '(?i)ssh.*-o\s+ForwardAgent=yes'
   description: 'Enabled SSH agent forwarding'
   severity: 'medium'
 
-- pattern: '(?i)ssh[^a-zA-Z0-9_-].*-o\s+ForwardX11=yes'
+- pattern: '(?i)ssh.*-o\s+ForwardX11=yes'
   description: 'Enabled X11 forwarding with SSH'
   severity: 'medium'
 
-- pattern: '(?i)ssh[^a-zA-Z0-9_-].*-o\s+PermitTunnel=yes'
+- pattern: '(?i)ssh.*-o\s+PermitTunnel=yes'
   description: 'Enabled SSH tunneling'
   severity: 'medium'
 
-- pattern: '(?i)ssh[^a-zA-Z0-9_-].*-o\s+PermitLocalCommand=yes'
+- pattern: '(?i)ssh.*-o\s+PermitLocalCommand=yes'
   description: 'Enabled local command execution with SSH'
   severity: 'high'
 
-- pattern: '(?i)ssh[^a-zA-Z0-9_-].*-o\s+PermitTTY=yes'
+- pattern: '(?i)ssh.*-o\s+PermitTTY=yes'
   description: 'Enabled TTY allocation with SSH'
   severity: 'medium'
 
-- pattern: '(?i)ssh[^a-zA-Z0-9_-].*-o\s+GatewayPorts=yes'
+- pattern: '(?i)ssh.*-o\s+GatewayPorts=yes'
   description: 'Enabled gateway ports with SSH'
   severity: 'medium'
 
@@ -58,18 +62,18 @@
   description: 'Insecure SSL/TLS connection via indirection'
   severity: 'high'
 
-- pattern: '(?i)insecure_plain:.*ssh[^a-zA-Z0-9_-].*-o\s+StrictHostKeyChecking=no'
-  description: 'Insecure SSH connection with disabled host key checking'
+- pattern: '(?i)insecure_plain:.*ssh.*-o\s+StrictHostKeyChecking=no'
+  description: 'Insecure SSH connection in insecure_plain target'
   severity: 'high'
 
-- pattern: '(?i)insecure_plain:.*ssh[^a-zA-Z0-9_-].*-o\s+UserKnownHostsFile=/dev/null'
-  description: 'Insecure SSH connection with disabled known hosts file'
+- pattern: '(?i)insecure_plain:.*ssh.*-o\s+UserKnownHostsFile=/dev/null'
+  description: 'Insecure SSH connection in insecure_plain target'
   severity: 'high'
 
-- pattern: '(?i)insecure_plain:.*scp[^a-zA-Z0-9_-].*-o\s+StrictHostKeyChecking=no'
-  description: 'Insecure SCP connection with disabled host key checking'
+- pattern: '(?i)insecure_plain:.*scp.*-o\s+StrictHostKeyChecking=no'
+  description: 'Insecure SCP connection in insecure_plain target'
   severity: 'high'
 
-- pattern: '(?i)insecure_plain:.*scp[^a-zA-Z0-9_-].*-o\s+UserKnownHostsFile=/dev/null'
-  description: 'Insecure SCP connection with disabled known hosts file'
+- pattern: '(?i)insecure_plain:.*scp.*-o\s+UserKnownHostsFile=/dev/null'
+  description: 'Insecure SCP connection in insecure_plain target'
   severity: 'high'
