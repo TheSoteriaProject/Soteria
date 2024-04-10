@@ -1,26 +1,31 @@
 import argparse
 from linter_engine import LinterEngine
-from output_handler import write_issues_to_json
 import json
+import sys
 
 def main():
+    # Parse command-line arguments
     parser = argparse.ArgumentParser(description="Makefile Linter for identifying potential security issues.")
     parser.add_argument('makefile_path', type=str, help="Path to the Makefile to analyze.")
     parser.add_argument('--output', type=str, default='issues_found.json', help="Path to the output JSON file.")
     
     args = parser.parse_args()
 
-    # Instantiate the linter engine with the provided Makefile path
+    # Create a linter engine and analyze the Makefile
     linter = LinterEngine(args.makefile_path)
     issues = linter.analyze()
 
     # Write the issues to the output JSON file
-    write_issues_to_json(issues, args.output)
+    with open(args.output, 'w') as outfile:
+        json.dump(issues, outfile, indent=4)
 
-    # Output the issues found
+    # Print the issues to the console
     if issues:
         print(f"Issues found in {args.makefile_path}:")
         print(json.dumps(issues, indent=4))
+        # Exit with an error code if any issue of 'Error' severity is found
+        if any(issue['Severity'] == 'Error' for issue in issues):
+            sys.exit(1)
     else:
         print(f"No issues found in {args.makefile_path}.")
 
