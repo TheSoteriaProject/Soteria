@@ -1,7 +1,7 @@
 import yaml
 import re
-
 class LinterEngine:
+    """Engine for analyzing Makefiles for security issues."""
     def __init__(self, filepath):
         self.filepath = filepath
         self.rules = self.load_rules("security_rules.yaml")
@@ -23,21 +23,20 @@ class LinterEngine:
             for line_number, line in enumerate(resolved_content.splitlines(), start=1):
                 if self.is_comment_or_empty(line) or line_number in flagged_lines or 'UPDATE_TEXT=' in line or 'plot_log_semicurl' in line:
                     continue
+                # Check each line against the rules
                 for rule in self.rules:
                     pattern = re.compile(rule['pattern'])
+                    # Check if the line matches the rule pattern 
                     if pattern.search(line):
                         issue = {
-                            "line": line_number,
-                            "line_content": line.strip(),
-                            "issue": rule['description'],
-                            "severity": rule['severity']
+                            "FileName": self.filepath,
+                            "LineNumber": line_number,
+                            "Line": line.strip(),
+                            "Issue": rule['description'],
+                            "Severity": "Error" if rule['severity'] == 'high' else "Warn"
                         }
                         issues.append(issue)
                         flagged_lines.add(line_number)
-                        print(f"Issue found at line {line_number}: {rule['description']}")
-                        print(f"  Line content: {line.strip()}")
-                        print(f"  Severity: {rule['severity']}")
-                        print()
                         break
         return issues
 
