@@ -6,7 +6,7 @@ class LinterEngine:
     """Engine for analyzing Makefiles for security issues."""
     def __init__(self, filepath):
         self.filepath = os.path.abspath(filepath)  # Convert to absolute path
-        self.rules = self.load_rules("security_rules.yaml")
+        self.rules = self.load_rules("makeFileLinter/security_rules.yaml")
         self.variables = {}
 
     def load_rules(self, filepath):

@@ -1,0 +1,23 @@
+[
+    {
+        "FileName": "/home/logan/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/home/logan/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/home/logan/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+]

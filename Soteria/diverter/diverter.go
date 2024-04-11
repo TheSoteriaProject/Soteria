@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -101,7 +102,19 @@ func DivertFile(file string, warnUser bool, enableMakefile bool, enableDockerfil
 	// Makefile Check
 	if enableMakefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
 		fmt.Println("Diverted: " + file + " to Makefile Static Analyzer.")
-		// exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
+		cmd := exec.Command("python3", "makeFileLinter/makefilelinter.py", file) // Change Name Later
+
+		// Run the command and capture its output and any potential errors
+		output, _ := cmd.CombinedOutput()
+		// output, err := cmd.CombinedOutput()
+		/* if err != nil {
+			// fmt.Printf("Error executing command: %v\n", err) // Logging needs to be adjusted
+		} */
+
+		// Print the output
+		if enableLogPrint {
+			fmt.Println(string(output))
+		}
 	}
 	// Dockerfile Check
 	if enableDockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
