@@ -11,6 +11,16 @@ DOWNLOAD_URL='https://example.com/installer.pkg'
 POST_URL='https://example.com/api/endpoint'
 POST_DATA='param1=value1&param2=value2'
 
+# Insecure SSH invocation with options as variables
+# Covers split commands in same line case.
+echo 'Insecure SSH invocation with options as variables:'
+'/usr/bin/ssh' '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' user@example.com; '/usr/bin/ssh' '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' user@example.com; '/usr/bin/ssh' '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' user@example.com
+# Covers line continue and lien continue case.
+'/usr/bin/ssh' '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' user@example.com; '/usr/bin/ssh' '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' user@example.com \
+'/usr/bin/ssh' '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' user@example.com
+# Covers just line continue case.
+'/usr/bin/ssh' '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' user@example.com '/usr/bin/ssh' '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' user@example.com \
+'/usr/bin/ssh' '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' user@example.com
 # Use plain invocation to download the file.  This should *NOT* match
 echo 'Downloading file...'
 wget -O installer.pkg 'https://example.com/installer.pkg'

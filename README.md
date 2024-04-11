@@ -2,6 +2,11 @@
 
 Soteria is a Insecure Communication Linter for Bourne Shell, Makefiles, and Dockerfiles. 
 
+## Tool Status
+[![Go](https://github.com/TheSoteriaProject/Soteria/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/TheSoteriaProject/Soteria/actions/workflows/go.yml)
+[![Python](https://github.com/TheSoteriaProject/Soteria/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/TheSoteriaProject/Soteria/actions/workflows/python-app.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+
 ## How to use
 
 **Soteria Tool User Guide**
@@ -19,6 +24,7 @@ The Soteria tool is a powerful utility designed to analyze projects for security
 
 1. `--warn`: 
    - **Description**: Allows the tool to return true even if it encounters issues flagged by the insecure communication linter.
+   - **Default**: `--warn=false`
    - **Usage**: `--warn=true` or `--warn=false`
 
 2. `--help`:
@@ -29,19 +35,26 @@ The Soteria tool is a powerful utility designed to analyze projects for security
    - **Description**: Displays the latest git tag release of the Soteria tool.
    - **Usage**: `--version`
 
-4. `--uBash`:
-   - **Description**: Disables the Bash Static Analyzer.
-   - **Usage**: `--uBash=true` or `--uBash=false`
+4. `--enableBash`:
+   - **Description**: Enables the Bash Static Analyzer.
+   - **Default**: `--enableBash=true`
+   - **Usage**: `--enableBash=true` or `--enableBash=false`
 
-5. `--uMakefile`:
-   - **Description**: Disables the Makefile static analyzer.
-   - **Usage**: `--uMakefile=true` or `--uMakefile=false`
+5. `--enableMakefile`:
+   - **Description**: Enables the Makefile static analyzer.
+   - **Default**: `--enableMakefile=true`
+   - **Usage**: `--enableMakefile=true` or `--enableMakefile=false`
 
-6. `--uDockerfile`:
-   - **Description**: Disables the Dockerfile static analyzer.
-   - **Usage**: `--uDockerfile=true` or `--uDockerfile=false`
+6. `--enableDockerfile`:
+   - **Description**: Enables the Dockerfile static analyzer.
+   - **Default**: `enableDockerfile=true`
+   - **Usage**: `--enableDockerfile=true` or `--enableDockerfile=false`
+  
+7. `--enableLogPrint`:
+   - **Descritpion**: Enable Log Prints for static analzyer.
+   - **Usage**: `--enableLogPrint=true` or `--enableLogPrint=false`
 
-7. `--test`:
+8. `--test`:
    - **Description**: Runs unit tests for the function to confirm code changes worked and the tool is still functional.
    - **Usage**: `--test`
 
@@ -54,7 +67,7 @@ The Soteria tool is a powerful utility designed to analyze projects for security
 ./Soteria --warn=true /path/to/your/project
 
 3. Disable Bash Static Analyzer:
-./Soteria --uBash=false /path/to/your/project
+./Soteria --enableBash=false /path/to/your/project
 
 4. Display help page:
 ./Soteria --help
@@ -65,12 +78,26 @@ The Soteria tool is a powerful utility designed to analyze projects for security
 6. Run unit tests:
 ./Soteria --test
 
-### Note
+### Example JSON Output
+```json
+{
+    "FileName": "../Files/sample_data5/wget_examples.sh",
+    "LineNumber": 48,
+    "Line": "command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
+    "Issue": "wget --no-check-certificate",
+    "Severity": "Error"
+}
+```
+
+### Extra Features
+- If a line contains `Ignore Match` the line will still match, but the Severity will change from Error to Warn. This helps phase out certain forms of Insecure Communication gradually.
+
+### Notes
 - Flags are optional, but a project path is required for the tool to run.
 - Flags can be combined as needed.
 - Make sure to replace `/path/to/your/project` with the actual path to your project directory.
 
-### Setup
+### Tool Setup
 Follow these steps to set up and run the Soteria tool:
 
 1. **Clone the Repository:**
@@ -88,15 +115,33 @@ This command will compile the Soteria tool and create an executable file.
 
 That's it! You're now ready to use the Soteria tool to analyze your projects for security vulnerabilities.
 
-### Example JSON Output
-```json
-{
-    "FileName": "../Files/sample_data5/wget_examples.sh",
-    "LineNumber": 48,
-    "Line": "command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' \"${DOWNLOAD_URL}\")",
-    "Issue": "wget --no-check-certificate",
-    "ErrorType": "Error"
-}
+### Tool Configuration
+The tool currently has two main ways to configure it outside of flags. One being the `rules.yaml` and the second being the `.soteriaignore` file. For the first file it is used to configure the security rules that are to be used and is configured per analyzer. This allows more customization based on the setting for which the tool is being used. 
+
+Example `rules.yaml` Config File
+```yaml
+curl:
+  - -k
+  - http
+  - --insecure
+
+wget:
+  - http
+  - --no-check-certificate
+
+ssh:
+  - http
+  - StrictHostKeyChecking=no
+```
+
+For the `.soteriaignore` file this is to be used to indicate which directories will be ignored during the creation of the file pool for the tool. Within the file it supports single-line comments to either give info or to comment out a past directory that was to be skipped.
+Example `.soteriaignore` Config File
+```
+DoNotEnterFolder # Super Important to NOT skip.
+sample_data3
+sample_data4
+sample_data7
+# sample_data9
 ```
 
 ## Contributing

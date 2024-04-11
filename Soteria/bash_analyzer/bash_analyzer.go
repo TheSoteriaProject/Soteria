@@ -41,7 +41,7 @@ func ReadYAMLFile(filePath string) ([]byte, error) {
 	return data, nil
 }
 
-func ReadLines(_file string, filename string, warnUser bool, section string, command string) {
+func ReadLines(_file string, filename string, warnUser bool, section string, command string, enableLogPrint bool) {
 	file, err := os.Open(_file)
 	if err != nil {
 		return
@@ -50,6 +50,9 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 
 	scanner := bufio.NewScanner(file)
 	lineNumber := 1
+	lineTemp := ""
+	lineTempStartCounter := -1
+
 	for scanner.Scan() {
 		line := scanner.Text()
 		if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
@@ -60,15 +63,51 @@ func ReadLines(_file string, filename string, warnUser bool, section string, com
 
 			// Check if the text contains the exact matches for both patterns
 			if re1.MatchString(line) && re2.MatchString(line) {
-				// fmt.Println("Found: ", line+"\nContains: "+section+" "+command)
-				ErrorType := "Error"
+				// Adjust this to be less stupid
+				Severity := "Error"
 				if warnUser {
-					ErrorType = "Warn"
+					Severity = "Warn"
 				}
 
-				// Deal with None Erro cases like comments and echos
+				// Deal with None Error cases like comments and echos
+				// Doeals with other cases that would create a bad temp file. So basically this is how I dealt with not screwing up the temp file check.
+				// Allowing me to handle these extra cases without breaking the others.
 				if !strings.HasPrefix(strings.ToLower(line), "#") && !strings.HasPrefix(strings.ToLower(line), "echo") {
-					JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, ErrorType)
+					if strings.Contains(line, "Ignore Match") { // Ignore Line Case
+						Severity = "Warn"
+					}
+
+					// Deal with ; and \ but issue need to check for ; in the second
+					if strings.HasSuffix(line, "\\") || strings.HasSuffix(lineTemp, "\\") {
+						lineTempStartCounter += 1
+						// Need to also add ; check.
+						// Should I Remove the newline on 'fake' compile???
+						lineTemp += line
+						if !strings.HasSuffix(line, "\\") {
+							// I Dont like how it logs this, but any more complex logic may break something before the EOS.
+							// I personally think create a link count logic and use it to hold start and finish and show the range of the issues.
+
+							// This handles ; but could probably be better but it works.
+							if strings.Contains(lineTemp, ";") {
+								lines := strings.Split(lineTemp, ";")
+								for _, line := range lines {
+									// Line Number is off unless handled something like this
+									JLogger.JsonLogger(filename, lineNumber-lineTempStartCounter, line, section+" "+command, Severity, enableLogPrint)
+								}
+							} else {
+								JLogger.JsonLogger(filename, lineNumber, lineTemp, section+" "+command, Severity, enableLogPrint)
+							}
+							lineTemp = ""
+							lineTempStartCounter = -1
+						}
+					} else if strings.Contains(line, ";") {
+						lines := strings.Split(line, ";")
+						for _, line := range lines {
+							JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, Severity, enableLogPrint)
+						}
+					} else {
+						JLogger.JsonLogger(filename, lineNumber, line, section+" "+command, Severity, enableLogPrint)
+					}
 				}
 			}
 		}
@@ -97,7 +136,7 @@ func GetVariables(file_name string) []string {
 		line := scanner.Text()
 		// check regex
 		// grab line number ???
-		regex_pattern := `\b([A-Z_][A-Z0-9_]*)\s*=\s*`
+		regex_pattern := `\b([a-zA-Z_][a-zA-Z0-9_]*)\s*=['"($]` //`\b([A-Z_][A-Z0-9_]*)\s*=\s*`
 		regex_expression := regexp.MustCompile(regex_pattern)
 		matches := regex_expression.FindAllStringSubmatch(line, -1)
 
@@ -132,20 +171,20 @@ func GetVariableDefinitions(file_name string) []string {
 		// check regex
 		// grab line number ???
 		// regex_pattern := `(=)([('].*)` // Seems Better
-		regex_pattern := `[A-Z]\b(=)([('].*)`
+		regex_pattern := `(=)([('].*)` // `[A-Z]\b(=)([('].*)`
 		regex_expression := regexp.MustCompile(regex_pattern)
 		matches := regex_expression.FindAllStringSubmatch(line, -1)
 
 		for _, match := range matches {
 			if len(match) > 1 {
-				definition_list = append(definition_list, match[2])
+				match2 := strings.Replace(match[2], " # Ignore Match", "", -1) // Dumb AF need to adjust. Spacing Everything garbage. Just for testing I guess.
+				definition_list = append(definition_list, match2)
 			}
 		}
 
-
 		// Second Pass
 		// regex_pattern = `\b=([a-zA-Z_\/:-][a-zA-Z0-9_\/:-]*)`
-		regex_pattern = `[A-Z]\b(=)("\$\{[^"]+?\}")`
+		regex_pattern = `[a-zA-Z](=)(["${].*|[$[a-z]].*)` // `((?:^|[\-])*)([a-zA-Z_][a-zA-Z0-9_]*)=["${]` // `(?<!-)([a-zA-Z_][a-zA-Z0-9_]*)=["${]` // `[A-Z]\b(=)("\$\{[^"]+?\}")`
 		regex_expression = regexp.MustCompile(regex_pattern)
 		matches2 := regex_expression.FindAllStringSubmatch(line, -1)
 
@@ -165,17 +204,24 @@ func GetVariableDefinitions(file_name string) []string {
 
 // SwapLine takes the line with the variable possibilities and checks if defined.
 func SwapLine(line string, variables []string, definitions []string) string {
-	for i, variable := range variables {
-		if strings.Contains(line, "\"${"+variable+"}\"") {
-			line = strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
-			line = SwapLine(line, variables, definitions)
-		} else if strings.Contains(line, "${"+variable+"}") {
-			line = strings.Replace(line, "${"+variable+"}", definitions[i], -1)
-			line = SwapLine(line, variables, definitions)
+	// fmt.Println("Line: ", line) // debug
+	if len(definitions) == len(variables) {
+		for i, variable := range variables {
+			if strings.Contains(line, "\"${"+variable+"}\"") {
+				line = strings.Replace(line, "\"${"+variable+"}\"", definitions[i], -1)
+				line = SwapLine(line, variables, definitions)
+			} else if strings.Contains(line, "${"+variable+"}") {
+				line = strings.Replace(line, "${"+variable+"}", definitions[i], -1)
+				line = SwapLine(line, variables, definitions)
+			} else if strings.Contains(line, "$"+variable+"") {
+				line = strings.Replace(line, "$"+variable+"", definitions[i], -1)
+				line = SwapLine(line, variables, definitions)
+			} else {
+				continue
+			}
+			// fmt.Println(variable, " : ", line, " : ", definitions[i])
+			// add other case???
 		}
-		// fmt.Println(variable, " : ", line, " : ", definitions[i])
-		// add other case???
-
 	}
 
 	return line
@@ -183,6 +229,7 @@ func SwapLine(line string, variables []string, definitions []string) string {
 
 // VariableSwap swaps the variables with what they were defined with in the code.
 func VariableSwap(file string, warnUser bool, variables []string, variable_definitions []string) {
+	// fmt.Println("File: ", file) // Debug
 	oldFile, err := os.Open(file)
 	if err != nil {
 		fmt.Println("Error:", err)
@@ -217,9 +264,10 @@ func VariableSwap(file string, warnUser bool, variables []string, variable_defin
 }
 
 // CheckForHiddenInsecureCommunication from the file.
-func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warnUser bool, variables []string, variable_definitions []string) {
+func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warnUser bool, variables []string, variable_definitions []string, enableLogPrint bool) {
 	filename := filepath
 
+	/* Not Needed. Leave for now.
 	yamlData, err := ReadYAMLFile(warn_file)
 	if err != nil {
 		log.Fatalf("error reading YAML file: %v", err)
@@ -230,14 +278,15 @@ func CheckForHiddenInsecureCommunication(filepath string, warn_file string, warn
 	if err := yaml.Unmarshal([]byte(yamlData), &data); err != nil {
 		log.Fatalf("error: %v", err)
 	}
+	*/
 	// fmt.Println("Inside CheckForHiddenInsecureCommunication")
 	VariableSwap(filepath, warnUser, variables, variable_definitions)
 
 	// Deal with hardcoded filename
-	CheckForInsecureCommunication("../Soteria/bash_analyzer/temp.sh", filename, warnUser, warn_file, variables, variable_definitions)
+	CheckForInsecureCommunication("../Soteria/bash_analyzer/temp.sh", filename, warnUser, warn_file, variables, variable_definitions, enableLogPrint)
 }
 
-func CheckForInsecureCommunication(filepath string, filename string, warnUser bool, warn_file string, variables []string, variable_definitions []string) {
+func CheckForInsecureCommunication(filepath string, filename string, warnUser bool, warn_file string, variables []string, variable_definitions []string, enableLogPrint bool) {
 	yamlData, err := ReadYAMLFile(warn_file)
 	if err != nil {
 		log.Fatalf("error reading YAML file: %v", err)
@@ -253,21 +302,21 @@ func CheckForInsecureCommunication(filepath string, filename string, warnUser bo
 		for _, command := range commands.([]interface{}) {
 			// fmt.Println(section, command)
 			// Just grep file if not echo or comment??? INLINE ONLY
-			ReadLines(filepath, filename, warnUser, section, command.(string))
+			ReadLines(filepath, filename, warnUser, section, command.(string), enableLogPrint)
 		}
 	}
 }
 
-func BashController(file string, warnUser bool) {
+func BashController(file string, warnUser bool, enableLogPrint bool) {
 	// Pass File Name/Path
 	v := GetVariables(file)
 	vd := GetVariableDefinitions(file)
 	// ShowTwoSlicesData(v, vd)
 
 	// Iterate YAML
-	warn_file := "bash_analyzer/warn.yaml"
+	warn_file := "bash_analyzer/rules.yaml"
 
 	// CheckForInsecureCommunication(file, warnUser, warn_file, v, vd) // V and D probably useless for in-line
 
-	CheckForHiddenInsecureCommunication(file, warn_file, warnUser, v, vd)
+	CheckForHiddenInsecureCommunication(file, warn_file, warnUser, v, vd, enableLogPrint)
 }
