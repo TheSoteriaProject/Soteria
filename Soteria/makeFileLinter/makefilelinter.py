@@ -7,7 +7,7 @@ def main():
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description="Makefile Linter for identifying potential security issues.")
     parser.add_argument('makefile_path', type=str, help="Path to the Makefile to analyze.")
-    parser.add_argument('--output', type=str, default='issues_found.json', help="Path to the output JSON file.")
+    parser.add_argument('--output', type=str, default='../logs/makefile_log.json', help="Path to the output JSON file.")
     
     args = parser.parse_args()
 
@@ -16,7 +16,7 @@ def main():
     issues = linter.analyze()
 
     # Write the issues to the output JSON file
-    with open(args.output, 'w') as outfile:
+    with open(args.output, 'a+') as outfile:
         json.dump(issues, outfile, indent=4)
 
     # Print the issues to the console
@@ -25,7 +25,7 @@ def main():
         print(json.dumps(issues, indent=4))
         # Exit with an error code if any issue of 'Error' severity is found
         if any(issue['Severity'] == 'Error' for issue in issues):
-            sys.exit(1)
+            sys.exit(1) # Return here is fine, but may want to adjust to just read logs but will leave here for now.
     else:
         print(f"No issues found in {args.makefile_path}.")
 
