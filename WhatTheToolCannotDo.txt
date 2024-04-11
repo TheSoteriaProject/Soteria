@@ -4,3 +4,4 @@
 * The tool has a complexity issue for the bash static analyzer that has a build in timeout that skips the file and creates a log message.
 * Does not handle command line input cases for bash files.
  
+* Makefile Logs are bot in correct JSON format
