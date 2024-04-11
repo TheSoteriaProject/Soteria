@@ -49,10 +49,11 @@ class DockerfileLinter:
                     pattern = re.compile(rule['pattern'])
                     if pattern.search(line_without_single_quotes) and not self.is_excluded(line_without_single_quotes, rule.get('exclude', [])):
                         issues.append({
-                            "line": line_number,
-                            "line_content": line.strip(),
-                            "issue": rule['description'],
-                            "severity": rule['severity']
+                            "FileName": self.filepath,
+                            "LineNumber": line_number,
+                            "Line": line.strip(),
+                            "Issue": rule['description'],
+                            "Severity": rule['severity']
                         })
         return issues
 
