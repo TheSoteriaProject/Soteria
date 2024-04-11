@@ -4,41 +4,41 @@
         "LineNumber": 16,
         "Line": "&& ${CURL} ${INSECURE} -O https://example.com/installer.pkg",
         "Issue": "Insecure option '--insecure' used",
-        "Severity": "medium"
+        "Severity": "Warn"
     },
     {
         "FileName": "C:\\Users\\jakeo\\Soteria\\Files\\sample_data\\curl_examples.Dockerfile",
         "LineNumber": 19,
         "Line": "RUN ${CURL} http://example.com > /dev/null",
         "Issue": "Insecure HTTP request using curl",
-        "Severity": "high"
+        "Severity": "Error"
     },
     {
         "FileName": "C:\\Users\\jakeo\\Soteria\\Files\\sample_data\\curl_examples.Dockerfile",
         "LineNumber": 23,
         "Line": "&& curl -k -O https://example.com/installer2.pkg",
         "Issue": "Insecure HTTP request using curl with -k option",
-        "Severity": "high"
+        "Severity": "Error"
     },
     {
         "FileName": "C:\\Users\\jakeo\\Soteria\\Files\\sample_data\\curl_examples.Dockerfile",
         "LineNumber": 31,
         "Line": "&& ${CURL} ${INSECURE} --data 'param1=value1&param2=value2' --header 'Content-Type: application/x-www-form-urlencoded' --request POST https://example.com/api/endpoint",
         "Issue": "Insecure option '--insecure' used",
-        "Severity": "medium"
+        "Severity": "Warn"
     },
     {
         "FileName": "C:\\Users\\jakeo\\Soteria\\Files\\sample_data\\curl_examples.Dockerfile",
         "LineNumber": 35,
         "Line": "&& /usr/bin/curl --insecure --data 'param1=value1&param2=value2' --header 'Content-Type: application/x-www-form-urlencoded' --request POST https://example.com/api/endpoint",
         "Issue": "Insecure option '--insecure' used",
-        "Severity": "medium"
+        "Severity": "Warn"
     },
     {
         "FileName": "C:\\Users\\jakeo\\Soteria\\Files\\sample_data\\curl_examples.Dockerfile",
         "LineNumber": 41,
         "Line": "ADD http://example.com/installer3.pkg /root/installer3.pkg",
         "Issue": "Insecure HTTP request using ADD",
-        "Severity": "high"
+        "Severity": "Error"
     }
 ]

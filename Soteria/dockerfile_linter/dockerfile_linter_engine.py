@@ -30,7 +30,7 @@ class DockerfileLinter:
     def analyze(self):
         """Analyze the Dockerfile for security issues."""
         issues = []
-        variables = self.extract_variables() # might be using last assignment of variable
+        variables = self.extract_variables()
 
         with open(self.filepath, 'r') as file:
             for line_number, line in enumerate(file, start=1):
@@ -48,14 +48,16 @@ class DockerfileLinter:
                 for rule in self.rules:
                     pattern = re.compile(rule['pattern'])
                     if pattern.search(line_without_single_quotes) and not self.is_excluded(line_without_single_quotes, rule.get('exclude', [])):
+                        severity = "Error" if rule['severity'] == "high" else "Warn"  # Map severity options to warn or error
                         issues.append({
                             "FileName": self.filepath,
                             "LineNumber": line_number,
                             "Line": line.strip(),
                             "Issue": rule['description'],
-                            "Severity": rule['severity']
+                            "Severity": severity
                         })
         return issues
+
 
     def should_skip_line(self, line):
         """Check if a line should be skipped."""
