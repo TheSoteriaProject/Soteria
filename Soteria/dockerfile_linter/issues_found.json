@@ -1,0 +1,38 @@
+[
+    {
+        "line": 16,
+        "line_content": "&& ${CURL} ${INSECURE} -O https://example.com/installer.pkg",
+        "issue": "Insecure option '--insecure' used",
+        "severity": "medium"
+    },
+    {
+        "line": 19,
+        "line_content": "RUN ${CURL} http://example.com > /dev/null",
+        "issue": "Insecure HTTP request using curl",
+        "severity": "high"
+    },
+    {
+        "line": 23,
+        "line_content": "&& curl -k -O https://example.com/installer2.pkg",
+        "issue": "Insecure HTTP request using curl with -k option",
+        "severity": "high"
+    },
+    {
+        "line": 31,
+        "line_content": "&& ${CURL} ${INSECURE} --data 'param1=value1&param2=value2' --header 'Content-Type: application/x-www-form-urlencoded' --request POST https://example.com/api/endpoint",
+        "issue": "Insecure option '--insecure' used",
+        "severity": "medium"
+    },
+    {
+        "line": 35,
+        "line_content": "&& /usr/bin/curl --insecure --data 'param1=value1&param2=value2' --header 'Content-Type: application/x-www-form-urlencoded' --request POST https://example.com/api/endpoint",
+        "issue": "Insecure option '--insecure' used",
+        "severity": "medium"
+    },
+    {
+        "line": 41,
+        "line_content": "ADD http://example.com/installer3.pkg /root/installer3.pkg",
+        "issue": "Insecure HTTP request using ADD",
+        "severity": "high"
+    }
+]
