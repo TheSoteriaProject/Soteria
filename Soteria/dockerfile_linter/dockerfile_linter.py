@@ -6,12 +6,12 @@ import json
 def main():
     parser = argparse.ArgumentParser(description="Dockerfile Linter for identifying potential security issues.")
     parser.add_argument('dockerfile_path', type=str, help="Path to the Dockerfile to analyze.")
-    parser.add_argument('--output', type=str, default='issues_found.json', help="Path to the output JSON file.")
+    parser.add_argument('--output', type=str, default='../logs/dockerfile_log.json', help="Path to the output JSON file.")
     
     args = parser.parse_args()
 
     # Instantiate the linter engine with the provided Dockerfile path
-    linter = DockerfileLinter(args.dockerfile_path, "docker_security_rules.yaml")
+    linter = DockerfileLinter(args.dockerfile_path, "rules.yaml")
     issues = linter.analyze()
 
     # Write the issues to the output JSON file

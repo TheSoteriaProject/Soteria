@@ -75,7 +75,7 @@ def main():
     parser = argparse.ArgumentParser(description="Dockerfile Linter")
     parser.add_argument("dockerfile_path", type=str, help="Path to the Dockerfile to analyze")
     parser.add_argument("rules_file", type=str, help="Path to the YAML file containing security rules")
-    parser.add_argument("--output", type=str, default="issues_found.json", help="Path to the output JSON file")
+    parser.add_argument("--output", type=str, default="../logs/dockerfile_log.json", help="Path to the output JSON file")
     args = parser.parse_args()
 
     # Instantiate the linter with Dockerfile and rules file paths
