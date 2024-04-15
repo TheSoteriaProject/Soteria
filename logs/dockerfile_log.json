@@ -1,0 +1,44 @@
+[
+    {
+        "FileName": "../Files/sample_data5/wget_examples.Dockerfile",
+        "LineNumber": 15,
+        "Line": "RUN ${WGET} --spider http://example.com",
+        "Issue": "Insecure HTTP request using wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "../Files/sample_data5/wget_examples.Dockerfile",
+        "LineNumber": 19,
+        "Line": "&& ${WGET} ${NO_CHECK_CERTIFICATE} -O installer.pkg https://example.com/installer.pkg",
+        "Issue": "Insecure option '--no-check-certificate' used",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "../Files/sample_data5/wget_examples.Dockerfile",
+        "LineNumber": 23,
+        "Line": "&& wget ${NO_CHECK_CERTIFICATE} -O installer2.pkg https://example.com/installer2.pkg",
+        "Issue": "Insecure option '--no-check-certificate' used",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "../Files/sample_data5/wget_examples.Dockerfile",
+        "LineNumber": 28,
+        "Line": "&& ${WGET} ${NO_CHECK_CERTIFICATE} --post-data 'param1=value1&param2=value2' --header 'Content-Type: application/x-www-form-urlencoded' -O - https://example.com/api/endpoint",
+        "Issue": "Insecure option '--no-check-certificate' used",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "../Files/sample_data5/wget_examples.Dockerfile",
+        "LineNumber": 32,
+        "Line": "&& /usr/bin/wget ${NO_CHECK_CERTIFICATE} --post-data 'param1=value1&param2=value2' --header 'Content-Type: application/x-www-form-urlencoded' -O - https://example.com/api/endpoint",
+        "Issue": "Insecure option '--no-check-certificate' used",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "../Files/sample_data5/wget_examples.Dockerfile",
+        "LineNumber": 38,
+        "Line": "ADD http://example.com/installer3.pkg /root/installer3.pkg",
+        "Issue": "Insecure HTTP request using ADD",
+        "Severity": "Error"
+    }
+]

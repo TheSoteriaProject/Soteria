@@ -115,7 +115,16 @@ func DivertFile(file string, warnUser bool, enableMakefile bool, enableDockerfil
 	// Dockerfile Check
 	if enableDockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
 		fmt.Println("Diverted: " + file + " to Docker Static Analyzer.")
-		// exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
+		fmt.Println("Diverted: " + file + " to Makefile Static Analyzer.")
+		cmd := exec.Command("python3", "dockerfile_linter/dockerfile_linter.py", file) // Change Name Later
+
+		// Run the command and capture its output and any potential errors
+		output, _ := cmd.CombinedOutput()
+
+		// Print the output
+		if enableLogPrint {
+			fmt.Println(string(output))
+		}
 	}
 	// Bash Check
 	if enableBash && strings.Contains(strings.ToLower(extension), strings.ToLower(".sh")) || enableBash && strings.Contains(strings.ToLower(split[len(split)-1]), "-sh") {

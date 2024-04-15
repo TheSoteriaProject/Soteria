@@ -74,7 +74,7 @@ def main():
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description="Dockerfile Linter")
     parser.add_argument("dockerfile_path", type=str, help="Path to the Dockerfile to analyze")
-    parser.add_argument("rules_file", type=str, help="Path to the YAML file containing security rules")
+    parser.add_argument("rules_file", type=str, default="dockerfile_linter/rules.yaml", help="Path to the YAML file containing security rules")
     parser.add_argument("--output", type=str, default="../logs/dockerfile_log.json", help="Path to the output JSON file")
     args = parser.parse_args()
 
@@ -86,11 +86,11 @@ def main():
 
     # Output the issues found
     if issues:
-        print(f"Issues found in {args.dockerfile_path}:")
+        # print(f"Issues found in {args.dockerfile_path}:")
         for issue in issues:
             print(issue)
-    else:
-        print(f"No issues found in {args.dockerfile_path}.")
+    # else:
+        # print(f"No issues found in {args.dockerfile_path}.")
 
     # Write issues to JSON file
     with open(args.output, "w") as json_file:

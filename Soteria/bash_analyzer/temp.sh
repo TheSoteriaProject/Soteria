@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # NOTE(nic): this is a sample that shows the various and sundry
-#  ways one can run `curl --insecure` in a Bourne shell script.
+#  ways one can run `wget --no-check-certificate` in a Bourne shell
+#  script.
 #
 #  The comments in this file should *NOT* match.
 
@@ -12,48 +13,41 @@ POST_DATA='param1=value1&param2=value2'
 
 # Use plain invocation to download the file.  This should *NOT* match
 echo 'Downloading file...'
-curl -o installer.pkg 'https://example.com/installer.pkg'
+wget -O installer.pkg 'https://example.com/installer.pkg'
 
 # Fetch via plaintext HTTP.  This should match
-curl http://example.com > /dev/null
+wget --spider http://example.com
 
-# Use plain invocation with curl -k to download the file.  This should match
+# Use plain invocation with wget --no-check-certificate to download the file.  This should match
 echo 'Downloading file...'
-curl -k -o installer.pkg 'https://example.com/installer.pkg'
+wget --no-check-certificate -O installer.pkg 'https://example.com/installer.pkg'
 
-# Use command interpolation to send the POST request with curl --insecure.  This should match
+# Use command interpolation to send the POST request with wget --no-check-certificate.  This should match
 echo 'Sending POST request...'
-CURL='curl'
-INSECURE='--insecure'
-DATA='--data'
-HEADER='--header "Content-Type: application/x-www-form-urlencoded"'
-REQUEST='--request'
-OUTPUT='--output'
-'curl' '--insecure' '--data' 'param1=value1&param2=value2' '--header "Content-Type: application/x-www-form-urlencoded"' '--request' POST 'https://example.com/api/endpoint'
+WGET='wget'
+NO_CHECK_CERTIFICATE='--no-check-certificate'
+POST='--post-data'
+HEADER='--header=Content-Type:application/x-www-form-urlencoded'
+'wget' '--no-check-certificate' '--post-data'='param1=value1&param2=value2' '--header=Content-Type:application/x-www-form-urlencoded' -O - 'https://example.com/api/endpoint'
 
-# Repeating the post request with curl -k.  This should match
+# Repeating the post request with wget --no-check-certificate.  This should match
 echo 'Sending another POST request...'
-/usr/local/bin/curl -k -d 'param1=value1&param2=value2' '--header "Content-Type: application/x-www-form-urlencoded"' -X POST 'https://example.com/api/endpoint'
+/usr/local/bin/wget --no-check-certificate --post-data='param1=value1&param2=value2' '--header=Content-Type:application/x-www-form-urlencoded' -O - 'https://example.com/api/endpoint'
 
-# Repeating the download file with curl --insecure.  This should match
-INSECURE_CURL="'curl' '--insecure'"
+# Repeating the download file with wget --no-check-certificate.  This should match
+NO_CHECK_CERTIFICATE_WGET="'wget' '--no-check-certificate'"
 echo 'Downloading file again...'
-"'curl' '--insecure'" '--output' installer2.pkg 'https://example.com/installer.pkg'
-
-# Now let's imagine we have another command named plot_log_semicurl that also accepts a -k switch.
-# This should *NOT* match
-echo 'Running plot_log_semicurl command...'
-plot_log_semicurl -k some_argument
+"'wget' '--no-check-certificate'" -O installer2.pkg 'https://example.com/installer.pkg'
 
 execute_command() {
     local -n command=$1
     "${command[@]}"
 }
 
-# This should match
-echo 'Running curl -k with a function...'
-command=('curl' '-k' '-o' 'installer3.pkg' 'https://example.com/installer.pkg')
+# Running wget --no-check-certificate with a function.  This should match
+echo 'Running wget --no-check-certificate with a function...'
+command=('wget' '--no-check-certificate' '-O' 'installer3.pkg' 'https://example.com/installer.pkg')
 execute_command command
 
-# Echo a string containing curl --insecure into a file.  This should *NOT* match.
-echo 'We have banned the use of `curl --insecure` in our code' >> README.md
+# Echo a string containing wget --no-check-certificate into a file.  This should *NOT* match
+echo 'We have banned the use of `wget --no-check-certificate` in our code' >> README.md
