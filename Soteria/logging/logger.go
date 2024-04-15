@@ -16,11 +16,14 @@ type Log struct {
 
 // CheckForReturnType atakes the JSON log and based on if an Severity of "Error" is found determines the Exit code for the program
 func CheckForReturnType(filename string) int {
-	file, err := os.Open(filename) // Add log or pre-check becuase may not exist
-	if err != nil {
-		// fmt.Println("Failed to open JSON Logs:", err)
-		os.Exit(1) // Ehhhh not certain
-	}
+	file, _ := os.Open(filename) // Add log or pre-check becuase may not exist
+	// was err instead of _
+	// if err != nil {
+	// fmt.Println("Failed to open JSON Logs:", err)
+	// os.Exit(1) // Ehhhh not certain
+	// If Here and other files not created it throws exit because they are not found in
+	// to deal with this a check would have to be added to see if the flags were enabled.
+	// }
 	defer file.Close()
 
 	decoder := json.NewDecoder(file)
