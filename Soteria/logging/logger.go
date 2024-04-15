@@ -15,12 +15,11 @@ type Log struct {
 }
 
 // CheckForReturnType atakes the JSON log and based on if an Severity of "Error" is found determines the Exit code for the program
-func CheckForReturnType() int {
-	filename := "../logs/bash_log.json"
+func CheckForReturnType(filename string) int {
 	file, err := os.Open(filename) // Add log or pre-check becuase may not exist
 	if err != nil {
 		// fmt.Println("Failed to open JSON Logs:", err)
-		os.Exit(0) // Ehhhh not certain
+		os.Exit(1) // Ehhhh not certain
 	}
 	defer file.Close()
 
@@ -99,8 +98,8 @@ func JsonLogger(FileName string, LineNumber int, Line string, Issue string, Seve
 }
 
 // DestroyJsonLog truncates already made file and deletes log(s)
-func DestroyJsonLog() error {
-	filename := "../logs/bash_log.json"
+func DestroyJsonLog(filename string) error {
+	// filename := "../logs/bash_log.json"
 	if _, err := os.Stat(filename); !os.IsNotExist(err) {
 		if err := os.Truncate(filename, 0); err != nil {
 			return err
