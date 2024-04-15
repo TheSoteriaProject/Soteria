@@ -21,13 +21,13 @@ def main():
 
     # Print the issues to the console
     if issues:
-        print(f"Issues found in {args.makefile_path}:")
+        # print(f"Issues found in {args.makefile_path}:")
         print(json.dumps(issues, indent=4))
         # Exit with an error code if any issue of 'Error' severity is found
         if any(issue['Severity'] == 'Error' for issue in issues):
             sys.exit(1) # Return here is fine, but may want to adjust to just read logs but will leave here for now.
-    else:
-        print(f"No issues found in {args.makefile_path}.")
+    # else:
+        # print(f"No issues found in {args.makefile_path}.")
 
 if __name__ == "__main__":
     main()
