@@ -106,6 +106,12 @@ Follow these steps to set up and run the Soteria tool:
 2. **Build the Tool:**
    `go build`
 
+3. **Configure Path:**
+   `Up to the end user to deicde.`
+
+4. **Other Setup Option:**
+   `Download the setup.sh file and run it with sudo.`
+
 This command will compile the Soteria tool and create an executable file.
 
 3. **Run the Tool:**
