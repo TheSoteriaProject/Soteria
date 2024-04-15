@@ -1,0 +1,29 @@
+- pattern: ".*ADD.*http:"
+  description: "Insecure HTTP request using ADD"
+  severity: "high"
+
+- pattern: ".*wget.*http:.*"
+  description: "Insecure HTTP request using wget"
+  severity: "high"
+
+- pattern: ".*--insecure.*"
+  description: "Insecure option '--insecure' used"
+  severity: "medium"
+
+- pattern: ".*--no-check-certificate.*"
+  description: "Insecure option '--no-check-certificate' used"
+  severity: "medium"
+
+- pattern: ".*curl.* -k .*https?://.*"
+  description: "Insecure HTTP request using curl with -k option"
+  severity: "high"
+
+- pattern: ".*curl.*https:.*INSECURE.*"
+  description: "Insecure use of HTTPS with potentially insecure flags"
+  severity: "medium"
+  
+- pattern: ".*curl.*http:.*"
+  description: "Insecure HTTP request using curl"
+  severity: "high"
+
+# Add/modify rules as needed
