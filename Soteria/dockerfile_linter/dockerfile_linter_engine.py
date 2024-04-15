@@ -93,7 +93,7 @@ def main():
         # print(f"No issues found in {args.dockerfile_path}.")
 
     # Write issues to JSON file
-    with open(args.output, "w") as json_file:
+    with open(args.output, "a+") as json_file:
         json.dump(issues, json_file, indent=4)
 
 if __name__ == "__main__":

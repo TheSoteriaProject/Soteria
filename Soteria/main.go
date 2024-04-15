@@ -116,19 +116,24 @@ func main() {
 				// All the Files that are to be checked.
 				file_pool := file_controller.FileController(input, *enableMakefile, *enableDockerfile, *enableBash)
 
-				err := JLogger.DestroyJsonLog() // Truncates Old File before start if not possible error. Lovely...
-				if err != nil {
-					fmt.Println("Error Destroying Logs.")
-					os.Exit(1)
+				destroy_logs := []string{"../logs/bash_log.json", "../logs/dockerfile_log.json", "../logs/makefile_log.json"} // Should be dynamic based on logs generated but not enough time.
+				for _, logfile := range destroy_logs {
+					err := JLogger.DestroyJsonLog(logfile) // Truncates Old File before start if not possible error. Lovely...
+					if err != nil {
+						fmt.Println("Error Destroying Logs.")
+						os.Exit(1)
+					}
 				}
 
 				// Take the file pool and divert to each analyzer.
 				diverter.DivertFiles(file_pool, warnUser, *enableMakefile, *enableDockerfile, *enableBash, *enableLogPrint)
 
 				// Check Return Type and exit based on that
-				status := JLogger.CheckForReturnType()
-				os.Exit(status)
-
+				file_logs := []string{"../logs/bash_log.json", "../logs/dockerfile_log.json", "../logs/makefile_log.json"} // Should be dynamic based on logs generated but not enough time.
+				for _, filename := range file_logs {
+					status := JLogger.CheckForReturnType(filename)
+					os.Exit(status)
+				}
 			} else if errors.Is(err, os.ErrNotExist) {
 				// If Path Does Not Exist Throw Error and Exit
 				fmt.Println("It seems you have given an invalid input. Try --help")
