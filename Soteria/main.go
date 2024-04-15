@@ -130,7 +130,8 @@ func main() {
 
 				// Files in bad format and Warn Flag won't work on them becuase the status is determined indiidually instead of being
 				// being determined either by line or by choice. Both are good just mis-communication issues.
-				file_logs := []string{"../logs/bash_log.json", "../logs/dockerfile_log.json", "../logs/makefile_log.json"} // Should be dynamic based on logs generated but not enough time.
+				// file_logs := []string{"../logs/bash_log.json", "../logs/dockerfile_log.json", "../logs/makefile_log.json"} // Should be dynamic based on logs generated but not enough time.
+				file_logs := []string{"../logs/bash_log.json"}
 				status := 0
 				r_status := 0
 				for _, filename := range file_logs {
