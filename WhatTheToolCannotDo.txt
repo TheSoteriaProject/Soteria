@@ -6,3 +6,5 @@
  
 * Makefile Logs are bot in correct JSON format
 * Should have had it handle bash in other files by passing in a temp file to the bash analyzer. 
+* After enabling the Docker and Makefile it now does not technically support the warn flag. They were configured in the rules.yaml.
+* The logs that the dockerfile and the makefile split out are not in JSON conforming format. They are JSON, but are multiple blocks instead of one big one. Creating Read problems that could not be handled.
