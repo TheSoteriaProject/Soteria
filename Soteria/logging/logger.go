@@ -19,7 +19,7 @@ func CheckForReturnType(filename string) int {
 	file, err := os.Open(filename) // Add log or pre-check becuase may not exist
 	if err != nil {
 		// fmt.Println("Failed to open JSON Logs:", err)
-		os.Exit(0) // Ehhhh not certain
+		os.Exit(1) // Ehhhh not certain
 	}
 	defer file.Close()
 
