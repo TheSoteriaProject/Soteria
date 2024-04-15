@@ -5,3 +5,4 @@
 * Does not handle command line input cases for bash files.
  
 * Makefile Logs are bot in correct JSON format
+* Should have had it handle bash in other files by passing in a temp file to the bash analyzer. 

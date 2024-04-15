@@ -214,6 +214,6 @@ func TestBashController(t *testing.T) {
 	TestGetVariableDefinitions3(t)
 }
 
-func TestMain(m *testing.M) {
+func BashAnalyzerTest(m *testing.M) {
 	os.Exit(m.Run())
 }
