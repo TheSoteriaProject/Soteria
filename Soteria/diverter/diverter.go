@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -66,7 +67,7 @@ func FileContainsInsecureCommunication(file string, warnFile string) bool {
 
 // DivertFiles is an extension of DivertFile which is done as a pre-check to see if the file should be scanned more in depth.
 func DivertFiles(file_pool []string, warnUser bool, enableMakefile bool, enableDockerfile bool, enableBash bool, enableLogPrint bool) {
-	warn_file := "../Soteria/bash_analyzer/rules.yaml"
+	warn_file := "../Soteria/bash_analyzer/rules.yaml" // Thought everyone was gonne use same format and remove later, but I guess not....
 	for _, file := range file_pool {
 
 		if !FileContainsInsecureCommunication(file, warn_file) {
@@ -101,7 +102,15 @@ func DivertFile(file string, warnUser bool, enableMakefile bool, enableDockerfil
 	// Makefile Check
 	if enableMakefile && strings.Contains(strings.ToLower(extension), strings.ToLower(".makefile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("makefile")) {
 		fmt.Println("Diverted: " + file + " to Makefile Static Analyzer.")
-		// exec.Command("python", "example.py", file, strconv.FormatBool(warnUser)) // Change Name Later
+		cmd := exec.Command("python3", "makeFileLinter/makefilelinter.py", file) // Change Name Later
+
+		// Run the command and capture its output and any potential errors
+		output, _ := cmd.CombinedOutput()
+
+		// Print the output
+		if enableLogPrint {
+			fmt.Println(string(output))
+		}
 	}
 	// Dockerfile Check
 	if enableDockerfile && strings.Contains(strings.ToLower(extension), strings.ToLower(".dockerfile")) || strings.Contains(strings.ToLower(split[len(split)-1]), strings.ToLower("dockerfile")) {
