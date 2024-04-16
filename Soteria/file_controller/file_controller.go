@@ -147,7 +147,7 @@ func FilterFileExtensions(files []string, enableMakefile bool, enableDockerfile 
 
 // FileController is the Main Controller and handles each step.
 func FileController(path string, enableMakefile bool, enableDockerfile bool, enableBash bool) []string {
-	ignore_file := "Soteria/.soteriaignore" // Path to ignore file that contains the block directories.
+	ignore_file := "./.soteriaignore" // Path to ignore file that contains the block directories.
 	ignoreDirs := GetIgnoreDirs(ignore_file)
 
 	// Get All Files / Walk The Directories
