@@ -102,9 +102,16 @@ Follow these steps to set up and run the Soteria tool:
 
 1. **Clone the Repository:**
    `git clone https://github.com/TheSoteriaProject/Soteria.git`
+
+2. **Step In:**
+   `cd Soteria`
    
-2. **Build the Tool:**
+3. **Build the Tool:**
    `go build`
+
+4. **Ready To Run:**
+  `./Soteria [path/to/directory]`
+
 
 This command will compile the Soteria tool and create an executable file.
 
