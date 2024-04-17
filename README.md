@@ -90,7 +90,7 @@ The Soteria tool is a powerful utility designed to analyze projects for security
 ```
 
 ### Extra Features
-- If a line contains `Ignore Match` the line will still match, but the Severity will change from Error to Warn. This helps phase out certain forms of Insecure Communication gradually.
+- If a line contains `Ignore Match` the line will still match, but the Severity will change from Error to Warn. This helps phase out certain forms of Insecure Communication gradually. (Bash Exclusive)
 
 ### Notes
 - Flags are optional, but a project path is required for the tool to run.
