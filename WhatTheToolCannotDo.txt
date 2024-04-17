@@ -8,3 +8,9 @@
 * Should have had it handle bash in other files by passing in a temp file to the bash analyzer. 
 * After enabling the Docker and Makefile it now does not technically support the warn flag. They were configured in the rules.yaml.
 * The logs that the dockerfile and the makefile split out are not in JSON conforming format. They are JSON, but are multiple blocks instead of one big one. Creating Read problems that could not be handled.
+* Possible solution to files with inputs that are not pre-defined is to find them eithin the code and use the rules file to seao in the possible issues. allowing a simulation to run of what possibly could go wrong.
+* --warn flag is broken on Docker and Makefile due to static analyzer differnces
+* Ignore Case fir the Bash Analyzer works so certain lines can be ignored. this should probably be made into a flag so it is not abused. For Docker and Makefiles this was not implemented.
+* Tool can still have cases that may cause a pass. For this it timesout after a minute. Either this case needs to be found or the timer needs to be extended.
+* Rules files should probably be embeded within each secrion so the package can be pulled as just a binary.
+* diverter has the rulws config file hardcoded which was oeiginally supposed to be fine due, but due to miscommunication and not having time to adjust this it was left as is.
