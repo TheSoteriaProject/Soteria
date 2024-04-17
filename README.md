@@ -109,13 +109,7 @@ Follow these steps to set up and run the Soteria tool:
 3. **Build the Tool:**
    `go build`
 
-4. **Ready To Run:**
-  `./Soteria [path/to/directory]`
-
-
-This command will compile the Soteria tool and create an executable file.
-
-3. **Run the Tool:**
+4. **Run the Tool:**
    `./Soteria [Flags] [Project Path]`
    - `[Flags]`: Optional flags to customize the behavior of the tool (refer to the user guide for available flags).
    - `[Project Path]`: The path to the project you want to analyze.
