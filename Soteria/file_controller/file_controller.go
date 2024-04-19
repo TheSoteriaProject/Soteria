@@ -34,7 +34,7 @@ func isFileBash(filepath string) bool {
 	buf := make([]byte, 2)
 	n, err := file.Read(buf)
 	if err != nil {
-		fmt.Println("Error reading file:", err)
+		// fmt.Println("Error reading file:", err) // Not Needed but leaving here.
 		return false
 	}
 
